@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "145207812534",
+    "project_id": "xoomra-e3986",
+    "storage_bucket": "xoomra-e3986.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145207812534:android:4d065086f48436d7686117",
+        "android_client_info": {
+          "package_name": "com.xoomra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145207812534-kj4ql8l151sdk4rbrr433rcru636v92c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOR6AGV9zSv-cz8qm_FHHI107-4LgK-6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145207812534-kj4ql8l151sdk4rbrr433rcru636v92c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
