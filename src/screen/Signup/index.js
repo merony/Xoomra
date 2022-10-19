@@ -7,6 +7,7 @@
  */
 
 import {
+  Alert,
     Image,
     SafeAreaView,
     StatusBar,
@@ -24,6 +25,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
+import auth from '@react-native-firebase/auth'
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
    * LTI update could not be added via codemod */
@@ -35,6 +37,45 @@ import styles from './styles';
   
   const SignUpScreen = ({navigation}) => {
   
+    const [fullNameFromUI,setFullNameFromUI] = useState("")
+    const [emailFromUI,setEmailFromUI] = useState("")
+    const [passwordFromUI,setPasswordFromUI] = useState("")
+    const [rePasswordFromUI,setRePasswordFromUI] = useState("")
+
+
+    const registerPressed = async() =>{
+
+      if (passwordFromUI === rePasswordFromUI ){
+        console.log("same")
+
+      auth()
+      .createUserWithEmailAndPassword(emailFromUI,passwordFromUI )
+      .then(() => {
+        console.log('User account created & signed in!');
+        alert("Account Created")
+        navigation.navigate('Home Screen')
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+    
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+    
+        console.error(error);
+      });
+      } else{
+        console.log("not the same")
+        alert("Password doesnt match")
+        setPasswordFromUI == ""
+        setRePasswordFromUI == ""
+      }
+  
+        
+    }
+
     return (
       <SafeAreaView style={{flex: 1, flexDirection: "column"}}>
         <StatusBar/>
@@ -47,29 +88,33 @@ import styles from './styles';
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='person-outline' size={18} color='#283239' />
-            <TextInput placeholder='Full Name' style = {styles.formInput} keyboardType="email-address"/>
+            <TextInput placeholder='Full Name' style = {styles.formInput} keyboardType="email-address"
+              value={fullNameFromUI} onChangeText={setFullNameFromUI}/>
             </View>
           
             <View style = {styles.formField}>
             <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
-            <TextInput placeholder='Email ID' style = {styles.formInput} keyboardType="email-address"/>
+            <TextInput placeholder='Email ID' style = {styles.formInput} keyboardType="email-address" 
+              value={emailFromUI} onChangeText={setEmailFromUI}/>
             </View>
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
-            <TextInput placeholder='Password' style = {styles.formInput} secureTextEntry={true}/>
+            <TextInput placeholder='Password' style = {styles.formInput} secureTextEntry={true} 
+              value={passwordFromUI} onChangeText={setPasswordFromUI}/>
           
             </View>
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
-            <TextInput placeholder='Re-Password' style = {styles.formInput} secureTextEntry={true}/>
+            <TextInput placeholder='Re-Password' style = {styles.formInput} secureTextEntry={true} 
+              value={rePasswordFromUI} onChangeText={setRePasswordFromUI}/>
           
             </View>
 
         
 
-            <TouchableOpacity onPress={() => {}} style = {styles.customBTN}>
+            <TouchableOpacity onPress={registerPressed} style = {styles.customBTN}>
                 <Text style={styles.textBTN}>Register</Text>
             </TouchableOpacity>
 

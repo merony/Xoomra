@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import {
+ import {
     Image,
     SafeAreaView,
     StatusBar,
@@ -35,35 +35,11 @@ import auth from '@react-native-firebase/auth'
   
   
   
-  const LoginScreen = ({navigation}) => {
+  const ForgetPasswordScreen = ({navigation}) => {
     
-    const [emailFromUI,setEmailFromUI] = useState("")
-    const [passwordFromUI,setPasswordFromUI] = useState("")
+   
 
-    const signinPressed = async() =>{
-
-      auth()
-      .signInWithEmailAndPassword(emailFromUI,passwordFromUI )
-      .then(() => {
-        console.log('User signed in!');
-        console.log(auth().currentUser.email)
-        navigation.navigate('Home Screen')
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-    
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-    
-        console.error(error);
-      });
-    }
-      
-
-  
+   
     return (
       <SafeAreaView style={{flex: 1, flexDirection: "column"}}>
         <StatusBar/>
@@ -106,7 +82,6 @@ import auth from '@react-native-firebase/auth'
 
             </View>
 
-
           </View>
         
        
@@ -116,5 +91,5 @@ import auth from '@react-native-firebase/auth'
   
  
   
-  export default LoginScreen;
+  export default ForgetPasswordScreen;
   
