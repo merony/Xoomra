@@ -57,7 +57,7 @@ import auth from '@react-native-firebase/auth'
       .then(() => {
         console.log('User account created & signed in!');
         alert("Account Created")
-        navigation.navigate('Home Screen')
+        navigation.replace('Home Screen')
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
