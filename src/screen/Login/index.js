@@ -41,7 +41,11 @@ import auth from '@react-native-firebase/auth'
     const [passwordFromUI,setPasswordFromUI] = useState("")
 
     const signinPressed = async() =>{
-
+      
+      if (emailFromUI.length === 0 || passwordFromUI.length === 0) {
+        alert("Please enter email and password")
+      }
+      else{
       auth()
       .signInWithEmailAndPassword(emailFromUI,passwordFromUI )
       .then(() => {
@@ -61,7 +65,7 @@ import auth from '@react-native-firebase/auth'
         console.error(error);
       });
     }
-      
+  }
 
   
     return (
@@ -87,7 +91,7 @@ import auth from '@react-native-firebase/auth'
           
             </View>
 
-            <TouchableOpacity style={{justifyContent: 'flex-end',flexDirection: 'row'}} onPress={() => {}}>
+            <TouchableOpacity style={{justifyContent: 'flex-end',flexDirection: 'row'}} onPress={() => {navigation.navigate(`Forget Password`)}}>
                 <Text style={{color:'#0999f4', fontWeight: '500'}}>Forget Password?</Text>
             </TouchableOpacity>
 
