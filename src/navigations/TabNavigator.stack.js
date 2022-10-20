@@ -27,15 +27,50 @@ const TabNavigator = () => {
         />
 
 <Tab.Screen
-          name="Fav"
+          name="Favorites"
           component={HomeScreen}
           options={{
-            tabBarLabel: 'Stay',
+            tabBarLabel: 'Favorites',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
           }}
         />
+
+<Tab.Screen
+          name="Bookings"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: 'Bookings',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+
+<Tab.Screen
+          name="Message"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: 'Message',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+
+
+<Tab.Screen
+          name="User"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: 'User',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+
       
       </Tab.Navigator>
   
