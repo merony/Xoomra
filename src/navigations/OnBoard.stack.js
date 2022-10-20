@@ -16,7 +16,6 @@ const OnBoard= () => {
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} 
             
             
-            
             />
           
         </OnBoardingStack.Navigator>
