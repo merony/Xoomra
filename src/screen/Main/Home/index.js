@@ -52,7 +52,7 @@ import styles from './styles';
             {/* Search Bar*/}
             <Pressable
         style={styles.searchButton}
-        onPress={() => navigation.navigate('Stay List')}>
+        onPress={() => navigation.navigate('Search Screen')}>
         <Fontisto name="search" size={20} color={'#0999f4'} />
         <Text style={styles.searchButtonText}>Where are you going?</Text>
       </Pressable>
