@@ -21,8 +21,6 @@ const styles = StyleSheet.create({
        
     },
 
-
-
     row:{
         flexDirection: 'row',
         alignItems: 'center',
@@ -34,17 +32,47 @@ const styles = StyleSheet.create({
        
     },
 
+
+    searchRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 20,
+        marginHorizontal: 20,
+        borderBottomWidth: 0.5,
+        borderColor: 'grey',
+        paddingBottom: 5,
+
+       
+    },
+
     iconContainer:{
 
     
-      
-
     },
 
     locationText: {
 
         fontSize: 14,
 
+    },
+
+    customBTN : {
+        backgroundColor: '#0999f4',
+        padding: 15,
+        borderRadius: 10,
+        marginTop: '25%',
+        marginBottom: 10,
+        textTransform: 'uppercase'
+    
+        
+    },
+
+    textBTN: {
+        textAlign : 'center',
+        fontWeight: '700',
+        fontSize: 16,
+        color: '#fff',
+        textTransform: 'uppercase'
     }
     
 

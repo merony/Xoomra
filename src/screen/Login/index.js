@@ -23,9 +23,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
 import auth from '@react-native-firebase/auth'
-
+import styles from './styles';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
    * LTI update could not be added via codemod */
@@ -65,9 +64,10 @@ import auth from '@react-native-firebase/auth'
         console.error(error);
       });
     }
+
   }
 
-  
+
     return (
       <SafeAreaView style={{flex: 1, flexDirection: "column"}}>
         <StatusBar/>

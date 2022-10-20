@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
     customBTN : {
         backgroundColor: '#0999f4',
-        padding: 20,
+        padding: 15,
         borderRadius: 10,
         marginBottom: 30,
         marginTop: 25
