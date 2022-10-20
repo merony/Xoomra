@@ -56,7 +56,7 @@ import auth from '@react-native-firebase/auth'
       .createUserWithEmailAndPassword(emailFromUI,passwordFromUI )
       .then(() => {
         console.log('User account created & signed in!');
-        alert("Account Created")
+        Alert.alert("","Account Created")
         navigation.replace('Home Screen')
       })
       .catch(error => {
@@ -72,7 +72,7 @@ import auth from '@react-native-firebase/auth'
       });
       } else{
         console.log("not the same")
-        alert("Password doesnt match")
+        Alert.alert("","Password doesnt match")
       }
   
         
