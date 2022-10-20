@@ -140,7 +140,7 @@ const SearchScreen = ({navigation, props}) => {
 </View>
 
 <TouchableOpacity onPress={() => navigation.navigate('Stay List')} style = {styles.customBTN}>
-                <Text style={styles.textBTN}>Sign In</Text>
+                <Text style={styles.textBTN}>Find stay</Text>
             </TouchableOpacity>
 
 
