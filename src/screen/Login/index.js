@@ -22,6 +22,7 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import { StackActions } from "@react-navigation/native";
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import styles from './styles';
@@ -50,7 +51,8 @@ import styles from './styles';
       .then(() => {
         console.log('User signed in!');
         console.log(auth().currentUser.email)
-        navigation.navigate('Home Screen')
+        navigation.navigate('TabNavigator')
+        // StackActions.replace("TabNavigator")
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {

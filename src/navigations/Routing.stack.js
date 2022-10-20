@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import OnBoard from "./OnBoard.stack";
 import SearchScreen from "../screen/Main/Search";
 import StayListScreen from "../screen/Main/StayList";
+import TabNavigator from "./TabNavigator.stack";
+import TabNavigatorStack from "./TabNavigator.stack";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const RootStack = createNativeStackNavigator();
@@ -20,7 +22,8 @@ const Routing = () => {
             
              }}>
                 <RootStack.Screen name="OnBoard" component={OnBoard} />
-                <RootStack.Screen name="Home Screen" component={HomeScreen}/>
+                <RootStack.Screen name="TabNavigator" component={TabNavigator} />
+               
                 <RootStack.Screen name="Stay List" component={StayListScreen}/>
                 <RootStack.Screen name="Search Screen" component={SearchScreen}
                 options={{headerShown: false}}
