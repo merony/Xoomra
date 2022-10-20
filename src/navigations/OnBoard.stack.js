@@ -21,7 +21,7 @@ const OnBoard= () => {
       }
 
       useEffect(() => {
-        auth().signOut()
+        // auth().signOut()
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         return subscriber; // unsubscribe on unmount
       }, []);
