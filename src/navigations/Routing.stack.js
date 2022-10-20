@@ -26,12 +26,6 @@ const Routing = () => {
                 options={{headerShown: false}}
                 />
                 
-                
-            
-        
-        
-               
-
             </RootStack.Navigator>
         </NavigationContainer>
     )
