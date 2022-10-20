@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ForgetPasswordScreen from "../screen/ForgetPassword";
 import { useEffect, useState } from "react";
 import auth from '@react-native-firebase/auth';
+import AddListingScreen from "../screen/Main/AddListing";
 
 const OnBoardingStack = createNativeStackNavigator();
 
@@ -21,7 +22,7 @@ const OnBoard= () => {
       }
 
       useEffect(() => {
-        // auth().signOut()
+        auth().signOut()
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         return subscriber; // unsubscribe on unmount
       }, []);
@@ -36,6 +37,7 @@ const OnBoard= () => {
             
             {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> }
             <OnBoardingStack.Screen name="Home Screen" component={HomeScreen} />
+            <OnBoardingStack.Screen name="Add Listing" component={AddListingScreen} />
             <OnBoardingStack.Screen name="Stay List" component={StayListScreen} />
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} 

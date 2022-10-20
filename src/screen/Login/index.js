@@ -41,7 +41,7 @@ import auth from '@react-native-firebase/auth'
     const [passwordFromUI,setPasswordFromUI] = useState("")
 
     const signinPressed = async() =>{
-      
+      navigation.navigate("Add Listing")
       if (emailFromUI.length === 0 || passwordFromUI.length === 0) {
         alert("Please enter email and password")
       }
