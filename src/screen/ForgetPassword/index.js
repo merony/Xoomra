@@ -37,7 +37,32 @@ import auth from '@react-native-firebase/auth'
   
   const ForgetPasswordScreen = ({navigation}) => {
     
-   
+   const [emailFromUI,setEmailFromUI] = useState("")
+
+   const resetPasswordPressed = async() =>{
+
+    if (emailFromUI.length === 0){
+      alert("Please Enter Email Address")
+    }
+    else{
+    
+      auth().sendPasswordResetEmail(emailFromUI)
+      .then(() => {
+        console.log('email Sent');
+      })
+      .catch(error => {
+
+        if (error.code === 'auth/user-not-found') {
+          alert("This User Doesnt Exist")
+        }
+        if (error.code === 'auth/invalid-email') {
+          alert("Wrong Email Format")
+        }
+    
+        console.error(error);
+      });
+   }
+  }
 
    
     return (
@@ -48,7 +73,7 @@ import auth from '@react-native-firebase/auth'
         </View>
           <View style={{ justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}} > 
 
-            <Text style={styles.headerTitle}>Sign In</Text>
+            <Text style={styles.headerTitle}>Reset Password</Text>
           
             <View style = {styles.formField}>
             <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
@@ -56,31 +81,12 @@ import auth from '@react-native-firebase/auth'
               value={emailFromUI} onChangeText={setEmailFromUI}/>
             </View>
 
-            <View style = {styles.formField}>
-            <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
-            <TextInput placeholder='Password' style = {styles.formInput} secureTextEntry={true}
-              value={passwordFromUI} onChangeText={setPasswordFromUI}/>
           
-            </View>
-
-            <TouchableOpacity style={{justifyContent: 'flex-end',flexDirection: 'row'}} onPress={() => {}}>
-                <Text style={{color:'#0999f4', fontWeight: '500'}}>Forget Password?</Text>
+            <TouchableOpacity onPress={resetPasswordPressed} style = {styles.customBTN}>
+                <Text style={styles.textBTN}>Reset Password</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={signinPressed} style = {styles.customBTN}>
-                <Text style={styles.textBTN}>Sign In</Text>
-            </TouchableOpacity>
-
-            <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-
-            <Text style={{color:'#283239', fontWeight: '300'}}>Don't have an account ? </Text>
-
-            <TouchableOpacity  onPress={() => navigation.navigate('Sign Up')}>
-                
-                <Text style={{color:'#0999f4', fontWeight: '500'}}> Sign Up</Text>
-            </TouchableOpacity>
-
-            </View>
+           
 
           </View>
         

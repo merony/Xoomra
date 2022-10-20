@@ -45,7 +45,11 @@ import auth from '@react-native-firebase/auth'
 
     const registerPressed = async() =>{
 
-      if (passwordFromUI === rePasswordFromUI ){
+      if (fullNameFromUI.length === 0 || emailFromUI.length === 0 || passwordFromUI.length === 0 || rePasswordFromUI.length === 0){
+        alert("Please fill all Information")
+      }
+
+      else if (passwordFromUI === rePasswordFromUI ){
         console.log("same")
 
       auth()
@@ -53,7 +57,7 @@ import auth from '@react-native-firebase/auth'
       .then(() => {
         console.log('User account created & signed in!');
         alert("Account Created")
-        navigation.navigate('Home Screen')
+        navigation.replace('Home Screen')
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -69,8 +73,6 @@ import auth from '@react-native-firebase/auth'
       } else{
         console.log("not the same")
         alert("Password doesnt match")
-        setPasswordFromUI == ""
-        setRePasswordFromUI == ""
       }
   
         

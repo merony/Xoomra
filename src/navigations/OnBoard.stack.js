@@ -1,3 +1,4 @@
+import ForgetPasswordScreen from "../screen/ForgetPassword";
 import LoginScreen from "../screen/Login";
 import SignUpScreen from "../screen/Signup";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -11,6 +12,7 @@ const OnBoard= () => {
           
             }} >
             <OnBoardingStack.Screen name="Login" component={LoginScreen} />
+            <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} 
             
             
