@@ -52,7 +52,6 @@ const SearchScreen = ({navigation, props}) => {
 
                     
             </View>
-
             )}
            
             />
