@@ -50,8 +50,9 @@ const SearchScreen = ({navigation, props}) => {
 
                     <Text style ={styles.locationText}>{item.description}</Text>
 
-
+                    <Text style ={styles.locationText}>test</Text>
             </View>
+           
             
             
        
