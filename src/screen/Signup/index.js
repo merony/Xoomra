@@ -26,6 +26,7 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
    * LTI update could not be added via codemod */
@@ -56,8 +57,13 @@ import auth from '@react-native-firebase/auth'
       .createUserWithEmailAndPassword(emailFromUI,passwordFromUI )
       .then(() => {
         console.log('User account created & signed in!');
-        alert("Account Created")
+        Alert.alert("","Account Created")
         navigation.replace('Home Screen')
+        firestore().collection('users').add({
+                  name: fullNameFromUI,
+                  email: emailFromUI,
+                  password: passwordFromUI
+  })
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -72,7 +78,7 @@ import auth from '@react-native-firebase/auth'
       });
       } else{
         console.log("not the same")
-        alert("Password doesnt match")
+        Alert.alert("","Password doesnt match")
       }
   
         

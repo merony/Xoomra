@@ -5,8 +5,15 @@ import LoginScreen from "../screen/Login";
 import SignUpScreen from "../screen/Signup";
 import auth from '@react-native-firebase/auth'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+<<<<<<< HEAD
+=======
+import ForgetPasswordScreen from "../screen/ForgetPassword";
+import { useEffect, useState } from "react";
+import auth from '@react-native-firebase/auth';
+>>>>>>> 21918aa1794049cb1d0bb0cdf5fccc9386324ed3
 
 const OnBoardingStack = createNativeStackNavigator();
+
 
 const OnBoard= () => {
 
@@ -19,7 +26,10 @@ const OnBoard= () => {
       }
 
       useEffect(() => {
+
         // auth().signOut()
+
+
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         return subscriber; // unsubscribe on unmount
       }, []);
@@ -34,7 +44,8 @@ const OnBoard= () => {
             headerShown: false,
           
             }} >
-            <OnBoardingStack.Screen name="Login" component={LoginScreen} />
+
+            {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> }
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} />
           
