@@ -1,9 +1,13 @@
+import BookingScreen from '../screen/Main/Booking';
 import Entype from 'react-native-vector-icons/Entypo';
+import FavoritesScreen from '../screen/Main/Favorites';
 import HomeScreen from "../screen/Main/Home";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MessageScreen from '../screen/Message';
 import React from "react";
 import SearchScreen from "../screen/Main/Search";
+import UserScreen from '../screen/Main/User';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -30,7 +34,7 @@ const TabNavigator = () => {
 
 <Tab.Screen
           name="Favorites"
-          component={HomeScreen}
+          component={FavoritesScreen}
           options={{
             tabBarLabel: 'Favorites',
             tabBarIcon: ({ color }) => (
@@ -41,7 +45,7 @@ const TabNavigator = () => {
 
 <Tab.Screen
           name="Trips"
-          component={HomeScreen}
+          component={BookingScreen}
           options={{
             tabBarLabel: 'Trips',
             tabBarIcon: ({ color }) => (
@@ -52,7 +56,7 @@ const TabNavigator = () => {
 
 <Tab.Screen
           name="Message"
-          component={HomeScreen}
+          component={MessageScreen}
           options={{
             tabBarLabel: 'Message',
             tabBarIcon: ({ color }) => (
@@ -64,7 +68,7 @@ const TabNavigator = () => {
 
 <Tab.Screen
           name="User"
-          component={HomeScreen}
+          component={UserScreen}
           options={{
             tabBarLabel: 'User',
             tabBarIcon: ({ color }) => (
