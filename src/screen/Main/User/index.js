@@ -16,7 +16,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
-import stayFeed from '../../../data/stayFeed';
 import styles from './styles';
 
 const UserScreen = ({navigation, props}) => {
