@@ -1,13 +1,12 @@
-import BookingScreen from '../screen/Main/Booking';
 import Entype from 'react-native-vector-icons/Entypo';
-import FavoritesScreen from '../screen/Main/Favorites';
 import HomeScreen from "../screen/Main/Home";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MessageScreen from '../screen/Message';
 import React from "react";
-import SearchScreen from "../screen/Main/Search";
+import TripsScreen from '../screen/Main/Trips';
 import UserScreen from '../screen/Main/User';
+import WishesScreen from '../screen/Main/Wishes';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -33,10 +32,10 @@ const TabNavigator = () => {
         />
 
 <Tab.Screen
-          name="Favorites"
-          component={FavoritesScreen}
+          name="Wishes"
+          component={WishesScreen}
           options={{
-            tabBarLabel: 'Favorites',
+            tabBarLabel: 'Wishes',
             tabBarIcon: ({ color }) => (
               <MaterialIcons name="favorite-border" color={color} size={26} />
             ),
@@ -45,7 +44,7 @@ const TabNavigator = () => {
 
 <Tab.Screen
           name="Trips"
-          component={BookingScreen}
+          component={TripsScreen}
           options={{
             tabBarLabel: 'Trips',
             tabBarIcon: ({ color }) => (
