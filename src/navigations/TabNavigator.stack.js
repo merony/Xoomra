@@ -1,5 +1,7 @@
+import Entype from 'react-native-vector-icons/Entypo';
 import HomeScreen from "../screen/Main/Home";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from "react";
 import SearchScreen from "../screen/Main/Search";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -21,7 +23,7 @@ const TabNavigator = () => {
           options={{
             tabBarLabel: 'Stay',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="search" color={color} size={26} />
+              <MaterialCommunityIcons name="card-search-outline" color={color} size={26} />
             ),
           }}
         />
@@ -32,18 +34,18 @@ const TabNavigator = () => {
           options={{
             tabBarLabel: 'Favorites',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <MaterialIcons name="favorite-border" color={color} size={26} />
             ),
           }}
         />
 
 <Tab.Screen
-          name="Bookings"
+          name="Trips"
           component={HomeScreen}
           options={{
-            tabBarLabel: 'Bookings',
+            tabBarLabel: 'Trips',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <Entype name="network" color={color} size={26} />
             ),
           }}
         />
@@ -54,7 +56,7 @@ const TabNavigator = () => {
           options={{
             tabBarLabel: 'Message',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <MaterialCommunityIcons name="message-outline" color={color} size={26} />
             ),
           }}
         />
@@ -66,7 +68,7 @@ const TabNavigator = () => {
           options={{
             tabBarLabel: 'User',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <Entype name="user" color={color} size={26} />
             ),
           }}
         />
