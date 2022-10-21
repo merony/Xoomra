@@ -12,7 +12,7 @@ const TabNavigator = () => {
       <Tab.Navigator
         initialRouteName="HomeScreen"
         activeColor="#0999f4"
-        inactiveColor="#030f14"
+        inactiveColor="#283239"
         barStyle={{ backgroundColor: '#f0f5f5' }}
       >
         <Tab.Screen
@@ -21,7 +21,7 @@ const TabNavigator = () => {
           options={{
             tabBarLabel: 'Stay',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <MaterialCommunityIcons name="search" color={color} size={26} />
             ),
           }}
         />
