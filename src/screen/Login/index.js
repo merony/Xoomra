@@ -41,7 +41,7 @@ import styles from './styles';
     const [passwordFromUI,setPasswordFromUI] = useState("")
 
     const signinPressed = async() =>{
-      navigation.navigate("Add Listing")
+      navigation.navigate("TabNavigator")
       if (emailFromUI.length === 0 || passwordFromUI.length === 0) {
         alert("Please enter email and password")
       }
