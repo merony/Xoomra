@@ -30,7 +30,7 @@ const FavoritesScreen = ({navigation, props}) => {
 
       <View style={{flexDirection: "column"}}>
 
-       <Text>Booking Screen</Text>
+       <Text>Favorites Screen</Text>
 
     </View>
         
