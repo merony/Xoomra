@@ -5,6 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MessageScreen from '../screen/Main/Message';
 import React from "react";
 import TripsScreen from '../screen/Main/Trips';
+import UserNav from './User.stack';
 import UserScreen from '../screen/Main/User';
 import WishesScreen from '../screen/Main/Wishes';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';

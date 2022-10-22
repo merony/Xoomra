@@ -20,7 +20,7 @@ import styles from './styles';
 
 const TermsScreen = ({navigation, props}) => {
     
-  
+
 
     return (
 
