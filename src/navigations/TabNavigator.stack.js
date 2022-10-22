@@ -2,7 +2,7 @@ import Entype from 'react-native-vector-icons/Entypo';
 import HomeScreen from "../screen/Main/Home";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MessageScreen from '../screen/Message';
+import MessageScreen from '../screen/Main/Message';
 import React from "react";
 import TripsScreen from '../screen/Main/Trips';
 import UserScreen from '../screen/Main/User';
@@ -76,8 +76,14 @@ const TabNavigator = () => {
           }}
         />
 
+
       
       </Tab.Navigator>
+
+
+
+
+      
   
     )
   }

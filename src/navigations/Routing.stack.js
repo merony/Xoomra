@@ -21,7 +21,7 @@ const Routing = () => {
              }}>
                 <RootStack.Screen name="OnBoard" component={OnBoard} />
                 <RootStack.Screen name="TabNavigator" component={TabNavigator} />
-                <RootStack.Screen name="Stay List" component={StayListScreen}/>
+                <RootStack.Screen name="Stay List" component={StayListScreen} options={{headerShown: false}}/>
                 <RootStack.Screen name="Search Screen" component={SearchScreen}
                 options={{headerShown: false}}
                 />

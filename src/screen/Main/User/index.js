@@ -15,20 +15,24 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import { StackActions } from "@react-navigation/native";
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 
 const UserScreen = ({navigation, props}) => {
     
-  
+
 
 
 
     return (
+      
 
       <View style={{flexDirection: "column"}}>
 
        <Text>User Screen</Text>
+
+    
 
     </View>
         
