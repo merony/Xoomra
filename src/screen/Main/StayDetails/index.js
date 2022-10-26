@@ -1,10 +1,11 @@
 import {
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -17,23 +18,26 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
+import StayDetailsComponent from '../../../components/StayDetails';
 
 const StayDetailsScreen = ({navigation, props}) => {
-    
   
 
-    return (
 
-      <View style={{flexDirection: "column"}}>
 
-       <Text>Stay Details Screen </Text>
 
-    </View>
-        
-       
-    );
-  };
-  
- 
-  
-  export default StayDetailsScreen;
+  return (
+
+    <ScrollView >
+
+     <Text>StayDetails Screen</Text>
+
+    </ScrollView>
+      
+     
+  );
+};
+
+
+
+export default StayDetailsScreen;
