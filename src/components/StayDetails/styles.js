@@ -30,6 +30,27 @@ const styles = StyleSheet.create({
         paddingTop: 5,
 
     },
+
+    stayDescription :{
+        fontSize: 10,
+        paddingTop: 5,
+
+    },
+    customBTN : {
+        backgroundColor: '#0999f4',
+        padding: 20,
+        borderRadius: 10,
+        marginBottom: 30,
+        marginTop: 25,
+        alignItems:'center',
+        width:'50%'
+        
+    },
+
+    reserveArea : {
+        flexDirection:'column',
+       
+    },
  
 });
 

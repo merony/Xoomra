@@ -5,6 +5,7 @@ import StayListScreen from "../screen/Main/StayList";
 import TabNavigator from "./TabNavigator.stack";
 import UserNav from './User.stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import StayDetailsScreen from '../screen/Main/StayDetails/index'
 
 const RootStack = createNativeStackNavigator();
 
@@ -27,6 +28,8 @@ const Routing = () => {
                 <RootStack.Screen name="Search Screen" component={SearchScreen}
                 options={{headerShown: false}}
                 />
+
+                <RootStack.Screen name="StayDetailsScreen" component={StayDetailsScreen}/>
                 
             </RootStack.Navigator>
         </NavigationContainer>

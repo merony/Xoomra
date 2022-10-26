@@ -19,18 +19,21 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import StayDetailsComponent from '../../../components/StayDetails';
+import places from '../../../data/stayFeed'
 
-const StayDetailsScreen = ({navigation, props}) => {
+const StayDetailsScreen = ({props}) => {
+
+  const stays = places[0]
+  console.log(stays.id)
   
-
-
-
 
   return (
 
     <ScrollView >
+    <Text> dasdasadas</Text>
 
-     <Text>StayDetails Screen</Text>
+     <StayDetailsComponent stays={stays}/>
+
 
     </ScrollView>
       
