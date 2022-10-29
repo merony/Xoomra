@@ -20,17 +20,22 @@ import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import StayDetailsComponent from '../../../components/StayDetails';
 import places from '../../../data/stayFeed'
+import { useRoute } from '@react-navigation/native';
 
 const StayDetailsScreen = ({props}) => {
+  const route = useRoute()
+  console.log(route.params)
 
-  const stays = places[0]
+
+  const stays = places.find(place => place.id === route.params.id)
   console.log(stays.id)
   
 
   return (
 
     <ScrollView >
-    <Text> dasdasadas</Text>
+
+
 
      <StayDetailsComponent stays={stays}/>
 

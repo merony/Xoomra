@@ -5,7 +5,8 @@ import StayListScreen from "../screen/Main/StayList";
 import TabNavigator from "./TabNavigator.stack";
 import UserNav from './User.stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import StayDetailsScreen from '../screen/Main/StayDetails/index'
+import StayDetailsScreen from '../screen/Main/StayDetails/index';
+
 
 const RootStack = createNativeStackNavigator();
 

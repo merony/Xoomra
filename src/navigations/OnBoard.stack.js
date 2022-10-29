@@ -5,6 +5,8 @@ import LoginScreen from "../screen/Login";
 import SignUpScreen from "../screen/Signup";
 import auth from '@react-native-firebase/auth'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LongTextComponent from "../components/longText";
+import DatePickerComponent from "../components/DatePicker/index"
 
 const OnBoardingStack = createNativeStackNavigator();
 
@@ -39,7 +41,9 @@ const OnBoard= () => {
           
             }} >
 
-           <OnBoardingStack.Screen name="Login" component={LoginScreen} />
+            {/* <OnBoardingStack.Screen name="DatePicker" component={DatePickerComponent} /> */}
+
+            <OnBoardingStack.Screen name="Login" component={LoginScreen} />
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} />
           

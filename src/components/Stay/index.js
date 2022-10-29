@@ -13,7 +13,7 @@ const StayComponent = (props) => {
 
   const navi = useNavigation()
   const navigateToStayDetails = () =>{
-    navi.navigate('StayDetailsScreen')
+    navi.navigate('StayDetailsScreen',{id:stays.id})
   }
 
   

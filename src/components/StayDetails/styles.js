@@ -22,18 +22,24 @@ const styles = StyleSheet.create({
 
         fontSize: 14,
         paddingTop: 5,
+        paddingLeft:10,
         fontWeight: "700",
     },
 
     stayLocations :{
         fontSize: 14,
+        paddingLeft:10,
         paddingTop: 5,
 
     },
 
     stayDescription :{
         fontSize: 10,
-        paddingTop: 5,
+        paddingTop: 15,
+        paddingBottom:15,
+
+
+
 
     },
     customBTN : {
@@ -41,16 +47,61 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         marginBottom: 30,
-        marginTop: 25,
+        marginTop: 5,
         alignItems:'center',
-        width:'50%'
         
     },
 
     reserveArea : {
-        flexDirection:'column',
-       
+        flexDirection:'row',    
     },
+
+    totalPrice :{
+        fontSize: 16,
+        paddingTop: 5,
+        fontWeight: "700",
+        width:'50%',
+        textAlign:'center',
+        fontColor:'red',
+
+    },
+
+    total :{
+        fontSize: 16,
+        paddingTop: 5,
+        fontWeight: "700",
+        marginLeft:15,
+        marginRight:15,
+    },
+
+    totalDate :{
+        fontSize: 16,
+        paddingTop: 5,
+        fontWeight: "700",
+        width:150,
+        textAlign:'center',
+    },
+
+    totalNights :{
+        fontSize: 16,
+        paddingTop: 5,
+        fontWeight: "700",
+        width:'50%',
+        textAlign:'center',
+    },
+    datePickerContainer :{
+        flexDirection:'row',
+
+
+    },
+    datePickerComponent:{
+        backgroundColor:'red'
+
+    },
+    titleContainer:{
+        flexDirection:'row'
+    }
+
  
 });
 
