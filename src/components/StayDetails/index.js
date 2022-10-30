@@ -66,6 +66,7 @@ const StayDetailsComponent = (props) => {
     if(nights < 0){
       nights = 0
     }
+    
     setTotalNights(nights)
     let price = nights*stays.price*1.13
     setTotalPrice(price.toFixed(2))
