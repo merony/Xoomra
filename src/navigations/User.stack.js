@@ -1,9 +1,12 @@
 import AddListingScreen from '../screen/Main/User/AddListing';
+import AddPhotosScreen from '../screen/Main/User/AddPhotos';
 import EditListingScreen from '../screen/Main/User/EditListing';
 import EditProfileScreen from '../screen/Main/User/EditProfile';
 import HelpScreen from '../screen/Main/User/Help';
+import ListingReviewScreen from '../screen/Main/User/ListingReview';
 import MyListingScreen from '../screen/Main/User/MyListings';
 import { NavigationContainer } from '@react-navigation/native';
+import PreviewListingScreen from '../screen/Main/User/PreviewListing';
 import SupportScreen from '../screen/Main/User/Support';
 import TermsScreen from  '../screen/Main/User/Terms';
 import UserHomeScreen from '../screen/Main/User/UserHome';
@@ -29,6 +32,9 @@ const UserNav = () => {
                 <UserStack.Screen name="Edit Profile" component={EditProfileScreen} options={{headerShown: false}}/>
                 <UserStack.Screen name="My Listing" component={MyListingScreen} />
                 <UserStack.Screen name="Add Listing" component={AddListingScreen} />
+                <UserStack.Screen name="Add Photos" component={AddPhotosScreen} />
+                <UserStack.Screen name="Listing Review" component={ListingReviewScreen} />
+                <UserStack.Screen name="Preview Listing" component={PreviewListingScreen} />
                 <UserStack.Screen name="Edit Listing" component={EditListingScreen} />
                 <UserStack.Screen name="Support Screen" component={SupportScreen} />
                 <UserStack.Screen name="Help Screen" component={HelpScreen} />

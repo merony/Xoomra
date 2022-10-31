@@ -18,7 +18,7 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 
-const PersonalInformationScreen = ({navigation, props}) => {
+const AddPhotosScreen = ({navigation, props}) => {
     
   
 
@@ -28,7 +28,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
 
       <View style={{flexDirection: "column"}}>
 
-       <Text>Personal Information Screen</Text>
+       <Text>Add Photos Screen</Text>
 
     </View>
         
@@ -38,4 +38,4 @@ const PersonalInformationScreen = ({navigation, props}) => {
   
  
   
-  export default PersonalInformationScreen;
+  export default AddPhotosScreen;
