@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import ForgetPasswordScreen from "../screen/ForgetPassword";
 import LoginScreen from "../screen/Login";
+import PersonalInformationScreen from "../screen/PersonalInformation";
 import SignUpScreen from "../screen/Signup";
 import auth from '@react-native-firebase/auth'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -30,7 +31,7 @@ const OnBoard= () => {
     
       if (initializing) return null;
 
-      {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> }
+     
 
 
     return (
@@ -38,10 +39,11 @@ const OnBoard= () => {
             headerShown: false,
           
             }} >
-
+           {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> }
            <OnBoardingStack.Screen name="Login" component={LoginScreen} />
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} />
+            <OnBoardingStack.Screen name="Personal Information" component={PersonalInformationScreen} />
           
         </OnBoardingStack.Navigator>
     )
