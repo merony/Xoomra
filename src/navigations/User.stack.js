@@ -10,6 +10,7 @@ import PreviewListingScreen from '../screen/Main/User/PreviewListing';
 import SupportScreen from '../screen/Main/User/Support';
 import TermsScreen from  '../screen/Main/User/Terms';
 import UserHomeScreen from '../screen/Main/User/UserHome';
+import ViewPersonalInformationScreen from '../screen/Main/User/ViewPersonalInformation';
 import ViewProfileScreen from '../screen/Main/User/ViewProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -28,6 +29,7 @@ const UserNav = () => {
             
              }}>
                 <UserStack.Screen name="User" component={UserHomeScreen} />
+                <UserStack.Screen name="View personal Information" component={ViewPersonalInformationScreen} />
                 <UserStack.Screen name="View Profile" component={ViewProfileScreen} />
                 <UserStack.Screen name="Edit Profile" component={EditProfileScreen} options={{headerShown: false}}/>
                 <UserStack.Screen name="My Listing" component={MyListingScreen} />
