@@ -4,7 +4,7 @@ import {
     Pressable,
     Text,
     TouchableOpacity,
-    View,ScrollView,
+    View,ScrollView,Alert
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -39,7 +39,7 @@ const RequestStayScreen = ({navigation, props}) => {
   }
 
   const onReservePressed = () =>{
-
+    Alert.alert('Your request has been sent to host!')
   }
   
 
