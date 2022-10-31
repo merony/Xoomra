@@ -12,6 +12,8 @@ import DatePickerComponent from '../DatePicker/index.js';
 import DatePickerCheckOutComponent from '../DatePicker/indexCheckOut.js';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import RequestStayScreen from '../../screen/Main/RequestStay/index';
+
 
 const StayDetailsComponent = (props) => {
 
@@ -25,6 +27,8 @@ const StayDetailsComponent = (props) => {
 
   const stays= props.stays;
   const data = [stays,descriptionFolded]
+
+  const navi = useNavigation()
 
   const onDescriptionPressed = () =>{
     if(descriptionFolded) {
@@ -45,6 +49,16 @@ const StayDetailsComponent = (props) => {
       setPolicyFolded(false)
     }else{
       setPolicyFolded(true)
+    }
+  }
+  const onReservePressed = () =>{
+    if(totalNights>=1){
+      navi.navigate('RequestStayScreen',
+      {id:stays.id,totalPrice:totalPrice,checkInDate:checkInDate,
+        checkOutDate:checkOutDate,totalNights:totalNights})
+    }
+    else{
+      Alert.alert('ERROR','Stay at least for 1 night to continue')
     }
   }
 
@@ -77,7 +91,7 @@ const StayDetailsComponent = (props) => {
   
     return (
         <View style = {styles.container}>
-        
+
           {/* image */}
           <Image style={styles.Image}source={{uri: stays.image}}/>
           <Divider/>
@@ -154,7 +168,9 @@ const StayDetailsComponent = (props) => {
 
           </View>
 
-          <Pressable style={styles.customBTN}>
+          
+
+          <Pressable style={styles.customBTN} onPress={onReservePressed}>
             <Text>RESERVE</Text>
           </Pressable>
 

@@ -24,13 +24,9 @@ import { useRoute } from '@react-navigation/native';
 
 const StayDetailsScreen = ({props}) => {
   const route = useRoute()
-  console.log(route.params)
-
 
   const stays = places.find(place => place.id === route.params.id)
-  console.log(stays.id)
   
-
   return (
 
     <ScrollView >
