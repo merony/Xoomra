@@ -52,9 +52,9 @@ const StayDetailsComponent = (props) => {
   const calculateInNights = (inDate) =>{
     let diff = checkOutDate.getTime() - inDate.getTime()
     let nights = Math.floor(diff / (1000*60*60*24))
-    // if(nights <= 0){
-    //   nights = 0
-    // }
+    if(nights <= 0){
+      nights = 0
+    }
     setTotalNights(nights)
     let price = nights*stays.price*1.13
     setTotalPrice(price.toFixed(2))
@@ -74,13 +74,10 @@ const StayDetailsComponent = (props) => {
   }
 
 
-
-
- 
-
   
     return (
         <View style = {styles.container}>
+        
           {/* image */}
           <Image style={styles.Image}source={{uri: stays.image}}/>
           <Divider/>
