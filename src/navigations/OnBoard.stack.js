@@ -10,26 +10,57 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const OnBoardingStack = createNativeStackNavigator();
 
 
-const OnBoard= () => {
+const OnBoard= ({navigation}) => {
 
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
     
-    function onAuthStateChanged(user) {
-        setUser(user);
-        if (initializing) setInitializing(false);
-      }
+ 
+      useEffect(() => {
+        //Runs on every render
+
+        if (user) {
+          // navigation.replace("RegistrationScreen")
+
+          navigation.navigate("TabNavigator");
+  
+        } 
+        
+        else {
+          setUser(null);
+        }
+      
+        
+      });
+    
 
       useEffect(() => {
 
+        //Runs only on the first render
+
         // auth().signOut()
+
+        // (user) && navigation.navigate("TabNavigator");
+
+
+        function onAuthStateChanged(user) {
+          setUser(user);
+          if (initializing) setInitializing(false);
+        }
+  
 
 
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        // if (user) {
+        //   // navigation.replace("RegistrationScreen")
+        //   navigation.navigate("TabNavigator");
+        // } 
         return subscriber; // unsubscribe on unmount
       }, []);
     
       if (initializing) return null;
+
+
 
      
 
@@ -39,7 +70,7 @@ const OnBoard= () => {
             headerShown: false,
           
             }} >
-           {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> }
+           {/* {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> } */}
            <OnBoardingStack.Screen name="Login" component={LoginScreen} />
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} />

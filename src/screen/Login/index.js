@@ -40,8 +40,18 @@ import styles from './styles';
     const [emailFromUI,setEmailFromUI] = useState("")
     const [passwordFromUI,setPasswordFromUI] = useState("")
 
+    useEffect(() => {
+      //Runs on every render
+      
+    });
+  
+    useEffect(() => {
+      //Runs only on the first render
+     
+    }, []);
+
     const signinPressed = async() =>{
-      navigation.navigate("TabNavigator")
+      // navigation.navigate("TabNavigator")
       if (emailFromUI.length === 0 || passwordFromUI.length === 0) {
         alert("Please enter email and password")
       }

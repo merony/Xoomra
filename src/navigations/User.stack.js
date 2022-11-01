@@ -23,12 +23,12 @@ const UserNav = () => {
 
             
             <UserStack.Navigator screenOptions={{ headerShown: false,
-             headerStyle: {backgroundColor: '#FF4500',  textTransform: 'uppercase'},
-             headerTintColor: '#fff',
-             headerTitleStyle: {fontWeight: 'bold'},
+             headerStyle: {backgroundColor: '#FFF',  textTransform: 'uppercase'},
+             headerTintColor: '#030f14',
+             headerTitleStyle: {fontWeight: '500', fontSize: 24, textTransform: 'uppercase',} 
             
              }}>
-                <UserStack.Screen name="User" component={UserHomeScreen} />
+                <UserStack.Screen name="User" component={UserHomeScreen} options={{headerShown: true, headerBackVisible:false, headerTitle: "Profile" }}/>
                 <UserStack.Screen name="View personal Information" component={ViewPersonalInformationScreen} />
                 <UserStack.Screen name="View Profile" component={ViewProfileScreen} />
                 <UserStack.Screen name="Edit Profile" component={EditProfileScreen} options={{headerShown: false}}/>
