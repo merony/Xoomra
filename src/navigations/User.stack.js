@@ -1,3 +1,10 @@
+import {
+    Button,
+    Pressable,
+    Text,
+    TouchableOpacity
+} from 'react-native';
+
 import AddListingScreen from '../screen/Main/User/AddListing';
 import AddPhotosScreen from '../screen/Main/User/AddPhotos';
 import EditListingScreen from '../screen/Main/User/EditListing';
@@ -7,6 +14,7 @@ import ListingReviewScreen from '../screen/Main/User/ListingReview';
 import MyListingScreen from '../screen/Main/User/MyListings';
 import { NavigationContainer } from '@react-navigation/native';
 import PreviewListingScreen from '../screen/Main/User/PreviewListing';
+import { StackActions } from "@react-navigation/native";
 import SupportScreen from '../screen/Main/User/Support';
 import TermsScreen from  '../screen/Main/User/Terms';
 import UserHomeScreen from '../screen/Main/User/UserHome';
@@ -17,7 +25,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const UserStack = createNativeStackNavigator();
 
 
-const UserNav = () => {
+const UserNav = ({navigation, props}) => {
     return (
         
 
@@ -28,7 +36,19 @@ const UserNav = () => {
              headerTitleStyle: {fontWeight: '500', fontSize: 24, textTransform: 'uppercase',} 
             
              }}>
-                <UserStack.Screen name="User" component={UserHomeScreen} options={{headerShown: true, headerBackVisible:false, headerTitle: "Profile" }}/>
+                <UserStack.Screen name="User" component={UserHomeScreen} 
+                options={{
+                headerShown: true, 
+                headerBackVisible:false, 
+                headerTitle: "Profile",
+                headerRight: () => (
+                    <TouchableOpacity title="X"  onPress = { () => navigation.replace("TabNavigator")} >
+                        <Text style = {{fontWeight: '500', fontSize: 18, color: "#030f14"}}>x</Text>
+                    </TouchableOpacity>
+                  )
+                
+
+                        }}/>
                 <UserStack.Screen name="View personal Information" component={ViewPersonalInformationScreen} />
                 <UserStack.Screen name="View Profile" component={ViewProfileScreen} />
                 <UserStack.Screen name="Edit Profile" component={EditProfileScreen} options={{headerShown: false}}/>

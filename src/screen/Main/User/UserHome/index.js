@@ -1,7 +1,10 @@
 import {
+    Button,
     FlatList,
     Image,
     Pressable,
+    SafeAreaView,
+    ScrollView,
     Text,
     TouchableOpacity,
     View
@@ -25,14 +28,27 @@ const UserHomeScreen = ({navigation, props}) => {
 
     return (
 
-      <View style={{flexDirection: "column"}}>
+      <SafeAreaView>
 
-       <Text> User Home Screen </Text>
-       <TouchableOpacity style={{justifyContent: 'flex-start',flexDirection: 'row'}} onPress={() => {auth().signOut() && navigation.replace(`OnBoard`)}}>
-                <Text style={{color:'#0999f4', fontWeight: '500'}}>Log Out</Text>
-            </TouchableOpacity>
+        <ScrollView>
 
-    </View>
+        <View style={{flexDirection: "column"}}>
+
+        <Text> User Home Screen </Text>
+        <TouchableOpacity style={{justifyContent: 'flex-start',flexDirection: 'row'}} onPress={() => {auth().signOut() && navigation.replace(`OnBoard`)}}>
+        <Text style={{color:'#0999f4', fontWeight: '500'}}>Log Out</Text>
+        </TouchableOpacity>
+
+        </View>
+
+
+        </ScrollView>
+
+    
+        
+      </SafeAreaView>
+
+    
         
        
     );
