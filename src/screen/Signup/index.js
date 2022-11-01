@@ -23,7 +23,7 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { TextInput } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
@@ -38,29 +38,38 @@ import firestore from '@react-native-firebase/firestore';
   
   const SignUpScreen = ({navigation}) => {
   
-    const [fullNameFromUI,setFullNameFromUI] = useState("")
     const [emailFromUI,setEmailFromUI] = useState("")
+    const [reEmailFromUI,setReEmailFromUI] = useState("")
     const [passwordFromUI,setPasswordFromUI] = useState("")
     const [rePasswordFromUI,setRePasswordFromUI] = useState("")
 
 
-    const registerPressed = async() =>{
-
-      if (fullNameFromUI.length === 0 || emailFromUI.length === 0 || passwordFromUI.length === 0 || rePasswordFromUI.length === 0){
+    const personalInformationPressed = () =>{
+      if (emailFromUI.length === 0  || reEmailFromUI.length === 0 ||  passwordFromUI.length === 0 || rePasswordFromUI.length === 0){
         alert("Please fill all Information")
       }
 
-      else if (passwordFromUI === rePasswordFromUI ){
-        console.log("same")
+      else if (emailFromUI !== reEmailFromUI)  {
+        
+        Alert.alert("","Email doesnt match")
+      }
+
+      else if (passwordFromUI !== rePasswordFromUI)  {
+        
+          console.log("not the same")
+          Alert.alert("","Password doesnt match")
+      }
+
+    
+      else if (passwordFromUI === rePasswordFromUI && emailFromUI === reEmailFromUI ){
+        
 
       auth()
       .createUserWithEmailAndPassword(emailFromUI,passwordFromUI )
       .then(() => {
-        console.log('User account created & signed in!');
-        Alert.alert("","Account Created")
-        navigation.replace('Home Screen')
+        navigation.replace('Personal Information')
         firestore().collection('users').add({
-                  name: fullNameFromUI,
+                  uid: auth().currentUser.uid,
                   email: emailFromUI,
                   password: passwordFromUI
   })
@@ -76,11 +85,56 @@ import firestore from '@react-native-firebase/firestore';
     
         console.error(error);
       });
-      } else{
-        console.log("not the same")
-        Alert.alert("","Password doesnt match")
       }
-  
+
+    }
+
+
+    const registerPressed = async() =>{
+
+      if (emailFromUI.length === 0  || reEmailFromUI.length === 0 ||  passwordFromUI.length === 0 || rePasswordFromUI.length === 0){
+        alert("Please fill all Information")
+      }
+
+      else if (emailFromUI !== reEmailFromUI)  {
+        
+        Alert.alert("","Email doesnt match")
+      }
+
+      else if (passwordFromUI !== rePasswordFromUI)  {
+        
+          console.log("not the same")
+          Alert.alert("","Password doesnt match")
+      }
+
+    
+      else if (passwordFromUI === rePasswordFromUI && emailFromUI === reEmailFromUI ){
+        
+
+      auth()
+      .createUserWithEmailAndPassword(emailFromUI,passwordFromUI )
+      .then(() => {
+        console.log('User account created & signed in!');
+        Alert.alert("","Account Created")
+        navigation.replace('Home Screen')
+        firestore().collection('users').add({
+                  uid: auth().currentUser.uid,
+                  email: emailFromUI,
+                  password: passwordFromUI
+  })
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+    
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+    
+        console.error(error);
+      });
+      }
         
     }
 
@@ -90,20 +144,21 @@ import firestore from '@react-native-firebase/firestore';
         <View >
             <Image style={{ justifyContent: 'flex-start', width: 395, height: 200, marginTop: 0, paddingTop: 0}} source={require('../../Image/login-image.png')}/>
         </View>
+        <ScrollView>
           <View style={{ justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}} > 
 
             <Text style={styles.headerTitle}>Sign Up</Text>
 
             <View style = {styles.formField}>
-            <Ionicons style={{ paddingVertical: 4}} name='person-outline' size={18} color='#283239' />
-            <TextInput placeholder='Full Name' style = {styles.formInput} keyboardType="email-address"
-              value={fullNameFromUI} onChangeText={setFullNameFromUI}/>
+            <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
+            <TextInput placeholder='Email ID' style = {styles.formInput} keyboardType="email-address" 
+              value={emailFromUI} onChangeText={setEmailFromUI}/>
             </View>
           
             <View style = {styles.formField}>
             <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
-            <TextInput placeholder='Email ID' style = {styles.formInput} keyboardType="email-address" 
-              value={emailFromUI} onChangeText={setEmailFromUI}/>
+            <TextInput placeholder='Re-Email ID' style = {styles.formInput} keyboardType="email-address" 
+              value={reEmailFromUI} onChangeText={setReEmailFromUI}/>
             </View>
 
             <View style = {styles.formField}>
@@ -121,9 +176,12 @@ import firestore from '@react-native-firebase/firestore';
             </View>
 
         
+            <TouchableOpacity onPress={personalInformationPressed} style = {styles.customBTN}>
+                <Text style={styles.textBTN}>Fill Personal Information</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity onPress={registerPressed} style = {styles.customBTN}>
-                <Text style={styles.textBTN}>Register</Text>
+                <Text style={styles.textBTN}>Skip For Now</Text>
             </TouchableOpacity>
 
             <View style={{justifyContent: 'center', flexDirection: 'row'}}>
@@ -131,16 +189,14 @@ import firestore from '@react-native-firebase/firestore';
             <Text style={{color:'#283239', fontWeight: '300'}}>Already Have an account ? </Text>
 
             <TouchableOpacity  onPress={() => navigation.navigate('Login')}>
-                
                 <Text style={{color:'#0999f4', fontWeight: '500'}}> Sign In</Text>
             </TouchableOpacity>
 
             </View>
 
-
           </View>
         
-       
+          </ScrollView>
       </SafeAreaView>
     );
   };

@@ -22,7 +22,7 @@ const OnBoard= () => {
 
       useEffect(() => {
 
-        // auth().signOut()
+        auth().signOut()
 
 
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -40,7 +40,7 @@ const OnBoard= () => {
           
             }} >
            {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> }
-           <OnBoardingStack.Screen name="Login" component={LoginScreen} />
+
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} />
             <OnBoardingStack.Screen name="Personal Information" component={PersonalInformationScreen} />
