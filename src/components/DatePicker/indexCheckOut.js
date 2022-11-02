@@ -30,7 +30,7 @@ const DatePickerCheckOutComponent = (props) => {
     <>
 
     <Pressable onPress={() => setOpen(true)} style={styles.datepicker}>
-    <Text style={styles.stayTtile}>Check-out:{date.toDateString()}</Text>
+    <Text style={styles.stayTtile}> {date.toDateString()}</Text>
     <DatePicker
         modal
         open={open}

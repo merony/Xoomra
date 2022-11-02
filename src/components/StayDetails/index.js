@@ -17,7 +17,7 @@ import RequestStayScreen from '../../screen/Main/RequestStay/index';
 
 const StayDetailsComponent = (props) => {
 
-  const [totalPrice,setTotalPrice] = useState(0)
+  // const [totalPrice,setTotalPrice] = useState(0)
   const [checkInDate,setCheckInDate] = useState(new Date())
   const [checkOutDate,setCheckOutDate] = useState(new Date())
   const [totalNights,setTotalNights] = useState(0)
@@ -54,7 +54,7 @@ const StayDetailsComponent = (props) => {
   const onReservePressed = () =>{
     if(totalNights>=1){
       navi.navigate('RequestStayScreen',
-      {id:stays.id,totalPrice:totalPrice,checkInDate:checkInDate,
+      {id:stays.id,checkInDate:checkInDate,
         checkOutDate:checkOutDate,totalNights:totalNights})
     }
     else{
@@ -70,8 +70,6 @@ const StayDetailsComponent = (props) => {
       nights = 0
     }
     setTotalNights(nights)
-    let price = nights*stays.price*1.13
-    setTotalPrice(price.toFixed(2))
   }
 
   const calculateOutNights = (outDate) =>{
@@ -82,8 +80,6 @@ const StayDetailsComponent = (props) => {
     }
     
     setTotalNights(nights)
-    let price = nights*stays.price*1.13
-    setTotalPrice(price.toFixed(2))
     
   }
 
@@ -94,23 +90,40 @@ const StayDetailsComponent = (props) => {
 
           {/* image */}
           <Image style={styles.Image}source={{uri: stays.image}}/>
-          <Divider/>
 
           {/* title */}
-          <Text style={styles.stayTtile}>{stays.title}</Text>
+          <Text style={styles.stayDetailsTitle}>{stays.title}</Text>
 
           {/* location */}
-          <Text style={styles.stayLocations}>{stays.location}</Text>
+          <Text style={styles.stayDetailsSubTitle}>{stays.location}</Text>
+
+          <Divider/>
+
+                    {/* host info */}
+          {/* hard code data for now */}
+          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+
+            <View>
 
           {/* limits, type*/}
-          <Text style={styles.stayTtile}>{stays.maxGuest} Guests | {stays.type} | {stays.maxNights} Nights  </Text>
+          <Text style={styles.stayDetailsTitle}>Hosted by hostName</Text>
+          <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} Guests · {stays.type} · {stays.maxNights} Nights  </Text>
+              
+            </View>
+
+            <View>
+            <Image style={styles.hostImage}source={{uri: stays.image}}/>
+            </View>
+
+          </View>
+
           <Divider/>
 
           {/* description */}
           <Pressable onPress={onDescriptionPressed}>
           <View style={styles.titleContainer}>
-            <Fontisto name="list-2" size={20} color={'#030f14'} style={{paddingTop:5}} />
-            <Text style={styles.stayTtile}>Details of Stay</Text>
+            {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
+            <Text style={styles.stayDetailsTitle}>Details of Stay</Text>
           </View>
 
             <LongTextComponent data = {[stays,descriptionFolded]}/>
@@ -118,21 +131,13 @@ const StayDetailsComponent = (props) => {
           <Divider/>
 
 
-          
-
-
-          {/* host info */}
-          {/* hard code data for now */}
-          <View >
-
-          </View>
 
           {/* house rules */}
           {/* hard code data for now */}
           <Pressable onPress={onRulePressed}>
           <View style={styles.titleContainer}>
-            <Fontisto name="shield" size={25} color={'#030f14'} style={{paddingTop:5}}/>
-            <Text style={styles.stayTtile}>House Rules</Text>
+            {/* <Fontisto name="shield" size={25} color={'#030f14'} style={{paddingTop:5}}/> */}
+            <Text style={styles.stayDetailsTitle}>House Rules</Text>
           </View>
 
             <LongTextComponent data = {[stays,ruleFolded]}/>
@@ -143,8 +148,8 @@ const StayDetailsComponent = (props) => {
           {/* hard code data for now */}
           <Pressable onPress={onPolicyPressed}>
           <View style={styles.titleContainer}>
-            <Fontisto name="hotel-alt" size={25} color={'#030f14'} />
-            <Text style={styles.stayTtile}>Cancellation Policy</Text>  
+            {/* <Fontisto name="hotel-alt" size={25} color={'#030f14'} /> */}
+            <Text style={styles.stayDetailsTitle}>Cancellation Policy</Text>  
           </View>
 
           <LongTextComponent data = {[stays,policyFolded]}/>
@@ -162,16 +167,16 @@ const StayDetailsComponent = (props) => {
           <View>
           <View style={styles.reserveArea}>
 
-            <Text style={styles.totalPrice}>${totalPrice}</Text>
+            {/* <Text style={styles.totalPrice}>${totalPrice}</Text> */}
 
-            <Text style={styles.totalNights}>{totalNights} Nights</Text>
+            <Text style={styles.totalNights}>Exchange for {totalNights} Nights</Text>
 
           </View>
 
           
 
           <Pressable style={styles.customBTN} onPress={onReservePressed}>
-            <Text>RESERVE</Text>
+            <Text style={styles.textBTN}>Preview Exchange Request</Text>
           </Pressable>
 
           </View>

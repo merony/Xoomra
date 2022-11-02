@@ -27,12 +27,16 @@ const LongTextComponent = (props) => {
 
     if(ShouldBeFolded){
       return  (    
-        <View style={{flexDirection: "column"}}>
+        <View style={styles.container}>
           <Text
           numberOfLines={5} 
           ellipsizeMode='tail' 
           style={styles.stayDescription}>
             {longText} 
+          </Text>
+
+          <Text style={styles.showMore}>
+              Show More
           </Text>
         </View>
         
@@ -40,7 +44,7 @@ const LongTextComponent = (props) => {
     }
 
       return (
-        <View style={{flexDirection: "column"}}>
+        <View style={styles.container}>
           <Text
           style={styles.stayDescription}>
             {longText} 

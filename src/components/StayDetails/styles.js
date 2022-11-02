@@ -7,6 +7,13 @@ const styles = StyleSheet.create({
             margin: 20,
 
         },
+           textBTN: {
+            textAlign : 'center',
+            fontWeight: '700',
+            fontSize: 16,
+            color: '#fff',
+            textTransform: 'uppercase'
+        },
 
     Image: {
 
@@ -16,6 +23,13 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         borderRadius: 10,
 
+    },hostImage:{
+
+        width: 50,
+        //aspectRatio: 3/3,
+        height: 50,
+        resizeMode: 'contain',
+        borderRadius: 50,
     },
 
     stayTtile :{
@@ -24,6 +38,22 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingLeft:10,
         fontWeight: "700",
+        
+    },
+    stayDetailsTitle:{
+
+        fontSize: 18,
+        paddingTop: 5,
+        paddingLeft:10,
+        fontWeight: "700",
+        color:'black',
+    },
+    stayDetailsSubTitle:{
+        fontSize: 10,
+        paddingTop: 5,
+        paddingLeft:10,
+        fontWeight: "300",
+        color:'black',
     },
 
     stayLocations :{
@@ -53,7 +83,8 @@ const styles = StyleSheet.create({
     },
 
     reserveArea : {
-        flexDirection:'row',    
+        flexDirection:'row', 
+        justifyContent:'center',   
     },
 
     totalPrice :{
@@ -91,6 +122,8 @@ const styles = StyleSheet.create({
     },
     datePickerContainer :{
         flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
 
 
     },

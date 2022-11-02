@@ -26,7 +26,7 @@ const RequestStayScreen = ({navigation, props}) => {
   const [selfIntroduction,setSelfIntroduction] = useState('')
   
 
-  //get id, check in and out date , nights price from previous screen
+  //get id, check in and out date 
   const route = useRoute()
   const stays = places.find(place => place.id === route.params.id)
   const [descriptionFolded,setDescriptionFolded] = useState(true)
@@ -53,13 +53,10 @@ const RequestStayScreen = ({navigation, props}) => {
        <Text style={styles.stayTtile}>{stays.title}</Text>
        <Text style={styles.stayTtile}>{stays.type}</Text>
        <Text style={styles.stayTtile}>{stays.location}</Text>
-       <Text style={styles.stayTtile}>${stays.price} / Night</Text>
+
        <Text style={styles.stayTtile}>Check-in: {route.params.checkInDate.getFullYear()}-{route.params.checkInDate.getMonth()+1}-{route.params.checkInDate.getDate()}</Text>
        <Text style={styles.stayTtile}>Check-out: {route.params.checkOutDate.getFullYear()}-{route.params.checkOutDate.getMonth()+1}-{route.params.checkOutDate.getDate()}</Text>
        <Text style={styles.stayTtile}>Nights: {route.params.totalNights}</Text>
-       <Text style={styles.stayTtile}>Subtotal: ${(route.params.totalNights*stays.price).toFixed(2)}</Text>
-       <Text style={styles.stayTtile}>Tax: ${((route.params.totalNights*stays.price)*0.13).toFixed(2)}</Text>
-       <Text style={styles.stayTtile}>Total Price: ${(route.params.totalNights*stays.price*1.13).toFixed(2)}</Text>
 
 
        <View style={{width:'98%',paddingLeft:'2%'}}>
