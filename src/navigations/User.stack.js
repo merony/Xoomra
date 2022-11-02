@@ -5,15 +5,11 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import AddListingScreen from '../screen/Main/User/AddListing';
-import AddPhotosScreen from '../screen/Main/User/AddPhotos';
-import EditListingScreen from '../screen/Main/User/EditListing';
+import EditPersonalInformationScreen from '../screen/Main/User/EditPersonalInformation';
 import EditProfileScreen from '../screen/Main/User/EditProfile';
 import HelpScreen from '../screen/Main/User/Help';
-import ListingReviewScreen from '../screen/Main/User/ListingReview';
 import MyListingScreen from '../screen/Main/User/MyListings';
 import { NavigationContainer } from '@react-navigation/native';
-import PreviewListingScreen from '../screen/Main/User/PreviewListing';
 import { StackActions } from "@react-navigation/native";
 import SupportScreen from '../screen/Main/User/Support';
 import TermsScreen from  '../screen/Main/User/Terms';
@@ -31,9 +27,9 @@ const UserNav = ({navigation, props}) => {
 
             
             <UserStack.Navigator screenOptions={{ headerShown: false,
-             headerStyle: {backgroundColor: '#FFF',  textTransform: 'uppercase'},
+             headerStyle: {backgroundColor: '#FFF'},
              headerTintColor: '#030f14',
-             headerTitleStyle: {fontWeight: '500', fontSize: 24, textTransform: 'uppercase',} 
+             headerTitleStyle: {fontWeight: '500', fontSize: 24,} 
             
              }}>
                 <UserStack.Screen name="User" component={UserHomeScreen} 
@@ -41,27 +37,76 @@ const UserNav = ({navigation, props}) => {
                 headerShown: true, 
                 headerBackVisible:false, 
                 headerTitle: "Profile",
+                
                 headerRight: () => (
                     <TouchableOpacity title="X"  onPress = { () => navigation.replace("TabNavigator")} >
                         <Text style = {{fontWeight: '500', fontSize: 18, color: "#030f14"}}>x</Text>
                     </TouchableOpacity>
                   )
-                
 
                         }}/>
-                <UserStack.Screen name="View personal Information" component={ViewPersonalInformationScreen} />
-                <UserStack.Screen name="View Profile" component={ViewProfileScreen} />
-                <UserStack.Screen name="Edit Profile" component={EditProfileScreen} options={{headerShown: false}}/>
+                <UserStack.Screen name="View personal Information" component={ViewPersonalInformationScreen}
+                 options={{
+                    headerShown: true, 
+                  
+                    headerTitle: " ",
+                  
+                    
+                    headerRight: () => (
+                        <TouchableOpacity title="X"  onPress = { () => navigation.navigate("Edit Personal Information")} >
+                            <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Edit</Text>
+                        </TouchableOpacity>
+                      )
+                    
+                            }} 
+                />
+
+                <UserStack.Screen name="Edit Personal Information" component={EditPersonalInformationScreen} 
+                options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }}
+                
+                />
+
+                <UserStack.Screen name="View Profile" component={ViewProfileScreen} 
+                options={{
+                    headerShown: true, 
+                  
+                    headerTitle: " ",
+                  
+                    
+                    headerRight: () => (
+                        <TouchableOpacity title="X"  onPress = { () => navigation.navigate("Edit Profile")} >
+                            <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Edit</Text>
+                        </TouchableOpacity>
+                      )
+                    
+                            }}
+                />
+                <UserStack.Screen name="Edit Profile" component={EditProfileScreen} 
+                
+                options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }}
+                />
                 <UserStack.Screen name="My Listing" component={MyListingScreen} />
-                <UserStack.Screen name="Add Listing" component={AddListingScreen} />
-                <UserStack.Screen name="Add Photos" component={AddPhotosScreen} />
-                <UserStack.Screen name="Listing Review" component={ListingReviewScreen} />
-                <UserStack.Screen name="Preview Listing" component={PreviewListingScreen} />
-                <UserStack.Screen name="Edit Listing" component={EditListingScreen} />
-                <UserStack.Screen name="Support Screen" component={SupportScreen} />
-                <UserStack.Screen name="Help Screen" component={HelpScreen} />
-                <UserStack.Screen name="Terms Screen" component={TermsScreen}
-                options={{headerShown: false}}
+                <UserStack.Screen name="Support" component={SupportScreen}
+                options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }} />
+                <UserStack.Screen name="Help" component={HelpScreen}
+                options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }} />
+                <UserStack.Screen name="Terms" component={TermsScreen}
+                options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }}
                 />
                 
             </UserStack.Navigator>

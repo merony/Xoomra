@@ -1,3 +1,4 @@
+import MyListingNav from './MyListing.stack';
 import { NavigationContainer } from '@react-navigation/native';
 import OnBoard from "./OnBoard.stack";
 import RequestStayScreen from '../screen/Main/RequestStay';
@@ -25,6 +26,7 @@ const Routing = () => {
                 <RootStack.Screen name="OnBoard" component={OnBoard} />
                 <RootStack.Screen name="TabNavigator" component={TabNavigator} />
                 <RootStack.Screen name="UserNav" component={UserNav} />
+                <RootStack.Screen name="MyListingNav" component={MyListingNav} />
                 <RootStack.Screen name="Stay List" component={StayListScreen} options={{headerShown: false}}/>
                 <RootStack.Screen name="Search Screen" component={SearchScreen}
                 options={{headerShown: false}}
