@@ -116,7 +116,7 @@ import firestore from '@react-native-firebase/firestore';
       .then(() => {
         console.log('User account created & signed in!');
         Alert.alert("","Account Created")
-        navigation.replace('Home Screen')
+        navigation.navigate('TabNavigator')
         firestore().collection('users').add({
                   uid: auth().currentUser.uid,
                   email: emailFromUI,
