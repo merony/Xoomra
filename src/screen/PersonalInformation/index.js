@@ -24,6 +24,8 @@ import auth from '@react-native-firebase/auth'
 import styles from './styles';
 import ModalDropdown from 'react-native-modal-dropdown';
 import DatePicker from 'react-native-date-picker';
+import firestore from '@react-native-firebase/firestore';
+
 
 
 
@@ -45,6 +47,38 @@ const PersonalInformationScreen = ({navigation, props}) => {
   const [mobileNumberFromUI,setMobileNumberFromUI] = useState("")
 
 
+  const submitPressed = async()=>{
+
+    if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  genderFromUI.length === 0 
+      || dateOfBirthFromUI.length === 0 || streetFromUI.length === 0 || houseNumberFromUI.length === 0
+      || cityFromUI.length === 0 || countryFromUI.length === 0 || postalCodeFromUI.length === 0 
+      || mobileNumberFromUI.length === 0){
+
+      alert("Please fill all Information")
+    }
+
+    else{
+
+    firestore().collection('Profiles').add({
+      uid: auth().currentUser.uid,
+      email: auth().currentUser.email,
+      firstName : firstNameFromUI,
+      lastName : lastNameFromUI,
+      gender : genderFromUI,
+      DOB : dateOfBirthFromUI,
+      street : streetFromUI,
+      houseNumber : houseNumberFromUI,
+      city : cityFromUI,
+      country : countryFromUI,
+      postalCode : postalCodeFromUI,
+      mobile : mobileNumberFromUI
+
+      })
+
+      navigation.navigate('TabNavigator')
+
+      }
+    }
 
     return (
 
@@ -122,8 +156,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
             </View>
 
             
-            
-            <TouchableOpacity style = {styles.customBTN}>
+            <TouchableOpacity onPress={submitPressed} style = {styles.customBTN}>
                 <Text style={styles.textBTN}>Submit</Text>
             </TouchableOpacity>
 
