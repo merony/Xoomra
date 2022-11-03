@@ -43,54 +43,7 @@ import firestore from '@react-native-firebase/firestore';
     const [passwordFromUI,setPasswordFromUI] = useState("")
     const [rePasswordFromUI,setRePasswordFromUI] = useState("")
 
-
-    const personalInformationPressed = () =>{
-      if (emailFromUI.length === 0  || reEmailFromUI.length === 0 ||  passwordFromUI.length === 0 || rePasswordFromUI.length === 0){
-        alert("Please fill all Information")
-      }
-
-      else if (emailFromUI !== reEmailFromUI)  {
-        
-        Alert.alert("","Email doesnt match")
-      }
-
-      else if (passwordFromUI !== rePasswordFromUI)  {
-        
-          console.log("not the same")
-          Alert.alert("","Password doesnt match")
-      }
-
-    
-      else if (passwordFromUI === rePasswordFromUI && emailFromUI === reEmailFromUI ){
-        
-
-      auth()
-      .createUserWithEmailAndPassword(emailFromUI,passwordFromUI )
-      .then(() => {
-        navigation.replace('Personal Information')
-        firestore().collection('users').add({
-                  uid: auth().currentUser.uid,
-                  email: emailFromUI,
-                  password: passwordFromUI
-  })
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-    
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-    
-        console.error(error);
-      });
-      }
-
-    }
-
-
-    const registerPressed = async() =>{
+    const signUpPressed = async() =>{
 
       if (emailFromUI.length === 0  || reEmailFromUI.length === 0 ||  passwordFromUI.length === 0 || rePasswordFromUI.length === 0){
         alert("Please fill all Information")
@@ -116,7 +69,7 @@ import firestore from '@react-native-firebase/firestore';
       .then(() => {
         console.log('User account created & signed in!');
         Alert.alert("","Account Created")
-        navigation.navigate('TabNavigator')
+        navigation.navigate('Personal Information')
         firestore().collection('users').add({
                   uid: auth().currentUser.uid,
                   email: emailFromUI,
@@ -125,12 +78,20 @@ import firestore from '@react-native-firebase/firestore';
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
+          Alert.alert("","That email address is already in use!")
           console.log('That email address is already in use!');
         }
     
         if (error.code === 'auth/invalid-email') {
+          Alert.alert("","That email address is invalid!")
           console.log('That email address is invalid!');
         }
+        if (error.code === 'auth/weak-password') {
+          Alert.alert("","The given password is invalid.Password should be at least 6 characters")
+          setPasswordFromUI("")
+          setRePasswordFromUI("")
+        }
+
     
         console.error(error);
       });
@@ -176,12 +137,9 @@ import firestore from '@react-native-firebase/firestore';
             </View>
 
         
-            <TouchableOpacity onPress={personalInformationPressed} style = {styles.customBTN}>
-                <Text style={styles.textBTN}>Fill Personal Information</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={registerPressed} style = {styles.customBTN}>
-                <Text style={styles.textBTN}>Skip For Now</Text>
+            
+            <TouchableOpacity onPress={signUpPressed} style = {styles.customBTN}>
+                <Text style={styles.textBTN}>Sign Up</Text>
             </TouchableOpacity>
 
             <View style={{justifyContent: 'center', flexDirection: 'row'}}>
@@ -200,8 +158,6 @@ import firestore from '@react-native-firebase/firestore';
       </SafeAreaView>
     );
   };
-  
- 
   
   export default SignUpScreen;
   
