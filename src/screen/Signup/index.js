@@ -74,7 +74,7 @@ import firestore from '@react-native-firebase/firestore';
                   uid: auth().currentUser.uid,
                   email: emailFromUI,
                   password: passwordFromUI
-  })
+      })
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {

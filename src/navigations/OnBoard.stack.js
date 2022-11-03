@@ -80,6 +80,8 @@ const OnBoard= ({navigation}) => {
           }} >
 
            {/* {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> } */}
+
+           
            <OnBoardingStack.Screen name="Login" component={LoginScreen} />
 
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
