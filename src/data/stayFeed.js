@@ -10,6 +10,7 @@ export default [
       maxGuest: 2,
       maxNights: '4-6',
       rules: '120',
+      price:199,
   
     },
     {
@@ -23,6 +24,7 @@ export default [
       maxGuest: 1,
       maxNights: '2-3',
       rules: '390',
+      price:299,
    
     },
     {
@@ -36,6 +38,7 @@ export default [
       maxGuest: 3,
       maxNights: '1-2',
       rules: '330',
+      price:399,
    
     },
     {
@@ -49,6 +52,7 @@ export default [
       maxGuest: 4,
       maxNights: '3-4',
       rules: '600',
+      price:300,
       coordinate: {
         latitude: 28.4815637,
         longitude: -16.2991304,

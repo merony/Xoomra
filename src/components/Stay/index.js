@@ -10,16 +10,24 @@ const StayComponent = (props) => {
 
   const stays= props.stay;
   console.log("hello", stays);
- 
+
+  const navi = useNavigation()
+  const navigateToStayDetails = () =>{
+    navi.navigate('StayDetailsScreen',{id:stays.id})
+  }
+
+  
   
     return (
-        <View style = {styles.container}>
+        <Pressable 
+        onPress={navigateToStayDetails}
+        style = {styles.container}>
              {/*Photos*/}
             {/* <Image style={styles.Image}
             source={require('../../Image/post.jpg')}
             /> */}
 
-<Image style={styles.Image}
+            <Image style={styles.Image}
             source={{uri: stays.image}}
             />
 
@@ -39,7 +47,7 @@ const StayComponent = (props) => {
 
 
 
-          </View>
+          </Pressable>
         
     );
   };

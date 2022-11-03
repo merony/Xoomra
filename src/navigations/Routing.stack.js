@@ -1,13 +1,15 @@
 import MyListingNav from './MyListing.stack';
 import { NavigationContainer } from '@react-navigation/native';
 import OnBoard from "./OnBoard.stack";
-import RequestStayScreen from '../screen/Main/RequestStay';
 import SearchScreen from "../screen/Main/Search";
 import StayConfirmationScreen from '../screen/Main/StayConfirmation';
 import StayListScreen from "../screen/Main/StayList";
 import TabNavigator from "./TabNavigator.stack";
 import UserNav from './User.stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import StayDetailsScreen from '../screen/Main/StayDetails/index';
+import RequestStayScreen from '../screen/Main/RequestStay/index'
+
 
 const RootStack = createNativeStackNavigator();
 
@@ -31,8 +33,10 @@ const Routing = () => {
                 <RootStack.Screen name="Search Screen" component={SearchScreen}
                 options={{headerShown: false}}
                 />
-                <RootStack.Screen name="Request Stay" component={RequestStayScreen} />
                 <RootStack.Screen name="Stay Confirmation" component={StayConfirmationScreen} />
+
+                <RootStack.Screen name="StayDetailsScreen" component={StayDetailsScreen}/>
+                <RootStack.Screen name="RequestStayScreen" component={RequestStayScreen}/>
                 
             </RootStack.Navigator>
         </NavigationContainer>

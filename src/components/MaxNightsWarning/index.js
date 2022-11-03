@@ -1,11 +1,10 @@
 import {
-  FlatList,
-  Image,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView
+    FlatList,
+    Image,
+    Pressable,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -18,30 +17,32 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
-import StayDetailsComponent from '../../../components/StayDetails';
-import places from '../../../data/stayFeed'
-import { useRoute } from '@react-navigation/native';
 
-const StayDetailsScreen = ({props}) => {
-  const route = useRoute()
+const MaxNightsWarning = (props) => {
 
-  const stays = places.find(place => place.id === route.params.id)
+
+  const maxNightsOfHost = props.data[0]
+  const maxNightsOfGuest =props.data[1]
+
+
+    if(maxNightsOfHost>=maxNightsOfGuest){
+      return  (    
+        <View>
+
+        </View>
+        
+      )
+    }
+      return (
+        <View style={styles.container}>
+          <Text
+          style={styles.warn}>
+          Maximum nights of exchange exceeded
+          </Text>
+        </View>   
+      );
+  };
   
-  return (
-
-    <ScrollView >
-
-
-
-     <StayDetailsComponent stays={stays}/>
-
-
-    </ScrollView>
-      
-     
-  );
-};
-
-
-
-export default StayDetailsScreen;
+ 
+  
+  export default MaxNightsWarning;

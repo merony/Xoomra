@@ -8,6 +8,8 @@ import ProfileInputScreen from "../screen/ProfileInput"
 import VerificationScreen from "../screen/Verification"
 import auth from '@react-native-firebase/auth'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LongTextComponent from "../components/longText";
+import DatePickerComponent from "../components/DatePicker/index"
 
 import {
   Alert,
