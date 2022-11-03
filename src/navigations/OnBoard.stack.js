@@ -1,25 +1,24 @@
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import { useEffect, useState } from "react";
 
+import DatePickerComponent from "../components/DatePicker/index"
 import ForgetPasswordScreen from "../screen/ForgetPassword";
 import LoginScreen from "../screen/Login";
+import LongTextComponent from "../components/longText";
 import PersonalInformationScreen from "../screen/PersonalInformation";
-import SignUpScreen from "../screen/Signup";
 import ProfileInputScreen from "../screen/ProfileInput"
+import SignUpScreen from "../screen/Signup";
 import VerificationScreen from "../screen/Verification"
 import auth from '@react-native-firebase/auth'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LongTextComponent from "../components/longText";
-import DatePickerComponent from "../components/DatePicker/index"
-
-import {
-  Alert,
-    Image,
-    SafeAreaView,
-    StatusBar,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
 
 const OnBoardingStack = createNativeStackNavigator();
 
@@ -117,7 +116,7 @@ const OnBoard= ({navigation}) => {
             
             options={{
               headerShown: true, 
-              headerBackVisible:false, 
+              headerBackVisible:true, 
               headerTitle: " ",
         
               headerRight: () => (
