@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
         textAlign : 'center',
         fontWeight: '700',
         fontSize: 16,
-        color: '#fff'
+        color: '#fff',
+        textTransform: 'uppercase'
     }
  
 });
