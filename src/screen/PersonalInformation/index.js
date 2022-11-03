@@ -50,7 +50,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
   const savePressed = async() => {
 
     
-    const profilesCollection = await firestore().collection('Profiles').where(`mobile`,`==`,mobileNumberFromUI).get()
+    const profilesCollection = await firestore().collection('Personal Information').where(`mobile`,`==`,mobileNumberFromUI).get()
   
     if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  
         genderFromUI.length === 0 || addressFromUI.length === 0 ||
@@ -64,12 +64,12 @@ const PersonalInformationScreen = ({navigation, props}) => {
 
       
         if (profilesCollection.docs.length !== 0){
-          Alert.alert('',"number already exists, please check the number")
+          Alert.alert('',"number already exists")
           setMobileNumberFromUI("")
           
         }
         else if(profilesCollection.docs.length === 0) {
-            firestore().collection('Profiles').add({
+            firestore().collection('Personal Information').add({
               uid: auth().currentUser.uid,
               email: auth().currentUser.email,
               firstName : firstNameFromUI,
