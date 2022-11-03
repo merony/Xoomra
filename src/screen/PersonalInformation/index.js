@@ -50,7 +50,8 @@ const PersonalInformationScreen = ({navigation, props}) => {
   const savePressed = async() => {
 
     
-    const profilesCollection = await firestore().collection('Personal Information').where(`mobile`,`==`,mobileNumberFromUI).get()
+    const profilesCollection = await firestore().collection('Personal Information')
+    .where(`mobile`,`==`,mobileNumberFromUI).get()
   
     if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  
         genderFromUI.length === 0 || addressFromUI.length === 0 ||
@@ -96,8 +97,6 @@ const PersonalInformationScreen = ({navigation, props}) => {
 
        
           <View style={{ justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}} > 
-
-            <Text style={styles.headerTitle}>Personal Information</Text>
           
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='person' size={18} color='#283239' />
