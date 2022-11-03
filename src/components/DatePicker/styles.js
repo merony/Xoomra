@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     datepicker :{
-        width:'30%',
+        width:'100%',
 
     },
     stayTtile :{

@@ -5,12 +5,13 @@ const styles = StyleSheet.create({
 
         container: {
             margin: 20,
+            flex:1
 
         },
            textBTN: {
             textAlign : 'center',
             fontWeight: '700',
-            fontSize: 16,
+            fontSize: 14,
             color: '#fff',
             textTransform: 'uppercase'
         },
@@ -47,6 +48,14 @@ const styles = StyleSheet.create({
         paddingLeft:10,
         fontWeight: "700",
         color:'black',
+    },    stayDetailsHostTitle:{
+
+        fontSize: 18,
+        paddingTop:10,
+        
+        paddingLeft:10,
+        fontWeight: "700",
+        color:'black',
     },
     stayDetailsSubTitle:{
         fontSize: 10,
@@ -74,11 +83,13 @@ const styles = StyleSheet.create({
     },
     customBTN : {
         backgroundColor: '#0999f4',
-        padding: 20,
         borderRadius: 10,
-        marginBottom: 30,
-        marginTop: 5,
+        marginBottom: 10,
+        marginTop: 10,
         alignItems:'center',
+        justifyContent:'center',
+        width:'50%',
+        height:50,
         
     },
 
@@ -121,18 +132,20 @@ const styles = StyleSheet.create({
         textAlign:'center',
     },
     datePickerContainer :{
-        flexDirection:'row',
+        flexDirection:'column',
         alignItems:'center',
         justifyContent:'center',
 
 
     },
     datePickerComponent:{
-        backgroundColor:'red'
+        backgroundColor:'red',
+
 
     },
     titleContainer:{
-        flexDirection:'row'
+        flexDirection:'row',
+        width:300
     }
 
  

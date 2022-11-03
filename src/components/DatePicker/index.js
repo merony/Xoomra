@@ -30,7 +30,7 @@ const DatePickerComponent = (props) => {
     <>
 
     <Pressable onPress={() => setOpen(true)} style={styles.datepicker}>
-    <Text style={styles.stayTtile}>{date.toDateString()} - </Text>
+    <Text style={styles.stayTtile}>{date.toDateString()}</Text>
     <DatePicker
         modal
         open={open}

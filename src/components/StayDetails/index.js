@@ -14,6 +14,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RequestStayScreen from '../../screen/Main/RequestStay/index';
 import MaxNightsWarning from '../MaxNightsWarning/index.js';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const StayDetailsComponent = (props) => {
@@ -26,7 +27,7 @@ const StayDetailsComponent = (props) => {
   const [policyFolded,setPolicyFolded] = useState(true)
   const [ruleFolded,setRuleFolded] = useState(true)
 
-  const dummyDataForWantToGo = 'Valencia, Spain.'
+  const dummyDataForWantToGo = 'I would like to exchange with someone in Valencia, Spain.'
   const dummyDataForMaxNights = 6
 
   const stays= props.stays;
@@ -99,7 +100,7 @@ const StayDetailsComponent = (props) => {
 
   
     return (
-        <View style = {styles.container}>
+        <ScrollView style = {styles.container}>
 
           {/* image */}
           <Image style={styles.Image}source={{uri: stays.image}}/>
@@ -112,7 +113,7 @@ const StayDetailsComponent = (props) => {
 
           <Divider/>
 
-                    {/* host info */}
+          {/* host info */}
           {/* hard code data for now */}
           <Pressable onPress={onHostPressed}>
 
@@ -121,8 +122,8 @@ const StayDetailsComponent = (props) => {
             <View>
 
           {/* limits, type*/}
-          <Text style={styles.stayDetailsTitle}>Hosted by hostName</Text>
-          <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} Guests · {stays.type} · {stays.maxNights} Nights  </Text>
+          <Text style={styles.stayDetailsHostTitle}>Hosted by John</Text>
+          {/* <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} Guests · {stays.type} · {stays.maxNights} Nights  </Text> */}
               
             </View>
 
@@ -133,6 +134,39 @@ const StayDetailsComponent = (props) => {
           </View>
           </Pressable>
 
+          <Divider/>
+
+          {/*accommodation type, max guest and nights*/}
+          <Pressable >
+          <View style={styles.titleContainer}>
+            {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
+            <Text style={styles.stayDetailsTitle}>Sleeping Arrangements</Text>
+          </View>
+
+
+            {/* type */}
+            <View style={{flexDirection:'row',paddingLeft:15,paddingTop:15}}>
+            <MaterialIcons name='local-hotel' size={25} color={'#030f14'} style={{paddingLeft:5}}/>
+            <Text style={styles.stayDetailsSubTitle}> {stays.type}  </Text>
+            
+          </View>
+
+          {/* guest */}
+          <View style={{flexDirection:'row',paddingLeft:15,paddingTop:15}}>
+            <Fontisto name="person" size={20} color={'#030f14'} style={{paddingLeft:8,paddingRight:8}} />
+            <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} guests</Text>
+           
+          </View>
+
+
+          {/* nights */}
+          <View style={{flexDirection:'row',paddingLeft:15,paddingTop:20}}>
+            <Fontisto name="night-clear" size={20} color={'#030f14'} style={{paddingLeft:8,paddingRight:5}}/>
+            <Text style={styles.stayDetailsSubTitle}>{stays.maxNights} nights</Text>
+
+          </View>
+
+          </Pressable>
           <Divider/>
 
           {/* Want to go */}
@@ -183,15 +217,8 @@ const StayDetailsComponent = (props) => {
           </Pressable>
           <Divider/> */}
 
-          {/* availability area with date picker and total price calculator */}
-          <View style={styles.datePickerContainer}>
+          {/* availability area with date picker*/}
 
-          <DatePickerComponent style = {styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
-          <DatePickerCheckOutComponent style = {styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights}/>
-          </View>
-
-          {/* reserve button */}
-          <View>
           <View style={styles.reserveArea}>
 
             {/* <Text style={styles.totalPrice}>${totalPrice}</Text> */}
@@ -200,17 +227,29 @@ const StayDetailsComponent = (props) => {
             <MaxNightsWarning data={[dummyDataForMaxNights,totalNights]}/>
 
           </View>
+          <View style={{flex:1}}>
 
-          
 
-          <Pressable style={styles.customBTN} onPress={onReservePressed}>
-            <Text style={styles.textBTN}>Preview Exchange Request</Text>
-          </Pressable>
+          {/* reserve button */}
+          <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',marginLeft:20,}}>
+            <View style={styles.datePickerContainer}>
+              <DatePickerComponent style = {styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
+              <Text>-</Text>
+              <DatePickerCheckOutComponent style = {styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights}/>
+            </View>
+
+            <Pressable style={styles.customBTN} onPress={onReservePressed}>
+              <Text style={styles.textBTN}>Exchange Request</Text>
+            </Pressable>
+
+          </View>
 
           </View>
 
 
-        </View>
+
+
+        </ScrollView>
         
     );
   };
