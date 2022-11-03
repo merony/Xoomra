@@ -13,6 +13,7 @@ import DatePickerCheckOutComponent from '../DatePicker/indexCheckOut.js';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RequestStayScreen from '../../screen/Main/RequestStay/index';
+import MaxNightsWarning from '../MaxNightsWarning/index.js';
 
 
 const StayDetailsComponent = (props) => {
@@ -24,6 +25,9 @@ const StayDetailsComponent = (props) => {
   const [descriptionFolded,setDescriptionFolded] = useState(true)
   const [policyFolded,setPolicyFolded] = useState(true)
   const [ruleFolded,setRuleFolded] = useState(true)
+
+  const dummyDataForWantToGo = 'Valencia, Spain.'
+  const dummyDataForMaxNights = 6
 
   const stays= props.stays;
   const data = [stays,descriptionFolded]
@@ -53,13 +57,22 @@ const StayDetailsComponent = (props) => {
   }
   const onReservePressed = () =>{
     if(totalNights>=1){
-      navi.navigate('RequestStayScreen',
-      {id:stays.id,checkInDate:checkInDate,
-        checkOutDate:checkOutDate,totalNights:totalNights})
+
+      if(dummyDataForMaxNights>=totalNights){
+        navi.navigate('RequestStayScreen',
+        {id:stays.id,checkInDate:checkInDate,
+          checkOutDate:checkOutDate,totalNights:totalNights})
+      }
+
     }
     else{
       Alert.alert('ERROR','Stay at least for 1 night to continue')
     }
+  }
+  const onHostPressed = () =>{
+    Alert.alert('navigate to host profile')
+      // navi.navigate('HostProfileScreen',
+      // {hostName:'HostNameFromStayDetails'})
   }
 
 
@@ -101,6 +114,8 @@ const StayDetailsComponent = (props) => {
 
                     {/* host info */}
           {/* hard code data for now */}
+          <Pressable onPress={onHostPressed}>
+
           <View style={{flexDirection:'row',justifyContent:'space-between'}}>
 
             <View>
@@ -116,14 +131,26 @@ const StayDetailsComponent = (props) => {
             </View>
 
           </View>
+          </Pressable>
 
+          <Divider/>
+
+          {/* Want to go */}
+          <Pressable >
+          <View style={styles.titleContainer}>
+            {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
+            <Text style={styles.stayDetailsTitle}>Want To Go</Text>
+          </View>
+
+            <LongTextComponent data = {[{description:dummyDataForWantToGo},false]}/>
+          </Pressable>
           <Divider/>
 
           {/* description */}
           <Pressable onPress={onDescriptionPressed}>
           <View style={styles.titleContainer}>
             {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
-            <Text style={styles.stayDetailsTitle}>Details of Stay</Text>
+            <Text style={styles.stayDetailsTitle}>Accommodation Details</Text>
           </View>
 
             <LongTextComponent data = {[stays,descriptionFolded]}/>
@@ -146,15 +173,15 @@ const StayDetailsComponent = (props) => {
 
           {/* cancellation policy */}
           {/* hard code data for now */}
-          <Pressable onPress={onPolicyPressed}>
-          <View style={styles.titleContainer}>
+          {/* <Pressable onPress={onPolicyPressed}> */}
+          {/* <View style={styles.titleContainer}> */}
             {/* <Fontisto name="hotel-alt" size={25} color={'#030f14'} /> */}
-            <Text style={styles.stayDetailsTitle}>Cancellation Policy</Text>  
-          </View>
+            {/* <Text style={styles.stayDetailsTitle}>Cancellation Policy</Text>   */}
+          {/* </View> */}
 
-          <LongTextComponent data = {[stays,policyFolded]}/>
+          {/* <LongTextComponent data = {[stays,policyFolded]}/>
           </Pressable>
-          <Divider/>
+          <Divider/> */}
 
           {/* availability area with date picker and total price calculator */}
           <View style={styles.datePickerContainer}>
@@ -163,13 +190,14 @@ const StayDetailsComponent = (props) => {
           <DatePickerCheckOutComponent style = {styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights}/>
           </View>
 
-          {/* total price and reserve button */}
+          {/* reserve button */}
           <View>
           <View style={styles.reserveArea}>
 
             {/* <Text style={styles.totalPrice}>${totalPrice}</Text> */}
 
-            <Text style={styles.totalNights}>Exchange for {totalNights} Nights</Text>
+            {/* <Text style={styles.totalNights}>Exchange for {totalNights} Nights</Text> */}
+            <MaxNightsWarning data={[dummyDataForMaxNights,totalNights]}/>
 
           </View>
 

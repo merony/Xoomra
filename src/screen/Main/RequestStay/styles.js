@@ -11,18 +11,51 @@ const styles = StyleSheet.create({
         borderRadius: 10,
 
     },
+    hostImage:{
+
+        width: 120,
+        //aspectRatio: 3/3,
+        height: 80,
+        resizeMode: 'contain',
+        borderRadius: 10,
+    },
     stayTtile :{
 
         fontSize: 14,
         paddingTop: 5,
         paddingLeft:10,
         fontWeight: "700",
+    },   
+    title :{
+
+        fontSize: 14,
+        paddingTop: 1,
+        paddingLeft:10,
+        fontWeight: "700",
+        height:40,
+        width:'90%'
+    },    
+     stayDetailsTitle:{
+
+        fontSize: 18,
+        paddingTop: 5,
+        paddingLeft:10,
+        fontWeight: "700",
+        color:'black',
+    }, 
+     stayDetailsSubTitle:{
+        fontSize: 10,
+        paddingTop: 5,
+        paddingLeft:10,
+        fontWeight: "300",
+        color:'black',
     },
 
     formInput :{
         backgroundColor: '#e3f3fd',
         paddingVertical:0,
-        height:100
+        height:100,
+        width:'100%',
         
     },
     customBTN : {
@@ -34,6 +67,21 @@ const styles = StyleSheet.create({
         alignItems:'center',
         margin:20
         
+    },requestSubtitle:{
+        fontSize: 15,
+        paddingTop: 5,
+        paddingLeft:10,
+        fontWeight: "500",
+        color:'black',
+    },  textBTN: {
+        textAlign : 'center',
+        fontWeight: '700',
+        fontSize: 16,
+        color: '#fff',
+        textTransform: 'uppercase'
+    },  empty: {
+        height : 10,
+
     },
  
 });
