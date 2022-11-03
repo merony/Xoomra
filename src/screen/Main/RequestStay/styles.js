@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         marginTop: 5,
         alignItems:'center',
-        margin:20
         
     },requestSubtitle:{
         fontSize: 15,
