@@ -23,7 +23,7 @@ const MyListingsScreen = ({navigation, props}) => {
 
   useEffect(() => {
     //Runs on every render
-    navigation.replace("UserNav");
+     navigation.replace("UserNav");
   });
 
   useEffect(() => {
@@ -32,8 +32,6 @@ const MyListingsScreen = ({navigation, props}) => {
   }, []);
     
     
-  
-
     return (
 
       <View style={{flexDirection: "column"}}>
