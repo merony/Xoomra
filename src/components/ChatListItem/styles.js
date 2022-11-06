@@ -4,11 +4,12 @@ const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
         marginHorizontal:20,
-        marginVertical:10,
+
         // backgroundColor:'red',
-        height:100,
+        height:120,
         borderBottomWidth:0.5,
         borderBottomColor:'grey',
+        alignItems:'center'
         
     },    
     content:{
@@ -28,9 +29,12 @@ const styles = StyleSheet.create({
         marginBottom:2,
     },    
     interest:{
-        marginRight:20,
         color:'grey',
-    },    
+    },   
+    interestDot:{
+        color:'grey',
+        marginHorizontal:5,
+    },  
     subTitle:{
         color:'gray'
     },      

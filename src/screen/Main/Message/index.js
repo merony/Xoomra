@@ -18,28 +18,29 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import ChatListItem from '../../../components/ChatListItem';
+import chats from'../../../data/chats'
+import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 
 const MessageScreen = ({navigation, props}) => {
-    
-  
 
-
+  // console.log(chat)
 
     return (
 
-      <View style={{flexDirection: "column"}}>
 
-       <Text>Message Screen</Text>
-
-       <ChatListItem/>
-       <ChatListItem/>
-       <ChatListItem/>
-       <ChatListItem/>
-       <ChatListItem/>
-       
-
-    </View>
+      <View>
+        <View style={{paddingLeft:20}}>
+         <Text style={styles.title}>Inbox</Text>
+        </View>
         
+        <FlatList
+        data={chats}
+        renderItem={({item}) => <ChatListItem chat={item} />}
+
+      />
+      </View>
+ 
+     
        
     );
   };
