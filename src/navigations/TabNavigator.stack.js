@@ -9,6 +9,7 @@ import UserNav from './User.stack';
 import UserScreen from '../screen/Main/User';
 import WishesScreen from '../screen/Main/Wishes';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import ChatListItem from '../components/ChatListItem';
 
 const Tab = createMaterialBottomTabNavigator();
 

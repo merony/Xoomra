@@ -17,6 +17,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
+import ChatListItem from '../../../components/ChatListItem';
 
 const MessageScreen = ({navigation, props}) => {
     
@@ -28,7 +29,14 @@ const MessageScreen = ({navigation, props}) => {
 
       <View style={{flexDirection: "column"}}>
 
-       <Text>Booking Screen</Text>
+       <Text>Message Screen</Text>
+
+       <ChatListItem/>
+       <ChatListItem/>
+       <ChatListItem/>
+       <ChatListItem/>
+       <ChatListItem/>
+       
 
     </View>
         
