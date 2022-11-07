@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 
     title:{
-        fontSize:25,
+        fontSize:24,
         // backgroundColor:'red',
         height:90,
         textAlignVertical:'center',

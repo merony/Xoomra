@@ -21,7 +21,7 @@ import styles from './styles';
 import { Divider } from 'react-native-paper';
 
 const ChatListItem = (props) => {
-  const onPressed = () =>{
+  const onItemPressed = () =>{
     Alert.alert('navigate to response message screen')
   }
     
@@ -29,7 +29,7 @@ const ChatListItem = (props) => {
 
     return (
 
-        <Pressable style={styles.container}>
+        <Pressable style={styles.container} onPress={onItemPressed}>
           {/* main container of chat list item */}
           {/* <Image source={{uri:'https.notjustdev-dummy.s3.us-east-2.amazonaws.com/avators/lukas.jepg'} /> */}
           <Image source={{uri:props.chat.user.image}} style={styles.image}/>

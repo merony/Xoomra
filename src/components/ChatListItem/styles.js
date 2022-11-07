@@ -27,16 +27,20 @@ const styles = StyleSheet.create({
         marginRight:20,
         fontWeight:'bold',
         marginBottom:2,
+        fontSize:14,
     },    
     interest:{
         color:'grey',
+        fontSize:14,
     },   
     interestDot:{
         color:'grey',
         marginHorizontal:5,
+        fontSize:14,
     },  
     subTitle:{
-        color:'gray'
+        color:'gray',
+        fontSize:14,
     },      
     image:{
         width:60,
