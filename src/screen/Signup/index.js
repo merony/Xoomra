@@ -8,13 +8,14 @@
 
 import {
   Alert,
-    Image,
-    SafeAreaView,
-    StatusBar,
-    Text,
-    TouchableOpacity,
-    View
+  Image,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,10 +24,9 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+import styles from './styles';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
    * LTI update could not be added via codemod */
@@ -70,16 +70,19 @@ import firestore from '@react-native-firebase/firestore';
         console.log('User account created & signed in!');
         Alert.alert("","Account Created")
         navigation.navigate('Personal Information')
-        firestore().collection('users').add({
-                  uid: auth().currentUser.uid,
-                  email: emailFromUI,
-                  password: passwordFromUI
-      })
+        firestore().collection('users').doc("PersonalInformations").collection('user').doc(auth().currentUser.uid).set({
+          uid: auth().currentUser.uid,
+          email: emailFromUI,
+          isCompleted: false,
+     
+         
+})
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           Alert.alert("","That email address is already in use!")
           console.log('That email address is already in use!');
+    
         }
     
         if (error.code === 'auth/invalid-email') {

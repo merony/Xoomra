@@ -1,36 +1,31 @@
 import {
+    Alert,
     FlatList,
     Image,
     Pressable,
-    Text,
-    StatusBar,
     SafeAreaView,
+    StatusBar,
+    Text,
     TouchableOpacity,
-    Alert,
     View
 } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DatePicker from 'react-native-date-picker';
 import Entype from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
+import ModalDropdown from 'react-native-modal-dropdown';
 import React from 'react';
-import { TextInput,ScrollView } from 'react-native-gesture-handler';
 import { RotateInUpLeft } from 'react-native-reanimated';
 import auth from '@react-native-firebase/auth'
-import styles from './styles';
-import ModalDropdown from 'react-native-modal-dropdown';
-import DatePicker from 'react-native-date-picker';
 import firestore from '@react-native-firebase/firestore';
-
-
-
-
-
+import styles from './styles';
 
 const PersonalInformationScreen = ({navigation, props}) => {
 
@@ -45,13 +40,41 @@ const PersonalInformationScreen = ({navigation, props}) => {
   const [emergencyMobileFromUI,setEmergencyMobileFromUI] = useState("")
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const [isCompleted, setCompleted] = useState(false);
+
+
+
+
+
+
+  useEffect(() => {
+    //Runs on every render
+
+
+    // test();
+
+
+ 
+    
+  });
+
+
+  useEffect(() => {
+    //Runs only on the first render
+
+
+   
+  }, []);
 
 
   const savePressed = async() => {
 
     
-    const profilesCollection = await firestore().collection('Personal Information')
-    .where(`mobile`,`==`,mobileNumberFromUI).get()
+    const profilesCollection = await firestore().collection('users')
+                                                .doc("PersonalInformations")
+                                                .collection('user')
+                                                // .doc(auth().currentUser.uid)
+                                                .where(`mobile`,`==`,mobileNumberFromUI).get()
   
     if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  
         genderFromUI.length === 0 || addressFromUI.length === 0 ||
@@ -70,9 +93,8 @@ const PersonalInformationScreen = ({navigation, props}) => {
           
         }
         else if(profilesCollection.docs.length === 0) {
-            firestore().collection('Personal Information').add({
-              uid: auth().currentUser.uid,
-              email: auth().currentUser.email,
+          firestore().collection('users').doc("PersonalInformations").collection('user').doc(auth().currentUser.uid).update({
+             
               firstName : firstNameFromUI,
               lastName : lastNameFromUI,
               gender : genderFromUI,
@@ -80,7 +102,8 @@ const PersonalInformationScreen = ({navigation, props}) => {
               Address : addressFromUI,
               mobile : mobileNumberFromUI,
               emergencyMobile : emergencyMobileFromUI,
-              emergencyEmail : emergencyEmailFromUI 
+              emergencyEmail : emergencyEmailFromUI,
+              isCompleted: true,
 
               })
 

@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+
+import { Alert } from "react-native";
 import Entype from 'react-native-vector-icons/Entypo';
 import HomeScreen from "../screen/Main/Home";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,7 +16,27 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 const Tab = createMaterialBottomTabNavigator();
 
 
-const TabNavigator = () => {
+const TabNavigator = ({navigation}) => {
+
+ 
+
+  
+    useEffect(() => {
+      //Runs on every render
+  
+      
+      
+    });
+  
+  
+    useEffect(() => {
+      //Runs only on the first render
+     
+    }, []);
+
+
+
+
     return (
       <Tab.Navigator
         initialRouteName="HomeScreen"
