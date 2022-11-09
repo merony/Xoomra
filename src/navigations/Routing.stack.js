@@ -8,7 +8,8 @@ import TabNavigator from "./TabNavigator.stack";
 import UserNav from './User.stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StayDetailsScreen from '../screen/Main/StayDetails/index';
-import RequestStayScreen from '../screen/Main/RequestStay/index'
+import RequestStayScreen from '../screen/Main/RequestStay/index';
+import MessageResponseScreen from '../screen/Main/MessageResponse';
 
 
 const RootStack = createNativeStackNavigator();
