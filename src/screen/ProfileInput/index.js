@@ -107,7 +107,6 @@ const ProfileInputScreen = ({navigation, props}) => {
                 <Text style={styles.textBTN}>Save</Text>
             </TouchableOpacity>
 
-
     </View>
         
        
