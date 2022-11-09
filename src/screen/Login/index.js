@@ -99,9 +99,6 @@ import styles from './styles';
         console.log(auth().currentUser.email);
         if (isCompleted === false) {
 
-         
-        
-  
           navigation.navigate('Personal Information')
       
           } else {

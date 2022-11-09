@@ -45,17 +45,11 @@ const PersonalInformationScreen = ({navigation, props}) => {
 
 
 
-
-
   useEffect(() => {
     //Runs on every render
 
-
     // test();
-
-
- 
-    
+     
   });
 
 
