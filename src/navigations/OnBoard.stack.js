@@ -35,7 +35,7 @@ const OnBoard= ({navigation}) => {
         if (user) {
           // navigation.replace("RegistrationScreen")
 
-          // navigation.navigate("TabNavigator");
+          navigation.navigate("TabNavigator");
   
         } 
         

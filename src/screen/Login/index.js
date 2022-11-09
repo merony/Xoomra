@@ -7,12 +7,14 @@
  */
 
 import {
+    Alert,
     Image,
     SafeAreaView,
     StatusBar,
     Text,
     TouchableOpacity,
-    View
+    View,
+    alert
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -25,6 +27,7 @@ import React from 'react';
 import { StackActions } from "@react-navigation/native";
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -40,13 +43,46 @@ import styles from './styles';
     const [emailFromUI,setEmailFromUI] = useState("")
     const [passwordFromUI,setPasswordFromUI] = useState("")
 
+    const [isCompleted, setCompleted] = useState(false);
+
+    
+  const navTransfer = async() =>{
+
+
+    await firestore()
+    .collection('users')
+    .doc('PersonalInformations')
+    .collection('user')
+    .doc(auth().currentUser.uid)
+    .get()
+    .then(documentSnapshot => {
+      console.log('User data: ', documentSnapshot.data().isCompleted);
+      setCompleted(documentSnapshot.data().isCompleted);
+
+      // Alert.alert('User exists: ', documentSnapshot.exists);
+  
+      // if (documentSnapshot.exists) {
+      //   Alert.alert('User data: ', documentSnapshot.data().uid);
+      // };
+    
+  });
+}
+
+  
+
     useEffect(() => {
       //Runs on every render
+
+      navTransfer();
+     
+
       
     });
   
     useEffect(() => {
       //Runs only on the first render
+
+      navTransfer();
      
     }, []);
 
@@ -60,8 +96,17 @@ import styles from './styles';
       .signInWithEmailAndPassword(emailFromUI,passwordFromUI )
       .then(() => {
         console.log('User signed in!');
-        console.log(auth().currentUser.email)
-        navigation.navigate('TabNavigator')
+        console.log(auth().currentUser.email);
+        if (isCompleted === false) {
+
+          navigation.navigate('Personal Information')
+      
+          } else {
+
+            navigation.navigate('TabNavigator')
+
+          }
+       
         // StackActions.replace("TabNavigator")
       })
       .catch(error => {
