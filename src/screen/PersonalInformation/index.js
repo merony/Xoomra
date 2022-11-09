@@ -25,14 +25,8 @@ import React from 'react';
 import { RotateInUpLeft } from 'react-native-reanimated';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
-<<<<<<< HEAD
-import styles from './styles';
-
 import search from '../../data/search';
-
-
-
-
+import styles from './styles';
 
 const PersonalInformationScreen = ({navigation, props}) => {
 
