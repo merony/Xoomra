@@ -25,6 +25,7 @@ import React from 'react';
 import { RotateInUpLeft } from 'react-native-reanimated';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+import DropDownPicker from 'react-native-dropdown-picker';
 import search from '../../data/search';
 import styles from './styles';
 
@@ -42,6 +43,12 @@ const PersonalInformationScreen = ({navigation, props}) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [isCompleted, setCompleted] = useState(false);
+  const [selectedDOB,setSelectedDOB] = useState("Select Date Of Birth")
+  const [genderOpen, setGenderOpen] = useState(false);
+  const [genderValue, setGenderValue] = useState("");
+  const [gender, setGender] = useState([
+    {label: 'Male', value: 'Male'},{label: 'Female', value: 'Female'},
+    {label: 'X', value: 'X'}]);
 
 
 
@@ -72,7 +79,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
                                                 .where(`mobile`,`==`,mobileNumberFromUI).get()
   
     if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  
-        genderFromUI.length === 0 || addressFromUI.length === 0 ||
+        genderValue.length === 0  || addressFromUI.length === 0 ||
         mobileNumberFromUI.length === 0){
 
       Alert.alert('',"Please fill all Information")
@@ -88,11 +95,11 @@ const PersonalInformationScreen = ({navigation, props}) => {
           
         }
         else if(profilesCollection.docs.length === 0) {
-          firestore().collection('users').doc("PersonalInformations").collection('user').doc(auth().currentUser.uid).update({
+          firestore().collection('Personal Information').add({
              
               firstName : firstNameFromUI,
               lastName : lastNameFromUI,
-              gender : genderFromUI,
+              gender : genderValue,
               DOB : date,
               Address : addressFromUI,
               mobile : mobileNumberFromUI,
@@ -129,15 +136,23 @@ const PersonalInformationScreen = ({navigation, props}) => {
               value={lastNameFromUI} onChangeText={setLastNameFromUI}/>
             </View>
 
-            <View style = {styles.formField}>
-            <Ionicons style={{ paddingVertical: 4}} name='person' size={18} color='#283239' />
-            <TextInput placeholder='Gender' style = {styles.formInput}
-              value={genderFromUI} onChangeText={setGenderFromUI}/>
-            </View>
+              <View style={{marginHorizontal:0,marginVertical:8}}>
+                <DropDownPicker
+                      open={genderOpen}
+                      value={genderValue}
+                      items={gender}
+                      setOpen={setGenderOpen}
+                      setValue={setGenderValue}
+                      setItems={setGender}
+                      multiple={false}
+                      min={1}
+                      placeholder={"Select Gender"}
+                    />
+               </View>
             
-            <View style={{flexDirection:`row`}}>
+            <View style={{flexDirection:`row`,marginVertical:10}}>
               <MaterialIcons style={{ paddingVertical: 2,paddingRight:3}} name='date-range' size={18} color='#283239' />
-              <Text onPress={() => setOpen(true)} style={{marginHorizontal:2,marginBottom:20,color:"gray", fontSize: 14}}>Select Date Of Birth</Text>
+              <Text onPress={() => setOpen(true)} style={{marginHorizontal:2,marginBottom:20,color:"gray", fontSize: 14}}>{selectedDOB}</Text>
             </View>
 
               <DatePicker
@@ -145,9 +160,12 @@ const PersonalInformationScreen = ({navigation, props}) => {
               mode='date'
               open={open}
               date={date}
+              maximumDate={new Date()}
               onConfirm={(date) => {
               setOpen(false)
               setDate(date)
+              let dateString = date.toString().substring(4,15)
+              setSelectedDOB(dateString)
               }}
               onCancel={() => {
               setOpen(false)
@@ -161,7 +179,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
               value={addressFromUI} onChangeText={setAddressFromUI}/>
             </View>
 
-            <View style={{marginBottom:20}}>
+            {/* <View style={{marginBottom:20}}>
               <FlatList
               data={search}
               renderItem={({item}) => (
@@ -175,7 +193,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
                       <Text style ={styles.locationText}>{item.description}</Text>
               </View>
               )} />
-            </View>
+            </View> */}
 
             <View style = {styles.formField}>
             <MaterialIcons style={{ paddingVertical: 4}} name='settings-cell' size={18} color='#283239' />
