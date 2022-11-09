@@ -70,7 +70,7 @@ const OnBoard= ({navigation}) => {
       useEffect(() => {
         //Runs on every render
 
-        // navTransfer();
+         navTransfer();
 
         
       });
@@ -78,7 +78,7 @@ const OnBoard= ({navigation}) => {
 
       useEffect(() => {
 
-        navTransfer();
+     
 
 
         // (user) && navigation.navigate("TabNavigator");
