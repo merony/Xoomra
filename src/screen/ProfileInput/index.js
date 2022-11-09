@@ -100,22 +100,21 @@ const ProfileInputScreen = ({navigation, props}) => {
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='logo-linkedin' size={18} color='#283239' />
-            <TextInput placeholder='Linkedin URL' style = {styles.formInput}
-              value={linkedinLinkFromUI} onChangeText={setlinkedinLinkFromUI} keyboardType={'number-pad'}/>
+            <TextInput placeholder='Linkedin ID' style = {styles.formInput}
+              value={linkedinLinkFromUI} onChangeText={setlinkedinLinkFromUI} />
             </View>
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='heart-outline' size={18} color='#283239' />
             <TextInput placeholder='Interest' style = {styles.formInput}
-              value={interestFromUI} onChangeText={setInterestFromUI} keyboardType={'number-pad'}/>
+              value={interestFromUI} onChangeText={setInterestFromUI}/>
             </View>
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='list' size={18} color='#283239' />
-            <TextInput placeholder='About Your Self' style = {styles.formInput}
-              value={aboutYourSelfFromUI} onChangeText={setAboutYourSelfFromUI} keyboardType={'number-pad'}/>
+            <TextInput placeholder='Tell us more about yourself' style = {{ backgroundColor: '#e3f3fd',flex: 1,paddingVertical:0,height:100,textAlign:'left',textAlignVertical:'top',paddingVertical:4}}
+              value={aboutYourSelfFromUI} onChangeText={setAboutYourSelfFromUI} multiline={true}/>
             </View>
-
             
 
             <View style={{margin:10}}>

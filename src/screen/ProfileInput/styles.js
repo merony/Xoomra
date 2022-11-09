@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         paddingVertical:0
     },
 
+    
     customBTN : {
         backgroundColor: '#0999f4',
         padding: 20,
