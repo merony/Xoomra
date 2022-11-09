@@ -70,7 +70,7 @@ const OnBoard= ({navigation}) => {
       useEffect(() => {
         //Runs on every render
 
-        navTransfer();
+        // navTransfer();
 
         
       });
