@@ -10,6 +10,7 @@ import UserScreen from '../screen/Main/User';
 import WishesScreen from '../screen/Main/Wishes';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import ChatListItem from '../components/ChatListItem';
+import MessageResponseScreen from '../screen/Main/MessageResponse';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -57,7 +58,7 @@ const TabNavigator = () => {
 
 <Tab.Screen
           name="Message"
-          component={MessageScreen}
+          component={MessageResponseScreen}
           options={{
             tabBarLabel: 'Message',
             tabBarIcon: ({ color }) => (

@@ -23,8 +23,6 @@ import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 
 const MessageScreen = ({navigation, props}) => {
 
-  // 1. a user has a chat property, contains ids of all chats they is in
-  // 2. 
 
     return (
 

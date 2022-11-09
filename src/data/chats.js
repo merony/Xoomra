@@ -19,6 +19,7 @@ const chats =
     [
         {
           "id": "1",
+          "stay":"1",
           "user": {
             "id": "u2",
             "name": "Lukas",
@@ -32,6 +33,7 @@ const chats =
         },
         {
           "id": "2",
+          "stay":"1",
           "user": {
             "id": "u3",
             "name": "Daniil Top",
@@ -45,6 +47,7 @@ const chats =
         },
         {
           "id": "3",
+          "stay":"1",
           "user": {
             "id": "u4",
             "name": "Alex",
@@ -58,6 +61,7 @@ const chats =
         },
         {
           "id": "4",
+          "stay":"1",
           "user": {
             "id": "u5",
             "name": "Vlad",
@@ -71,6 +75,7 @@ const chats =
         },
         {
           "id": "5",
+          "stay":"2",
           "user": {
             "id": "u6",
             "name": "Elon Musk",
@@ -84,6 +89,7 @@ const chats =
         },
         {
           "id": "6",
+          "stay":"2",
           "user": {
             "id": "u7",
             "name": "Adrian",
@@ -97,6 +103,7 @@ const chats =
         },
         {
           "id": "7",
+          "stay":"2",
           "user": {
             "id": "u8",
             "name": "Borja",
@@ -110,6 +117,7 @@ const chats =
         },
         {
           "id": "8",
+          "stay":"0",
           "user": {
             "id": "u9",
             "name": "Mom",
@@ -123,6 +131,7 @@ const chats =
         },
         {
           "id": "9",
+          "stay":"0",
           "user": {
             "id": "u9",
             "name": "Andrei",
@@ -136,6 +145,7 @@ const chats =
         },
         {
           "id": "10",
+          "stay":"0",
           "user": {
             "id": "u9",
             "name": "Misha",
@@ -149,6 +159,7 @@ const chats =
         },
         {
           "id": "11",
+          "stay":"3",
           "user": {
             "id": "u9",
             "name": "Alina",
