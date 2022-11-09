@@ -19,6 +19,7 @@ import SignUpScreen from "../screen/Signup";
 import VerificationScreen from "../screen/Verification"
 import auth from '@react-native-firebase/auth'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import firestore from '@react-native-firebase/firestore';
 
 const OnBoardingStack = createNativeStackNavigator();
 
@@ -27,27 +28,57 @@ const OnBoard= ({navigation}) => {
 
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
+    const [isCompleted, setCompleted] = useState(false);
+
+
+
+    const navTransfer = async() =>{
+
+      await firestore()
+      .collection('users')
+      .doc('PersonalInformations')
+      .collection('user')
+      .doc(auth().currentUser.uid)
+      .get()
+      .then(documentSnapshot => {
+        console.log('User data: ', documentSnapshot.data().isCompleted);
+        setCompleted(documentSnapshot.data().isCompleted);
+  
+        // Alert.alert('User exists: ', documentSnapshot.exists);
+    
+        // if (documentSnapshot.exists) {
+        //   Alert.alert('User data: ', documentSnapshot.data().uid);
+        // };
+      
+    });
+
+    if (isCompleted === true) {
+      // navigation.replace("RegistrationScreen")
+
+      navigation.navigate("TabNavigator");
+
+    } 
+    
+    else {
+      setUser(null);
+    }
+
+
+  }
     
  
       useEffect(() => {
         //Runs on every render
 
-        if (user) {
-          // navigation.replace("RegistrationScreen")
+        navTransfer();
 
-          navigation.navigate("TabNavigator");
-  
-        } 
-        
-        else {
-          setUser(null);
-        }
-      
         
       });
     
 
       useEffect(() => {
+
+        navTransfer();
 
 
         // (user) && navigation.navigate("TabNavigator");
@@ -94,7 +125,6 @@ const OnBoard= ({navigation}) => {
               headerBackVisible:false, 
               headerTitle: "Complete Registration",
         
-
                       }}/>
 
             <OnBoardingStack.Screen name="Profile Screen" component={ProfileInputScreen}
