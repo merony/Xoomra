@@ -115,6 +115,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
 
        
           <View style={{ justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}} > 
+
             <ScrollView>
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='person' size={18} color='#283239' />
