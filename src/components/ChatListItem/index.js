@@ -19,10 +19,13 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import { Divider } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 const ChatListItem = (props) => {
+
+  const navi = useNavigation()
   const onItemPressed = () =>{
-    Alert.alert('navigate to response message screen')
+    navi.navigate('MessageResponseScreen',{id:1})
   }
     
   console.log(props)

@@ -3,7 +3,9 @@ import { Dimensions, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 container:{
     flexDirection:'column',
-    height:'70%',
+    // height:'70%',
+    flex:1
+
 
 },
 list:{
@@ -11,10 +13,11 @@ list:{
     paddingHorizontal:20,
 },
 inputBox:{
-    height:50
+    height:70
 },
 listContainer:{
     // backgroundColor:'red'
+    flex:1
 }
 
 });

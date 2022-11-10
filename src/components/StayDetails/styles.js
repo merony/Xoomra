@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
 
         container: {
             margin: 20,
-            flex:1
+            flex:1,
+            height:600
 
         },
            textBTN: {
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
         height: 200,
         resizeMode: 'cover',
         borderRadius: 10,
+        paddingtop:10
 
     },hostImage:{
 
@@ -31,6 +33,7 @@ const styles = StyleSheet.create({
         height: 50,
         resizeMode: 'contain',
         borderRadius: 50,
+        paddingTop:20,
     },
 
     stayTtile :{
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
     stayDetailsSubTitle:{
         fontSize: 10,
         paddingTop: 5,
-        paddingLeft:10,
+        paddingLeft:5,
         fontWeight: "300",
         color:'black',
     },
@@ -88,7 +91,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems:'center',
         justifyContent:'center',
-        width:'50%',
+        width:'60%',
         height:50,
         
     },
@@ -146,6 +149,11 @@ const styles = StyleSheet.create({
     titleContainer:{
         flexDirection:'row',
         width:300
+    },
+    sleepContainer:{
+        flexDirection:'row',
+        marginLeft:5,
+        marginTop:25,
     }
 
  
