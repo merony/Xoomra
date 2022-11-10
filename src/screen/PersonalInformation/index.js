@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 import Entype from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -25,7 +26,6 @@ import React from 'react';
 import { RotateInUpLeft } from 'react-native-reanimated';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
-import DropDownPicker from 'react-native-dropdown-picker';
 import search from '../../data/search';
 import styles from './styles';
 
@@ -95,7 +95,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
           
         }
         else if(profilesCollection.docs.length === 0) {
-          firestore().collection('Personal Information').add({
+          firestore().collection('users').doc("PersonalInformations").collection('user').doc(auth().currentUser.uid).update({
              
               firstName : firstNameFromUI,
               lastName : lastNameFromUI,
@@ -136,8 +136,10 @@ const PersonalInformationScreen = ({navigation, props}) => {
               value={lastNameFromUI} onChangeText={setLastNameFromUI}/>
             </View>
 
-              <View style={{marginHorizontal:0,marginVertical:8}}>
-                <DropDownPicker
+              <View style={styles.dropField}>
+              <Fontisto style={{ paddingVertical: 17}} name='genderless' size={16} color='#283239' />
+                <DropDownPicker style = {styles.dropInput}
+
                       open={genderOpen}
                       value={genderValue}
                       items={gender}
@@ -147,12 +149,44 @@ const PersonalInformationScreen = ({navigation, props}) => {
                       multiple={false}
                       min={1}
                       placeholder={"Select Gender"}
+                      // mode="SIMPLE"
+                      // zIndex={1000}
+                     
+                      dropDownDirection="BOTTOM"
+                      showBadgeDot={true}
+                      textStyle={{
+                        fontSize: 14,
+                        opacity: 0.5
+                      }}
+
+                      dropDownContainerStyle={{
+                        backgroundColor: "#fff",
+                        width: 340,
+                        borderWidth:0,
+                        opacity: 1,
+                        zIndex: -999
+                       
+            
+                      }}
+
+                      containerStyle={{
+
+                        // height: 10,
+                        // margin: 0,
+                        // padding: 0
+
+                      }}
+
+                      
+
+                    
+                      
                     />
                </View>
             
-            <View style={{flexDirection:`row`,marginVertical:10}}>
+            <View style={styles.formField}>
               <MaterialIcons style={{ paddingVertical: 2,paddingRight:3}} name='date-range' size={18} color='#283239' />
-              <Text onPress={() => setOpen(true)} style={{marginHorizontal:2,marginBottom:20,color:"gray", fontSize: 14}}>{selectedDOB}</Text>
+              <Text onPress={() => setOpen(true)} style={styles.formInput}>{selectedDOB}</Text>
             </View>
 
               <DatePicker
@@ -165,7 +199,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
               setOpen(false)
               setDate(date)
               let dateString = date.toString().substring(4,15)
-              setSelectedDOB(dateString)
+              setSelectedDOB('Date of Birth: '+ dateString)
               }}
               onCancel={() => {
               setOpen(false)

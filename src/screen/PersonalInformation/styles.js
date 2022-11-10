@@ -27,6 +27,32 @@ const styles = StyleSheet.create({
         paddingVertical:0
     },
 
+
+    dropField:{
+
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 1,
+        paddingBottom: 8,
+        marginBottom : 25,
+        zIndex:999
+        // backgroundColor: '#fff',
+   
+    
+    },
+
+    dropInput :{
+        backgroundColor: '#e3f3fd',
+        flex: 1,
+        paddingVertical:0,
+        borderWidth:0,
+        marginHorizontal:0,
+        width: 350,
+        
+        
+    
+    },
+
     customBTN : {
         backgroundColor: '#0999f4',
         padding: 20,
@@ -40,7 +66,8 @@ const styles = StyleSheet.create({
         textAlign : 'center',
         fontWeight: '700',
         fontSize: 16,
-        color: '#fff'
+        color: '#fff',
+        textTransform: 'uppercase'
     }
  
 });
