@@ -29,6 +29,9 @@ const StayDetailsComponent = (props) => {
 
   const dummyDataForWantToGo = 'I would like to exchange with someone in Valencia, Spain.'
   const dummyDataForMaxNights = 6
+  const dummyDataUserRating = 4.9
+  const dummyDataSuperHostBar = 4.5
+
 
   const stays= props.stays;
   const data = [stays,descriptionFolded]
@@ -56,6 +59,7 @@ const StayDetailsComponent = (props) => {
       setPolicyFolded(true)
     }
   }
+
   const onReservePressed = () =>{
     if(totalNights>=1){
 
@@ -99,9 +103,31 @@ const StayDetailsComponent = (props) => {
     
   }
 
+  //conditional rendering
+  //if rating is better than 4.5, he is a super host
+  const ReturnHostReviews = (rating) =>{
+    if(rating>=4.5){
+      return 
+        <View style={{flexDirection:'row',paddingTop:5}}>
+          <MaterialIcons name='star-rate' size={20} color={'#030f14'} style={{paddingLeft:10}}/>
+          <Text style={styles.stayDetailsSubTitle}>{dummyDataUserRating.toFixed(2)} </Text>
+          <Fontisto name="check" size={12} color={'#030f14'} style={{paddingLeft:20,paddingTop:5}} />
+          <Text style={styles.stayDetailsSubTitle}>Superhost </Text>
+        </View>
+    }else{
+      return 
+        <View style={{flexDirection:'row',paddingTop:5}}>
+          <MaterialIcons name='star-rate' size={20} color={'#030f14'} style={{paddingLeft:10}}/>
+          <Text style={styles.stayDetailsSubTitle}>{dummyDataUserRating.toFixed(2)} </Text>
+        </View>
+
+    }
+  }
+
 
   
     return (
+      <View style={{flexDirection:'column'}}>
         <ScrollView style = {styles.container}>
 
           {/* image */}
@@ -119,15 +145,15 @@ const StayDetailsComponent = (props) => {
           {/* hard code data for now */}
           <Pressable onPress={onHostPressed}>
 
-          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+          <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
 
             <View>
 
           {/* limits, type*/}
           <Text style={styles.stayDetailsHostTitle}>Hosted by John</Text>
-          {/* <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} Guests · {stays.type} · {stays.maxNights} Nights  </Text> */}
+          <ReturnHostReviews/>
               
-            </View>
+          </View>
 
             <View>
             <Image style={styles.hostImage}source={{uri: stays.image}}/>
@@ -145,28 +171,32 @@ const StayDetailsComponent = (props) => {
             <Text style={styles.stayDetailsTitle}>Sleeping Arrangements</Text>
           </View>
 
-
+          <View style={styles.sleepContainer}>
             {/* type */}
-            <View style={{flexDirection:'row',paddingLeft:15,paddingTop:15}}>
-            <MaterialIcons name='local-hotel' size={25} color={'#030f14'} style={{paddingLeft:5}}/>
+            <View style={{flexDirection:'row'}}>
+            <MaterialIcons name='local-hotel' size={20} color={'#030f14'} style={{paddingLeft:5}}/>
             <Text style={styles.stayDetailsSubTitle}> {stays.type}  </Text>
             
           </View>
 
           {/* guest */}
-          <View style={{flexDirection:'row',paddingLeft:15,paddingTop:15}}>
-            <Fontisto name="person" size={20} color={'#030f14'} style={{paddingLeft:8,paddingRight:8}} />
+          <View style={{flexDirection:'row'}}>
+            <Fontisto name="person" size={18} color={'#030f14'} style={{paddingLeft:20}} />
             <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} guests</Text>
            
           </View>
 
 
           {/* nights */}
-          <View style={{flexDirection:'row',paddingLeft:15,paddingTop:20}}>
-            <Fontisto name="night-clear" size={20} color={'#030f14'} style={{paddingLeft:8,paddingRight:5}}/>
+          <View style={{flexDirection:'row'}}>
+            <Fontisto name="night-clear" size={15} color={'#030f14'} style={{paddingLeft:30,paddingTop:4}}/>
             <Text style={styles.stayDetailsSubTitle}>{stays.maxNights} nights</Text>
 
           </View>
+            
+          </View>
+
+
 
           </Pressable>
           <Divider/>
@@ -220,20 +250,11 @@ const StayDetailsComponent = (props) => {
           <Divider/> */}
 
           {/* availability area with date picker*/}
+        </ScrollView>
 
-          <View style={styles.reserveArea}>
-
-            {/* <Text style={styles.totalPrice}>${totalPrice}</Text> */}
-
-            {/* <Text style={styles.totalNights}>Exchange for {totalNights} Nights</Text> */}
-            {/* <MaxNightsWarning data={[dummyDataForMaxNights,totalNights]}/> */}
-
-          </View>
-          <View style={{flex:1}}>
-
-
+ 
           {/* reserve button */}
-          <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',marginLeft:20,}}>
+          <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',marginLeft:20}}>
             <View style={styles.datePickerContainer}>
               <DatePickerComponent style = {styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
               <Text>-</Text>
@@ -246,12 +267,9 @@ const StayDetailsComponent = (props) => {
 
           </View>
 
-          </View>
+      </View>
 
 
-
-
-        </ScrollView>
         
     );
   };

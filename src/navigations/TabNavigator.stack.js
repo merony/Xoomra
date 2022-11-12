@@ -81,7 +81,7 @@ const TabNavigator = ({navigation}) => {
 
 <Tab.Screen
           name="Message"
-          component={MessageResponseScreen}
+          component={MessageScreen}
           options={{
             tabBarLabel: 'Message',
             tabBarIcon: ({ color }) => (
