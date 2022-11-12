@@ -50,7 +50,7 @@ const SupportScreen = ({navigation, props}) => {
     }else if(status==='d'){
       Alert.alert('Please provide some details')
     }else if(status==='valid'){
-      const temp = `Hi ${name}, your opinion about ${phoneNumber}has been sent to a Xrooma Team member. We will contact you in 3 days.`
+      const temp = `Hi ${name}, your opinion about ${selectedSubject} has been sent to a Xrooma Team member. We will contact you in 3 days.`
       Alert.alert(temp)
     }
   }
@@ -132,8 +132,7 @@ const SupportScreen = ({navigation, props}) => {
           }>
           <Picker.Item label="Hosting" value="host" />
           <Picker.Item label="Traveling" value="guest" />
-          <Picker.Item label="App problems" value="app" />
-          <Picker.Item label="Other" value="other" />
+          <Picker.Item label="General Experience" value="general experience" />
         </Picker>
 
         </View>
