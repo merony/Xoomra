@@ -43,7 +43,7 @@ import styles from './styles';
     const [emailFromUI,setEmailFromUI] = useState("")
     const [passwordFromUI,setPasswordFromUI] = useState("")
 
-    const [isCompleted, setCompleted] = useState(false);
+     const [isCompleted, setCompleted] = useState(false);
 
     
   const navTransfer = async() =>{
@@ -57,15 +57,31 @@ import styles from './styles';
     .get()
     .then(documentSnapshot => {
       console.log('User data: ', documentSnapshot.data().isCompleted);
-      setCompleted(documentSnapshot.data().isCompleted);
+
+      const isCompleted = documentSnapshot.data().isCompleted;
+       setCompleted(isCompleted);
 
       // Alert.alert('User exists: ', documentSnapshot.exists);
   
       // if (documentSnapshot.exists) {
       //   Alert.alert('User data: ', documentSnapshot.data().uid);
       // };
+
+
+      if (isCompleted == false) {
+
+        navigation.navigate('Personal Information')
+    
+        } else {
+    
+          navigation.navigate('TabNavigator')
+    
+        }
     
   });
+
+
+
 }
 
   
@@ -73,7 +89,13 @@ import styles from './styles';
     useEffect(() => {
       //Runs on every render
 
-      navTransfer();
+        auth().signOut()
+        .then( () => {
+          setCompleted(false);
+
+        });
+        // setCompleted(false);
+      // navTransfer();
      
 
       
@@ -82,7 +104,7 @@ import styles from './styles';
     useEffect(() => {
       //Runs only on the first render
 
-      navTransfer();
+      // navTransfer();
      
     }, []);
 
@@ -97,15 +119,8 @@ import styles from './styles';
       .then(() => {
         console.log('User signed in!');
         console.log(auth().currentUser.email);
-        if (isCompleted === false) {
-
-          navigation.navigate('Personal Information')
+        navTransfer();
       
-          } else {
-
-            navigation.navigate('TabNavigator')
-
-          }
        
         // StackActions.replace("TabNavigator")
       })
