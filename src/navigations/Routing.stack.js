@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StayDetailsScreen from '../screen/Main/StayDetails/index';
 import RequestStayScreen from '../screen/Main/RequestStay/index';
 import MessageResponseScreen from '../screen/Main/MessageResponse';
+import MessageScreen from '../screen/Main/Message';
 
 
 const RootStack = createNativeStackNavigator();
@@ -36,8 +37,10 @@ const Routing = () => {
                 />
                 <RootStack.Screen name="Stay Confirmation" component={StayConfirmationScreen} />
 
-                <RootStack.Screen name="StayDetailsScreen" component={StayDetailsScreen}/>
+                <RootStack.Screen name="StayDetailsScreen" component={StayDetailsScreen} />
                 <RootStack.Screen name="RequestStayScreen" component={RequestStayScreen}/>
+                <RootStack.Screen name="MessageScreen" component={MessageScreen}/>
+                <RootStack.Screen name="MessageResponseScreen" component={MessageResponseScreen}/>
                 
             </RootStack.Navigator>
         </NavigationContainer>
