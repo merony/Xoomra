@@ -29,6 +29,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
+import { usersDB } from '../../data/firRef';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
    * LTI update could not be added via codemod */
@@ -49,11 +50,7 @@ import styles from './styles';
   const navTransfer = async() =>{
 
 
-    await firestore()
-    .collection('users')
-    .doc('PersonalInformations')
-    .collection('user')
-    .doc(auth().currentUser.uid)
+    await usersDB.doc(auth().currentUser.uid)
     .get()
     .then(documentSnapshot => {
       console.log('User data: ', documentSnapshot.data().isCompleted);
@@ -68,7 +65,7 @@ import styles from './styles';
       // };
 
 
-      if (isCompleted == false) {
+      if (isCompleted === false) {
 
         navigation.navigate('Personal Information')
     
@@ -91,7 +88,7 @@ import styles from './styles';
 
         auth().signOut()
         .then( () => {
-          setCompleted(false);
+           setCompleted(false);
 
         });
         // setCompleted(false);

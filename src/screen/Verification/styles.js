@@ -28,11 +28,24 @@ const styles = StyleSheet.create({
     },
 
     customBTN : {
-        backgroundColor: '#0999f4',
+        backgroundColor: '#009900',
         padding: 15,
         borderRadius: 10,
         marginBottom: 30,
         marginTop: 25
+        
+    },
+
+    customSaveBTN : {
+        backgroundColor: '#0999f4',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginBottom: 0,
+        marginTop: 10,
+   
+       
         
     },
 

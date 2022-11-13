@@ -6,21 +6,22 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import {cUserDB, profilesDB, usersDB} from '../../data/firRef';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DropDownPicker from 'react-native-dropdown-picker';
 import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { TextInput } from 'react-native-gesture-handler';
 import SelectList from 'react-native-dropdown-select-list'
-import DropDownPicker from 'react-native-dropdown-picker';
+import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles'
-import auth from '@react-native-firebase/auth'
 
 const ProfileInputScreen = ({navigation, props}) => {
     
@@ -74,14 +75,16 @@ const ProfileInputScreen = ({navigation, props}) => {
 
       console.log("PRESSED")
 
-      firestore().collection('Profiles').add({
+      profilesDB.doc(auth().currentUser.uid).set({
         uid : auth().currentUser.uid,
         email : auth().currentUser.email,
         FacebookURL : facebookLinkFromUI,
         LinkedinURL : linkedinLinkFromUI,
         Intrests : interestFromUI,
         aboutYourSelf : aboutYourSelfFromUI,
-        Languages : value
+        Languages : value,
+        isProfileCompleted: true
+
         })
 
         navigation.navigate('Verification Screen')
@@ -89,8 +92,12 @@ const ProfileInputScreen = ({navigation, props}) => {
 
     return (
 
-      <View style={{flexDirection: "column",margin:10}}>
+      <View style={{flexDirection: "column", justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}}>
 
+
+          <Text style={styles.headerTitle}>Profile</Text>
+
+          <ScrollView>
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='logo-facebook' size={18} color='#283239' />
@@ -117,22 +124,63 @@ const ProfileInputScreen = ({navigation, props}) => {
             </View>
             
 
-            <View style={{margin:10}}>
-              <DropDownPicker
+            <View style={styles.dropField}>
+
+            <Fontisto style={{ paddingVertical: 17}} name='genderless' size={16} color='#283239' />
+              <DropDownPicker style = {styles.dropInput}
                     open={open}
                     value={value}
                     items={items}
                     setOpen={setOpen}
                     setValue={setValue}
                     setItems={setItems}
+                    searchable={true}
                     multiple={true}
                     min={1}
                     placeholder={"Select Language"}
+
+                    dropDownDirection="BOTTOM"
+                    showBadgeDot={true}
+                    textStyle={{
+                      fontSize: 14,
+                      opacity: 0.5
+                    }}
+
+                    dropDownContainerStyle={{
+                      backgroundColor: "#fff",
+                      width: 340,
+                      borderWidth:0,
+                      opacity: 1,
+                      minHeight: 100,
+                      zIndex: -999
+                     
+          
+                    }}
+
+                    scrollViewProps={{
+                      decelerationRate: "fast"
+                    }}
+
+                    searchTextInputProps={{
+                      maxLength: 25
+                    }}
+
+                    
                   />
             </View>
+
+
             <TouchableOpacity onPress={savePressed} style = {styles.customBTN}>
                 <Text style={styles.textBTN}>Save</Text>
             </TouchableOpacity>
+
+            </ScrollView>
+
+            <View style={{marginTop:100}}>
+          
+
+            </View>
+           
 
     </View>
         

@@ -10,6 +10,7 @@ import {
     View
 } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import {cUserDB, usersDB} from '../../data/firRef';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -72,12 +73,8 @@ const PersonalInformationScreen = ({navigation, props}) => {
   const savePressed = async() => {
 
     
-    const profilesCollection = await firestore().collection('users')
-                                                .doc("PersonalInformations")
-                                                .collection('user')
+    const profilesCollection = await usersDB.where(`mobile`,`==`,mobileNumberFromUI).get()
                                                 // .doc(auth().currentUser.uid)
-                                                .where(`mobile`,`==`,mobileNumberFromUI).get()
-  
     if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  
         genderValue.length === 0  || addressFromUI.length === 0 ||
         mobileNumberFromUI.length === 0){
@@ -95,7 +92,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
           
         }
         else if(profilesCollection.docs.length === 0) {
-          firestore().collection('users').doc("PersonalInformations").collection('user').doc(auth().currentUser.uid).update({
+          usersDB.doc(auth().currentUser.uid).update({
              
               firstName : firstNameFromUI,
               lastName : lastNameFromUI,
@@ -122,7 +119,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
 
        
           <View style={{ justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}} > 
-
+            <Text style={styles.headerTitle}>Personal Information</Text>
             <ScrollView>
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='person' size={18} color='#283239' />
@@ -249,10 +246,12 @@ const PersonalInformationScreen = ({navigation, props}) => {
               value={emergencyMobileFromUI} onChangeText={setEmergencyMobileFromUI}/>
             </View>
 
+          
+            </ScrollView>
+
             <TouchableOpacity onPress={savePressed} style = {styles.customBTN}>
                 <Text style={styles.textBTN}>Save</Text>
             </TouchableOpacity>
-            </ScrollView>
           </View>
         
     );

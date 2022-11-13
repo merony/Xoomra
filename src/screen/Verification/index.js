@@ -6,21 +6,21 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import {cUserDB, profilesDB, usersDB, verificationsDB} from '../../data/firRef';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
+import ImagePicker from 'react-native-image-crop-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { TextInput } from 'react-native-gesture-handler';
-import ImagePicker from 'react-native-image-crop-picker';
-import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
-
 
 const VerificationScreen = ({navigation, props}) => {
     
@@ -69,20 +69,23 @@ const VerificationScreen = ({navigation, props}) => {
 
     const savePressed = () => {
 
-      firestore().collection('Verification').add({
+      verificationsDB.doc(auth().currentUser.uid).set({
         uid: auth().currentUser.uid,
         email: auth().currentUser.email,
         Identification : photoID,
         ProofOfAddress : proofOfAddress,
-        UserWithID : userWithID
+        UserWithID : userWithID,
+        isVerificationCompleted: false,
+        verificationStatus: 'pending'
         })
         navigation.replace("TabNavigator")
     }
 
     return (
 
-      <View style={{flexDirection: "column"}}>
-
+      <View style={{flexDirection: "column", justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}}>
+          <Text style={styles.headerTitle}>Verification</Text>
+            <ScrollView>
 
           <Text style={{fontWeight:'600',fontSize:18,color:'#0999f4',margin:10}}>Please Upload the Following Documents</Text>
           <View style={{flexDirection:"column",margin:10}}>
@@ -106,8 +109,11 @@ const VerificationScreen = ({navigation, props}) => {
             </TouchableOpacity>
           </View>
 
-          <View style={{flexDirection:"column",margin:10}}>
-            <TouchableOpacity onPress={savePressed} style = {styles.customBTN}>
+          </ScrollView>
+
+          <View style={{flexDirection:"column",margin:10, backgroundColor: '#fff',}}>
+            
+            <TouchableOpacity onPress={savePressed} style = {styles.customSaveBTN}>
                       <Text style={styles.textBTN}>Save</Text>
             </TouchableOpacity>
           </View>
