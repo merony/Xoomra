@@ -104,9 +104,9 @@ const RequestStayScreen = ({navigation, props}) => {
 
        <Text style={styles.empty}></Text>
        
-       <Text style={styles.stayDetailsSubTitle}>1. Guest sends request to host</Text>
-       <Text style={styles.stayDetailsSubTitle}>2. Host accepts request</Text>
-       <Text style={styles.stayDetailsSubTitle}>3. Guest confirms request</Text>
+       <Text style={styles.stayDetailsSubTitle} numberOfLines={3}>You will be able to confirm an exchange when host accepts your request.</Text>
+       {/* <Text style={styles.stayDetailsSubTitle}>2. Host accepts request</Text>
+       <Text style={styles.stayDetailsSubTitle}>3. Guest confirms request</Text> */}
 
        <Divider/>
      

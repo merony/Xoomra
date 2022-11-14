@@ -29,7 +29,7 @@ const StayDetailsComponent = (props) => {
 
   const dummyDataForWantToGo = 'I would like to exchange with someone in Valencia, Spain.'
   const dummyDataForMaxNights = 6
-  const dummyDataUserRating = 4.9
+  const dummyDataUserRating = 4.75
   const dummyDataSuperHostBar = 4.5
 
 
@@ -105,9 +105,19 @@ const StayDetailsComponent = (props) => {
 
   //conditional rendering
   //if rating is better than 4.5, he is a super host
-  const ReturnHostReviews = (rating) =>{
-    if(rating>=4.5){
-      return 
+  const ReturnHostReviews = (propsR) =>{
+    const rating= propsR.rating
+    const bar = propsR.bar
+    // console.log(`${typeof(propsR)}`)
+    // console.log(bar)
+    // console.log(`rating is ${rating}`)
+    // console.log(`bar is ${dummyDataSuperHostBar}`)
+
+    let result
+
+    if(rating>=bar){
+
+      result = 
         <View style={{flexDirection:'row',paddingTop:5}}>
           <MaterialIcons name='star-rate' size={20} color={'#030f14'} style={{paddingLeft:10}}/>
           <Text style={styles.stayDetailsSubTitle}>{dummyDataUserRating.toFixed(2)} </Text>
@@ -115,13 +125,15 @@ const StayDetailsComponent = (props) => {
           <Text style={styles.stayDetailsSubTitle}>Superhost </Text>
         </View>
     }else{
-      return 
+      result =  
         <View style={{flexDirection:'row',paddingTop:5}}>
           <MaterialIcons name='star-rate' size={20} color={'#030f14'} style={{paddingLeft:10}}/>
           <Text style={styles.stayDetailsSubTitle}>{dummyDataUserRating.toFixed(2)} </Text>
         </View>
 
     }
+
+    return result
   }
 
 
@@ -151,7 +163,7 @@ const StayDetailsComponent = (props) => {
 
           {/* limits, type*/}
           <Text style={styles.stayDetailsHostTitle}>Hosted by John</Text>
-          <ReturnHostReviews/>
+          <ReturnHostReviews rating={dummyDataUserRating} bar={dummyDataSuperHostBar}/>
               
           </View>
 
