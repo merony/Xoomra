@@ -80,7 +80,7 @@ const ProfileInputScreen = ({navigation, props}) => {
         email : auth().currentUser.email,
         FacebookURL : facebookLinkFromUI,
         LinkedinURL : linkedinLinkFromUI,
-        Intrests : interestFromUI,
+        Interest : interestFromUI,
         aboutYourSelf : aboutYourSelfFromUI,
         Languages : value,
         isProfileCompleted: true
