@@ -28,7 +28,7 @@ const ChatListItem = (props) => {
     navi.navigate('MessageResponseScreen',{id:1})
   }
     
-  console.log(props)
+  
 
     return (
 

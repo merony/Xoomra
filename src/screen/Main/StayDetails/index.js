@@ -29,14 +29,14 @@ const StayDetailsScreen = ({props}) => {
   
   return (
 
-    <ScrollView >
+    <View >
 
 
 
      <StayDetailsComponent stays={stays}/>
 
 
-    </ScrollView>
+    </View>
       
      
   );

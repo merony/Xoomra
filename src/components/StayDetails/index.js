@@ -266,7 +266,7 @@ const StayDetailsComponent = (props) => {
 
  
           {/* reserve button */}
-          <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',marginLeft:20}}>
+          <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',marginLeft:20,height:70}}>
             <View style={styles.datePickerContainer}>
               <DatePickerComponent style = {styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
               <Text>-</Text>
