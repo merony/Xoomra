@@ -19,10 +19,11 @@ const MyListingStack = createNativeStackNavigator();
 
 
 const MyListingNav = ({navigation, props}) => {
+   
+   
+   
     return (
         
-
-            
             <MyListingStack.Navigator screenOptions={{ headerShown: false,
              headerStyle: {backgroundColor: '#FFF'},
              headerTintColor: '#030f14',
@@ -44,15 +45,24 @@ const MyListingNav = ({navigation, props}) => {
                   }}
                 />
 
-                <MyListingStack.Screen name="Add Listing" component={AddListingScreen} />
-                <MyListingStack.Screen name="Add Photos" component={AddPhotosScreen} />
+                <MyListingStack.Screen name="Add Listing" component={AddListingScreen} 
+                 options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                      }}
+                
+                />
+                <MyListingStack.Screen name="Add Photos" component={AddPhotosScreen} 
+                 options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+    
+                }}
+                />
                 <MyListingStack.Screen name="Listing Review" component={ListingReviewScreen} />
                 <MyListingStack.Screen name="Preview Listing" component={PreviewListingScreen} />
                 <MyListingStack.Screen name="Edit Listing" component={EditListingScreen} />
-          
-
-
-                
+                      
             </MyListingStack.Navigator>
         
     )

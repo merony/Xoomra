@@ -26,9 +26,17 @@ const ManageListingScreen = ({navigation, props}) => {
 
     return (
 
-      <View style={{flexDirection: "column"}}>
+      <View style={{flexDirection: "column", margin: 20}}>
 
-       <Text>MangeListing Screen</Text>
+<View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
+
+<TouchableOpacity title="X"  onPress = { () => navigation.navigate("Add Listing")} >
+                            <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Add New Listing</Text>
+                        </TouchableOpacity>
+
+</View>
+
+
 
     </View>
         

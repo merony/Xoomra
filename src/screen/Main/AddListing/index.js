@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,15 +16,11 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+import styles from './styles';
 
-  
-  
-  
-  const AddListingScreen = ({navigation}) => {
+const AddListingScreen = ({navigation}) => {
 
     const [stayTitleFromUI,setStayTitleFromUI] = useState("")
     const [accommodationTypeFromUI,setAccommodationTypeFromUI] = useState("")
@@ -122,17 +119,16 @@ import firestore from '@react-native-firebase/firestore';
             </View>
 
             
-            <TouchableOpacity onPress={addImagesPressed} style = {styles.customBTN}>
-                <Text style={styles.textBTN}>Add Images</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={addListingPressed} style = {styles.customBTN}>
-                <Text style={styles.textBTN}>Add Listing</Text>
-            </TouchableOpacity>
+   
 
           </View>
         
           </ScrollView>
+
+          <TouchableOpacity onPress={addListingPressed} style = {styles.customBTN}>
+                <Text style={styles.textBTN}>Add Listing</Text>
+            </TouchableOpacity>
+
       </SafeAreaView>
     );
   };

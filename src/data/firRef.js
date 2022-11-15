@@ -38,5 +38,9 @@ const verificationsDB = firestore()
 .collection('verification')
 
 
+const AccommodationsDB = firestore()
+.collection('Accommodations')
 
-  export  {cUserDB, usersDB, profilesDB, verificationsDB } ;
+
+
+  export  {cUserDB, usersDB, profilesDB, verificationsDB, AccommodationsDB } ;
