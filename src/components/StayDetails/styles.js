@@ -138,13 +138,9 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         alignItems:'center',
         justifyContent:'center',
-
-
     },
     datePickerComponent:{
         backgroundColor:'red',
-
-
     },
     titleContainer:{
         flexDirection:'row',

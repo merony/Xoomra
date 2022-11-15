@@ -15,9 +15,20 @@ const styles = StyleSheet.create({
 
         flexDirection: 'row',
         borderBottomColor: '#ccc',
+        justifyContent: 'space-between',
         borderBottomWidth: 1,
         paddingBottom: 8,
         marginBottom : 25,
+    },
+
+    subFormField:{
+
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        justifyContent: 'space-between',
+        borderBottomWidth: 0,
+        paddingBottom: 8,
+        marginBottom : 5,
         
     },
 
@@ -29,7 +40,6 @@ const styles = StyleSheet.create({
 
 
     dropField:{
-
         flexDirection: 'row',
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
@@ -37,8 +47,16 @@ const styles = StyleSheet.create({
         marginBottom : 25,
         zIndex:999
         // backgroundColor: '#fff',
-   
-    
+    },
+
+    subDropField:{
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 0,
+        paddingBottom: 0,
+        marginBottom : 0,
+        zIndex:999
+        // backgroundColor: '#fff',
     },
 
     dropInput :{
@@ -47,7 +65,7 @@ const styles = StyleSheet.create({
         paddingVertical:0,
         borderWidth:0,
         marginHorizontal:0,
-        width: 350,
+        width: 340,
         
         
     
@@ -68,7 +86,18 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#fff',
         textTransform: 'uppercase'
-    }
+    },
+    datePickerContainer :{
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    datePickerComponent:{
+        backgroundColor:'red',
+    },
+
+
+
  
 });
 
