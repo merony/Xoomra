@@ -90,8 +90,9 @@ const AddListingScreen = ({navigation, props}) => {
     //Runs only on the first render
     AccommodationsDB.add({
   StayTitle : 'Untitled',
-  Status : 'draft'
-
+  Status : 'draft',
+  uid: auth().currentUser.uid,
+  
 })
 
 .then(function(docRef) {
