@@ -24,12 +24,12 @@ import StayInfoInMessageComponent from '../../../components/StayInfoInMessage';
 const MessageResponseScreen = ({navigation, props}) => {
     
   
-  const dummyDataHostName = 'Tao'
+  const dummyDataHostName = 'Vadim'
   const dummyDataGuestName = 'Lukas'
-  const dummyDataUserName = 'Lukas'
+  const dummyDataUserName = 'Vadim'
   // order status has five status ' unreceived, received, interested, accepted, rejected'
   const dummyDataOrderStatusForGuest = 'received'
-  const dummyDataOrderStatusForHost = 'interested'
+  const dummyDataOrderStatusForHost = 'received'
   
   const chatData = {
     hostName:dummyDataHostName,
@@ -61,7 +61,7 @@ const MessageResponseScreen = ({navigation, props}) => {
 
         {/* input box */}
         <View style={styles.inputBox}>
-          <InputBoxInMessage  chatData={chatData}/>
+          <InputBoxInMessage  cData={chatData}/>
         </View>
 
 

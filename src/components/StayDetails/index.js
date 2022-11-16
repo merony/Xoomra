@@ -1,4 +1,4 @@
-import {Image, Pressable, Text, View,Alert} from 'react-native';
+import {Image, Pressable, Text, View,Alert,Modal,TouchableOpacity,ScrollView  } from 'react-native';
 
 import React from 'react';
 import styles from './styles.js';
@@ -14,7 +14,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RequestStayScreen from '../../screen/Main/RequestStay/index';
 import MaxNightsWarning from '../MaxNightsWarning/index.js';
-import { ScrollView } from 'react-native-gesture-handler';
+import DateRangePicker from '../DateRangPicker/index.js';
 
 
 const StayDetailsComponent = (props) => {
@@ -26,6 +26,8 @@ const StayDetailsComponent = (props) => {
   const [descriptionFolded,setDescriptionFolded] = useState(true)
   const [policyFolded,setPolicyFolded] = useState(true)
   const [ruleFolded,setRuleFolded] = useState(true)
+
+  const [showCalendar,setShowCalendar] = useState(false)
 
   const dummyDataForWantToGo = 'I would like to exchange with someone in Valencia, Spain.'
   const dummyDataForMaxNights = 6
@@ -135,6 +137,8 @@ const StayDetailsComponent = (props) => {
 
     return result
   }
+
+
 
 
   
@@ -266,12 +270,38 @@ const StayDetailsComponent = (props) => {
 
  
           {/* reserve button */}
-          <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',marginLeft:20,height:70}}>
+          <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',alignItems:'center',marginLeft:20,height:70}}>
             <View style={styles.datePickerContainer}>
               <DatePickerComponent style = {styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
               <Text>-</Text>
               <DatePickerCheckOutComponent style = {styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights}/>
             </View>
+
+
+            {/* <View>
+              <TouchableOpacity
+                onPress={()=>setShowCalendar(true)}>
+                <Text>date picker</Text>
+              </TouchableOpacity>
+
+              <Modal visible={showCalendar} animationType='fade'>
+                <Calendar
+                  onDayPress={
+                    date=>{console.log(date)
+                    setShowCalendar(false)
+                    }}
+                    // initialDate={'2022-11-16'}
+                    // minDate={}
+                    // maxDate={}
+                  
+                />
+              </Modal>
+            </View> */}
+
+            
+            {/* <DateRangePicker/> */}
+
+
 
             <Pressable style={styles.customBTN} onPress={onReservePressed}>
               <Text style={styles.textBTN}>Exchange Request</Text>
