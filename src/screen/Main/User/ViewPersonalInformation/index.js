@@ -100,7 +100,7 @@ const getUserInfo = async () =>{
       {/* DOB */}
       <View style={styles.infoContainer}>
         <Text style={styles.infoDesc}>Date Of Birth</Text>
-        <Text style={styles.infoValue}>{dob.substring(15,26)}</Text>
+        {/* <Text style={styles.infoValue}>{dob.substring(15,26)}</Text> */}
       </View>
 
       {/* Address */}
