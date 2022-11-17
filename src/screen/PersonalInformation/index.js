@@ -102,7 +102,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
               firstName : firstNameFromUI,
               lastName : lastNameFromUI,
               gender : genderValue,
-              DOB : date,
+              DOB : selectedDOB,
               Address : addressFromUI,
               mobile : mobileNumberFromUI,
               emergencyMobile : emergencyMobileFromUI,
