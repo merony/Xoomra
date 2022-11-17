@@ -8,13 +8,24 @@ const styles = StyleSheet.create({
           alignItems: 'center',
          
         },
+
+        headerTitle :{
+
+          fontSize: 24,
+          fontWeight: '500',
+          color: '#030f14',
+          marginBottom: 0
+          
+      },
         selectButton: {
           borderRadius: 5,
           width: 150,
           height: 50,
-          backgroundColor: '#8ac6d1',
+          backgroundColor: 'transparent',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          alignItems: 'center',
+          color: '#030f14',
         },
         uploadButton: {
           borderRadius: 5,
@@ -26,9 +37,9 @@ const styles = StyleSheet.create({
           marginTop: 20
         },
         buttonText: {
-          color: 'white',
+          color: '#030f14',
           fontSize: 18,
-          fontWeight: 'bold'
+          fontWeight: '400'
         },
         imageContainer: {
           marginTop: 30,
@@ -39,8 +50,8 @@ const styles = StyleSheet.create({
           marginTop: 20
         },
         imageBox: {
-          width: 300,
-          height: 300
+          width: 250,
+          height: 250
         }
       
  

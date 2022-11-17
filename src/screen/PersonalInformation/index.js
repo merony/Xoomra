@@ -104,15 +104,13 @@ const PersonalInformationScreen = ({navigation, props}) => {
               emergencyEmail : emergencyEmailFromUI,
               isCompleted: true,
               
-
               })
 
               navigation.navigate('Profile Screen')
-          
+
         }
 
       }
-
 
     }
 

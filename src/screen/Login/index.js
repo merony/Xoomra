@@ -86,13 +86,21 @@ import { usersDB } from '../../data/firRef';
     useEffect(() => {
       //Runs on every render
 
-        auth().signOut()
-        .then( () => {
-           setCompleted(false);
+        // auth().signOut()
+        // .then( () => {
+        //    setCompleted(false);
+        // });
 
-        });
         // setCompleted(false);
-      // navTransfer();
+      // 
+
+      if (auth.currentUser !== null) {
+        // User is signed in.
+
+        navTransfer();
+      } else {
+        // No user is signed in.
+      }
      
 
       
