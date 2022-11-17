@@ -12,7 +12,6 @@ import {
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import {cUserDB, usersDB} from '../../data/firRef';
 import { useEffect, useState } from 'react';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -29,9 +28,14 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 import search from '../../data/search';
 import styles from './styles';
+import moment from 'moment';
 
 const PersonalInformationScreen = ({navigation, props}) => {
 
+  const dob = new Date();
+  const year = dob.getFullYear();
+  const month = dob.getMonth();
+  const day = dob.getDate();
 
 
   const [firstNameFromUI,setFirstNameFromUI] = useState("")
@@ -75,6 +79,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
     
     const profilesCollection = await usersDB.where(`mobile`,`==`,mobileNumberFromUI).get()
                                                 // .doc(auth().currentUser.uid)
+    
     if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  
         genderValue.length === 0  || addressFromUI.length === 0 ||
         mobileNumberFromUI.length === 0){
@@ -192,7 +197,12 @@ const PersonalInformationScreen = ({navigation, props}) => {
               mode='date'
               open={open}
               date={date}
-              maximumDate={new Date()}
+              // maximumDate={new Date()}              
+              // minDate={moment().subtract(100, "years")._d}
+              // maximumDate={moment().subtract(18, 'years')._d}
+              defaultDate={new Date()}
+              minimumDate = {new Date(year - 80, month, day)}
+              maximumDate={new Date(year - 18, month, day)}
               onConfirm={(date) => {
               setOpen(false)
               setDate(date)
