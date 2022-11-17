@@ -13,7 +13,6 @@ list:{
     paddingHorizontal:20,
 },
 inputBox:{
-    height:70
 },
 listContainer:{
     // backgroundColor:'red'
