@@ -1,11 +1,10 @@
 import {
-  FlatList,
-  Image,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView
+    FlatList,
+    Image,
+    Pressable,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -18,30 +17,27 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
-import StayDetailsComponent from '../../../components/StayDetails';
-import places from '../../../data/stayFeed'
 import { useRoute } from '@react-navigation/native';
 
-const StayDetailsScreen = ({props}) => {
+const HelpDetailScreen = ({navigation, props}) => {
   const route = useRoute()
-
-  const stays = places.find(place => place.id === route.params.id)
+    
   
-  return (
-
-    <View >
 
 
 
-     <StayDetailsComponent stays={stays}/>
+    return (
 
+      <View style={{flexDirection: "column"}}>
+
+       <Text>HelpDetailScreen {route.params.id}</Text>
 
     </View>
-      
-     
-  );
-};
-
-
-
-export default StayDetailsScreen;
+        
+       
+    );
+  };
+  
+ 
+  
+  export default HelpDetailScreen;

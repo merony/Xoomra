@@ -17,6 +17,7 @@ import UserHomeScreen from '../screen/Main/User/UserHome';
 import ViewPersonalInformationScreen from '../screen/Main/User/ViewPersonalInformation';
 import ViewProfileScreen from '../screen/Main/User/ViewProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HelpDetailScreen from '../screen/Main/User/HelpDetailScreen';
 
 const UserStack = createNativeStackNavigator();
 
@@ -98,6 +99,11 @@ const UserNav = ({navigation, props}) => {
                     headerTitle: " ",
                             }} />
                 <UserStack.Screen name="Help" component={HelpScreen}
+                options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }} />
+                <UserStack.Screen name="HelpDetail" component={HelpDetailScreen}
                 options={{
                     headerShown: true, 
                     headerTitle: " ",

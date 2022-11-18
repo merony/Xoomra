@@ -27,6 +27,10 @@ const MessageResponseItem = (props) => {
   const userName2='Daniil Top'
   const user2Image="https://gartic.com.br/imgs/mural/ku/kushina_uzumaki426/sasuke-uchiha-4.png"
 
+  const dummyDataHostName = 'Lukas'
+  const dummyDataGuestName = 'Daniil Top'
+
+
 
   const UserImage = (propI) => {
     if (propI.name===userName1){
@@ -35,6 +39,8 @@ const MessageResponseItem = (props) => {
       return <Image source={{uri:user2Image}} style={styles.image}/>
     }
   }
+
+  
     return (
 
         <Pressable style={styles.container}>

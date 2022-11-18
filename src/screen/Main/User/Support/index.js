@@ -72,10 +72,6 @@ const SupportScreen = ({navigation, props}) => {
        </Text>
 
 
-
-
-
-
        {/* name */}
        <View style={styles.subContainer}>
        <Text style={styles.title}>How should we address you? </Text>
