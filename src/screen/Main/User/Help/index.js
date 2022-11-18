@@ -65,7 +65,7 @@ const HelpScreen = ({navigation, props}) => {
               onPress={()=>{cellPressed(0)}}
             >
              <MaterialIcons name='search' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Finding out a  stay that's right for you</Text>
+             <Text style={styles.textInCell}> Finding out a stay that's right for you</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>
@@ -95,7 +95,7 @@ const HelpScreen = ({navigation, props}) => {
               onPress={()=>{cellPressed(0)}}
             >
              <MaterialIcons name='home' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Getting protected througn Xcover</Text>
+             <Text style={styles.textInCell}> Getting protected through Xcover</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>
@@ -136,8 +136,8 @@ const HelpScreen = ({navigation, props}) => {
               style={styles.cell}
               onPress={()=>{cellPressed(1)}}
             >
-             <MaterialIcons name='credit-card' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Getting paid</Text>
+             <MaterialIcons name='people' size={25} color='#283239' style={styles.icon}/>
+             <Text style={styles.textInCell}> Meet new friends</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>
@@ -157,7 +157,7 @@ const HelpScreen = ({navigation, props}) => {
               onPress={()=>{cellPressed(0)}}
             >
              <MaterialIcons name='cancel' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Changes, cancellations and refunds</Text>
+             <Text style={styles.textInCell}> Changes and cancellations</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>
