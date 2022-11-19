@@ -1,10 +1,12 @@
+import {AccommodationsDB, cUserDB, usersDB} from '../../../data/firRef';
 import {
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -21,8 +23,62 @@ import stayFeed from '../../../data/stayFeed';
 import styles from './styles';
 
 const StayListScreen = ({navigation, props}) => {
+
+
+  const [accomodations,setAccomodations] = useState([]);
     
   
+  useEffect(() => {
+    //Runs on every render
+
+    // test();
+   
+     
+  });
+
+
+  useEffect(() => {
+    //Runs only on the first render
+
+     loadData();
+     
+
+
+
+   
+  }, []);
+
+
+  loadData = async() => {
+
+    const listingData = await AccommodationsDB.get()
+    .then((querySnapshot) => {
+
+      const listings = []
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+
+          listings.push(doc.data());
+          
+
+      });
+    
+
+    setAccomodations(listings);
+
+      // console.log( " Data=> ", accomodations);
+  });
+
+
+
+
+  console.log( " Data=> ", accomodations);
+
+  
+  // Alert.alert(accomodations);
+  }
+
 
     const renderItem = ({ item }) => (
         // <Item title={item.title} />
@@ -53,8 +109,13 @@ const StayListScreen = ({navigation, props}) => {
 
           <View style={{marginTop: 60}} >
 
+            {/* {accomodations.map(item =>{
+              <StayComponent stay={item}/>
+
+            })} */}
+
           <FlatList style={{marginTop: 25}}
-        data={stayFeed}
+        data={accomodations}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

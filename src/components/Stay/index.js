@@ -9,7 +9,18 @@ const StayComponent = (props) => {
 
 
   const stays= props.stay;
-  console.log("hello", stays);
+
+  const images =  props.stay.images
+
+  //  const images = stays.stays.images
+
+// console.log("Another Image Test", images?images:"no image");
+
+  // images.map((image)=>{
+  //   console.log("Single Image",image);
+  // });
+
+  console.log("Our Image Test", stays.images);
 
   const navi = useNavigation()
   const navigateToStayDetails = () =>{
@@ -26,24 +37,36 @@ const StayComponent = (props) => {
             {/* <Image style={styles.Image}
             source={require('../../Image/post.jpg')}
             /> */}
+            {
+              images?
+              images.map((image,index)=>{
+                // console.log(image);
+                if(index===0){
+                  return (<Image key={index} style={styles.Image}
+                    source={{uri: image}}
+                />)
+                }else{
+                  return null
+                }
+                
+               }):<Text>loading...</Text>
+            }
 
-            <Image style={styles.Image}
-            source={{uri: stays.image}}
-            />
+            {/* <Image style={styles.Image}
+            source={{uri: stays.images[0]}}
+            // source={require('../../Image/post.jpg')}
+            /> */}
 
           
             {/*Title*/}
-            <Text style={styles.stayTtile}>{stays.title}</Text>
+            <Text style={styles.stayTtile}>{stays.StayTitle}</Text>
               {/*Location*/}
-              <Text style={styles.stayLocations}>{stays.location}</Text>
+              <Text style={styles.stayLocations}>{stays.Address}</Text>
             {/*Exchange From : Vacouver BC Canada*/}
            
               {/*Accomodation Type*  <Text style={styles.stayLocations}>Exchange : Vacouver BC Canada</Text>/}
             {/*Max Night*/}
-            <Text style={styles.stayTtile}>{stays.maxGuest} Guests | {stays.type} | {stays.maxNights} Nights  </Text>
-
-
-        
+            <Text style={styles.stayTtile}>{stays.maxGuest} Guests | {stays.AccommodationType} | {stays.maxAvailableDays} Nights  </Text>
 
 
 

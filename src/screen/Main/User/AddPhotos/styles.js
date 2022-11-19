@@ -29,30 +29,46 @@ const styles = StyleSheet.create({
         },
         uploadButton: {
           borderRadius: 5,
-          width: 150,
-          height: 50,
+          width: 100,
+          height: 30,
           backgroundColor: '#ffb6b9',
           alignItems: 'center',
           justifyContent: 'center',
           marginTop: 20
         },
         buttonText: {
-          color: '#030f14',
-          fontSize: 18,
+          color: '#fff',
+          fontSize: 14,
           fontWeight: '400'
         },
         imageContainer: {
-          marginTop: 30,
-          marginBottom: 50,
+          marginTop: 20,
+          marginBottom: 20,
           alignItems: 'center'
         },
         progressBarContainer: {
           marginTop: 20
         },
         imageBox: {
-          width: 250,
-          height: 250
-        }
+          width: 200,
+          height: 200
+        },
+        customBTN : {
+          backgroundColor: '#0999f4',
+          padding: 20,
+          borderRadius: 10,
+          marginTop: 0,
+          
+          
+      },
+  
+      textBTN: {
+          textAlign : 'center',
+          fontWeight: '700',
+          fontSize: 16,
+          color: '#fff',
+          textTransform: 'uppercase'
+      },
       
  
 });

@@ -149,7 +149,7 @@ const AddListingScreen = ({navigation, props}) => {
       })
       .then (() =>{
 
-        navigation.navigate('Add Photos')
+        navigation.navigate('Add Photos', {listingID: docID})
 
       })
     }

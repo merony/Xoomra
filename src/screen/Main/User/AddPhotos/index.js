@@ -1,5 +1,6 @@
 import * as Progress from 'react-native-progress';
 
+import {AccommodationsDB, cUserDB, usersDB} from '../../../../data/firRef';
 import {
     Alert,
     FlatList,
@@ -31,7 +32,11 @@ import styles from './styles';
 
 
 
-const AddPhotosScreen = ({navigation, props}) => {
+const AddPhotosScreen = ({navigation, props, route}) => {
+
+const {listingID} = route.params;
+
+const getListingID = listingID;
 
 // IMAGE IT WILL HELp store Image URI
   const [image, setImage] = useState(null);
@@ -43,26 +48,23 @@ const AddPhotosScreen = ({navigation, props}) => {
   const [imageList, setImageList] = useState([]);
 
 
-
   useEffect(() => {
     //Runs on every render
-
     // test();
-     
   });
 
 
   useEffect(() => {
     //Runs only on the first render
    
-    Alert.alert(auth().currentUser.uid)
+    // Alert.alert(auth().currentUser.uid)
+
+    Alert.alert('Doc Id :', getListingID)
   
 })
 
 
-
-
-const uploadPhotoIDPressed = () =>{
+const getPhoto = () =>{
 
   ImagePicker.openCamera({
     width: 1280,
@@ -71,36 +73,20 @@ const uploadPhotoIDPressed = () =>{
   }).then(image => {
     console.log(image);
     setImage(image);
-   
-    // setImageList(imageList => [...imageList, {
-    //   key:imageList.length,
-    //   value:image.path
-    // }])
 
-    // setImageList([...imageList,{
-    //   key:imageList.length,
-    //   value:image.path
-    // }])
+  })
+  
+  // .then(() =>{
+
+  //   uploadImage();
+  // });
 
 
-    setImageList(imageList => [...imageList, image.path])
-
- 
-
-
-    
-  });
 }
 
-
-const renderItem = ({ item }) => (
-  
-
-  <View style={{padding:2, flexDirection:'row' }}>
-  <Image  source={{uri:item}} style={{ width: 100,height: 100,borderColor: 'gray',borderWidth: 1,marginHorizontal: 3, resizeMode:'contain'}} />
-</View>
-);
-
+const handleRemoveItem = (e) => {
+  setImageList(imageList.slice(imageList.indexOf(e.target + 1, 1)))
+}
 
 
   const uploadImage = async () => {
@@ -111,21 +97,51 @@ const renderItem = ({ item }) => (
 
   try {
 
-    await storage().ref(filename).putFile(imageUri);
+    const imgUploadRef = storage().ref(filename)
+
+    await imgUploadRef.putFile(imageUri);
+
+    const imURL= await imgUploadRef.getDownloadURL();
+
+    setImageList(imageList => [...imageList, imURL]);
+
+    // setImage(null)
+
+    // Alert.alert(imURL)
+       
     
   } catch (e) {
     console.log(e);
     
   }
 
-
-     Alert.alert(filename)
+    //  Alert.alert(filename)
   
   }
-  
+
+
+  const addListingPressed = () => {
+
+    if (imageList.length === 0 ){
+
+      Alert.alert("","Please Fill All Information")
+    }
+    else{
+      AccommodationsDB.doc(getListingID).update({
+        images : imageList,
+
+      })
+      .then (() =>{
+
+        navigation.navigate('Preview Listing', {listingID: getListingID})
+
+      })
+    }
+
+  }
+
 
     return (
-
 
 
       <View style={{flexDirection: "column", flex: 1, margin:20}}>
@@ -136,36 +152,35 @@ const renderItem = ({ item }) => (
     <View style={{flex:1,justifyContent:'flex-start'}}>
     <Text style={styles.headerTitle}>Add Photos</Text>
       </View>
-        <TouchableOpacity  onPress={uploadPhotoIDPressed}>
+        <TouchableOpacity  onPress={getPhoto}>
           <Text style={{color:'#0999f4', fontWeight: '500'}}> Choose></Text>
         </TouchableOpacity>
    </View>
 
-
-      <View style={{flexDirection:"column",margin:10,borderBottomColor:'gray',borderBottomWidth:1,marginVertical:20, alignItems: 'center',}}>
+   <View style={{flexDirection:"column",margin:0,borderBottomColor:'gray',borderBottomWidth:1,marginVertical:20, alignItems: 'center',}}>
     
 
-      {/* <TouchableOpacity style={styles.selectButton} onPress={uploadPhotoIDPressed}>
-        <Text style={styles.buttonText}>TAKE PHOTO</Text>
-      </TouchableOpacity> */}
-      <View style={styles.imageContainer}>
-        {image !== null ? (
-          <Image source={{ uri: image.path }} style={styles.imageBox} />
-        ) : null}
+    {/* <TouchableOpacity style={styles.selectButton} onPress={uploadPhotoIDPressed}>
+      <Text style={styles.buttonText}>TAKE PHOTO</Text>
+    </TouchableOpacity> */}
+    <View style={styles.imageContainer}>
+      {image !== null ? (
+        <Image source={{ uri: image.path }} style={styles.imageBox} />
+      ) : null}
 
 
-        {uploading ? (
-          <View style={styles.progressBarContainer}>
-            <Progress.Bar progress={transferred} width={300} />
-          </View>
-        ) : (
-          // <View></View>
-          <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
-            {/* <Text style={styles.buttonText}>ADD+ </Text> */}
-          </TouchableOpacity>
-        )}
-      </View>
+      {uploading ? (
+        <View style={styles.progressBarContainer}>
+          <Progress.Bar progress={transferred} width={300} />
+        </View>
+      ) : (
+        // <View></View>
+        <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
+          <Text style={styles.buttonText}>ADD </Text>
+        </TouchableOpacity>
+      )}
     </View>
+  </View>
 
 
 
@@ -174,8 +189,9 @@ const renderItem = ({ item }) => (
    <View style={{flexDirection:'row'}}>
     <View style={{flex:1,justifyContent:'flex-start'}}>
     <Text style={{color:'#283239', fontWeight: '500', fontSize: 18,}}>Photos</Text>
+    {/* <Text style={styles.headerTitle}>Add Photos</Text> */}
       </View>
-        {/* <TouchableOpacity  onPress={uploadPhotoIDPressed}>
+        {/* <TouchableOpacity  onPress={getPhoto}>
           <Text style={{color:'#0999f4', fontWeight: '500'}}> Choose></Text>
         </TouchableOpacity> */}
    </View>
@@ -186,12 +202,10 @@ const renderItem = ({ item }) => (
           {imageList.map(item =>(
             <View style={{padding:2}}>
               <Image  source={{uri:item}} style={{ width: 100,height: 100,borderColor: 'gray',borderWidth: 1,marginHorizontal: 3,resizeMode:'contain'}} />
+              <Text onPress={handleRemoveItem} style={{color:'#0999f4', fontWeight: '500'}}> remove</Text>
             </View>
           ) )}
     </View>
-
-
-
    </View>
 
 {/*     
@@ -202,7 +216,12 @@ const renderItem = ({ item }) => (
         </ScrollView>
 
    
-      
+        <View style= {{ flexDirection: "column", padding: 20, justifyContent: 'flex-end', backgroundColor: '#fff'}} >
+        <TouchableOpacity onPress={addListingPressed} style = {styles.customBTN}>
+              <Text style={styles.textBTN}>Save & Preview</Text>
+          </TouchableOpacity>
+
+      </View>
 
     </View>
         

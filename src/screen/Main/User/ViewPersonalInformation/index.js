@@ -2,9 +2,9 @@ import {
   FlatList,
   Image,
   Pressable,
+  ScrollView,
   Text,
   TouchableOpacity,
-  ScrollView,
   View
 } from 'react-native';
 import { useEffect, useState } from 'react';
@@ -16,8 +16,8 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import auth from '@react-native-firebase/auth'
 import { TextInput } from 'react-native-gesture-handler';
+import auth from '@react-native-firebase/auth'
 import styles from './styles';
 import { usersDB } from '../../../../data/firRef';
 
@@ -46,7 +46,7 @@ useEffect(() => {
 
 const getUserInfo = async () =>{
 
-  const userPersonalInformation = await (await usersDB.doc(auth().currentUser.uid).get()).data()
+  const userPersonalInformation =  (await usersDB.doc(auth().currentUser.uid).get()).data()
   // console.log(profilesCollection)
   setFirstName(userPersonalInformation.firstName)
   setLastName(userPersonalInformation.lastName)
@@ -65,7 +65,7 @@ const getUserInfo = async () =>{
 
   return (
 
-    <View style={{flexDirection: "column"}}>
+    <View style={{flexDirection: "column", margin: 20}}>
       <ScrollView>
       <Text style={styles.headerTitle}>Personal Information</Text>
 
