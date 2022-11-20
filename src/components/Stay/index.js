@@ -93,6 +93,7 @@ const StayComponent = (props) => {
            
               {/*Accomodation Type*  <Text style={styles.stayLocations}>Exchange : Vacouver BC Canada</Text>/}
             {/*Max Night*/}
+            <Text style={styles.stayTtile}>{stays.StayTitle} </Text>
             <Text style={styles.stayTtile}>{stays.maxGuest} Guests | {stays.AccommodationType} | {stays.maxAvailableDays} Nights  </Text>
 
 
