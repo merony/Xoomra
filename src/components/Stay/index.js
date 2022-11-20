@@ -30,9 +30,11 @@ const StayComponent = (props) => {
 
   console.log("All Data", stays);
 
+  console.log("Listing Id", stays.id);
+
   const navi = useNavigation()
   const navigateToStayDetails = () =>{
-    navi.navigate('StayDetailsScreen',{id:stays.id})
+    navi.navigate('StayDetailsScreen', {listingID: stays.id})
   }
 
   
