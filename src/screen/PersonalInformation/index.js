@@ -108,9 +108,10 @@ const PersonalInformationScreen = ({navigation, props}) => {
               emergencyMobile : emergencyMobileFromUI,
               emergencyEmail : emergencyEmailFromUI,
               isCompleted: true,
+              isVerified: false,
               
               })
-
+              console.log(auth().currentUser.uid)
               navigation.navigate('Profile Screen')
 
         }
