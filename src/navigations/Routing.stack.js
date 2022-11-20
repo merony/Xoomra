@@ -22,8 +22,8 @@ const Routing = () => {
 
             
             <RootStack.Navigator screenOptions={{ headerShown: false,
-             headerStyle: {backgroundColor: '#FF4500',  textTransform: 'uppercase'},
-             headerTintColor: '#fff',
+             headerStyle: {backgroundColor: '#FFF',  textTransform: 'uppercase'},
+             headerTintColor: '#030f14',
              headerTitleStyle: {fontWeight: 'bold'},
             
              }}>
@@ -37,8 +37,22 @@ const Routing = () => {
                 />
                 <RootStack.Screen name="Stay Confirmation" component={StayConfirmationScreen} />
 
-                <RootStack.Screen name="StayDetailsScreen" component={StayDetailsScreen} />
-                <RootStack.Screen name="RequestStayScreen" component={RequestStayScreen}/>
+                <RootStack.Screen 
+                    name="StayDetailsScreen" 
+                    component={StayDetailsScreen} 
+                    options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }}
+                    />
+                <RootStack.Screen 
+                    name="RequestStayScreen" 
+                    component={RequestStayScreen}
+                    options={{
+                    headerShown: true, 
+                    headerTitle: " ",
+                            }}
+                    />
                 <RootStack.Screen name="MessageScreen" component={MessageScreen}/>
                 <RootStack.Screen name="MessageResponseScreen" component={MessageResponseScreen}/>
                 

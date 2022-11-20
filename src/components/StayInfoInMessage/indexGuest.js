@@ -19,7 +19,7 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 
-const StayInfoInMessageComponent = (props) => {
+const StayInfoGuestInMessageComponent = (props) => {
     
   const chatData=props.cData
   const image = chatData.stay.image
@@ -37,20 +37,21 @@ const StayInfoInMessageComponent = (props) => {
     Alert.alert('navi to stay detail page of host')
   }
   const button1Pressed = () =>{
-    if(orderStatusInComponent==='received'){
-      setOrderStatusInComponent('interested')
-      chatData.setOrderStatus('interested')
-    }else if (orderStatusInComponent==='interested'){
-      chatData.setOrderStatus('accepted')
-      setOrderStatusInComponent('accepted')
-    }
+    // if(orderStatusInComponent==='received'){
+    //   setOrderStatusInComponent('interested')
+    //   chatData.setOrderStatus('interested')
+    // }else if (orderStatusInComponent==='interested'){
+    //   chatData.setOrderStatus('accepted')
+    //   setOrderStatusInComponent('accepted')
+    // }
 
     
   }
   const button2Pressed = () =>{
-    chatData.setOrderStatus('rejected')
-    setOrderStatusInComponent('rejected')
+    // chatData.setOrderStatus('rejected')
+    // setOrderStatusInComponent('rejected')
   }
+  
   const isUserHost = () =>{
     let temp
     if(chatData.hostName===chatData.userName){
@@ -71,10 +72,10 @@ const StayInfoInMessageComponent = (props) => {
 
     switch (orderStatusInComponent) {
       case "received":
-        buttonText1 = 'Interested'
+        buttonText1 = 'received'
         buttonText2 = 'Reject'
 
-        title = `New request ${isUserHost()} ${chatData.hostName}`
+        title = `Your request is`
         temp = 
 
         <View style={{flexDirection:'column',alignItems:'center'}}>
@@ -86,21 +87,22 @@ const StayInfoInMessageComponent = (props) => {
               <MaterialIcons  name='check-box' size={18} color='green' />
               <Text style={{color:'green',marginLeft:2}}>{buttonText1}</Text>
             </TouchableOpacity>
+            <Text> by {chatData.hostName}</Text>
     
-            <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}}
+            {/* <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}}
               onPress={button2Pressed}>
               <MaterialIcons  name='cancel' size={18} color='red' />
               <Text style={{color:'red',marginLeft:2}}>{buttonText2}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         
         break;
 
       case 'interested':
-        buttonText1 = 'Accept'
+        buttonText1 = 'interested'
         buttonText2 = 'Reject'
-        title = `Request from ${chatData.hostName}`
+        title = `${chatData.hostName} is`
         temp = 
 
         <View style={{flexDirection:'column',alignItems:'center'}}>
@@ -112,12 +114,13 @@ const StayInfoInMessageComponent = (props) => {
               <MaterialIcons  name='check-box' size={18} color='green' />
               <Text style={{color:'green',marginLeft:2}}>{buttonText1}</Text>
             </TouchableOpacity>
+            <Text>  in your request</Text>
     
-            <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}}
+            {/* <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}}
               onPress={button2Pressed}>
               <MaterialIcons  name='cancel' size={18} color='red' />
               <Text style={{color:'red',marginLeft:2}}>{buttonText2}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       
@@ -126,7 +129,7 @@ const StayInfoInMessageComponent = (props) => {
       case 'accepted':
         buttonText1 = 'Accepted'
         buttonText2 = null
-        title = `Request from ${chatData.hostName}`
+        title = `${chatData.hostName} `
         temp = 
 
         <View style={{flexDirection:'column',alignItems:'center'}}>
@@ -138,6 +141,7 @@ const StayInfoInMessageComponent = (props) => {
               <MaterialIcons  name='check-box' size={18} color='green' />
               <Text style={{color:'green',marginLeft:2}}>{buttonText1}</Text>
             </TouchableOpacity>
+            <Text> your request</Text>
     
 
           </View>
@@ -148,7 +152,7 @@ const StayInfoInMessageComponent = (props) => {
       case 'rejected':
         buttonText1 = null
         buttonText2 = 'Rejected'
-        title = `Request from ${chatData.hostName}`
+        title = `${chatData.hostName}`
         temp = 
 
         <View style={{flexDirection:'column',alignItems:'center'}}>
@@ -162,6 +166,7 @@ const StayInfoInMessageComponent = (props) => {
               <MaterialIcons  name='cancel' size={18} color='red' />
               <Text style={{color:'red',marginLeft:2}}>{buttonText2}</Text>
             </TouchableOpacity>
+            <Text> your request</Text>
           </View>
         </View>
         
@@ -231,4 +236,4 @@ const StayInfoInMessageComponent = (props) => {
   
  
   
-  export default StayInfoInMessageComponent;
+  export default StayInfoGuestInMessageComponent;

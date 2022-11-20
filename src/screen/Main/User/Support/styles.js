@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingBottom: 8,
         marginVertical : 3,
-        width:'80%',
-        marginLeft:'10%',
+        width:'90%',
+        marginLeft:'5%',
         alignItems:'center',
         borderRadius:10,
         backgroundColor: '#e3f3fd'
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingBottom: 8,
         marginVertical : 3,
-        width:'80%',
-        marginLeft:'10%',
+        width:'90%',
+        marginLeft:'5%',
         borderRadius:10,
         backgroundColor: '#e3f3fd',
 
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         marginLeft:5
     },
     pickerContainer:{
-        width:"80%",
+        width:"90%",
         paddingLeft:1,
         alignSelf:'center',
         backgroundColor:'#e3f3fd',
