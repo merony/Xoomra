@@ -51,7 +51,7 @@ const StayListScreen = ({navigation, props}) => {
 
   loadData = async() => {
 
-    const listingData =  AccommodationsDB.get()
+    const listingData = await AccommodationsDB.get()
     .then((querySnapshot) => {
 
       const listings = []
