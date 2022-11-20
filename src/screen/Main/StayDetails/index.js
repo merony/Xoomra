@@ -23,22 +23,13 @@ import places from '../../../data/stayFeed'
 import { useRoute } from '@react-navigation/native';
 
 const StayDetailsScreen = ({props}) => {
+  //get place id from stay screen, find the stay from places and sent it to component
   const route = useRoute()
-
   const stays = places.find(place => place.id === route.params.id)
-  
   return (
-
     <View >
-
-
-
      <StayDetailsComponent stays={stays}/>
-
-
     </View>
-      
-     
   );
 };
 
