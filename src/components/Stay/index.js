@@ -59,7 +59,7 @@ const StayComponent = (props) => {
                   return null
                 }
                 
-               }):<Text>loading...</Text>
+               }):<Text></Text>
             }
 
             {/* <Image style={styles.Image}
