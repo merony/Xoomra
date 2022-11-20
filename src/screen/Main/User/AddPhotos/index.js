@@ -74,6 +74,9 @@ const getPhoto = () =>{
     console.log(image);
     setImage(image);
 
+
+    uploadImage (image.path);
+
   })
   
   // .then(() =>{
@@ -85,13 +88,30 @@ const getPhoto = () =>{
 }
 
 const handleRemoveItem = (e) => {
-  setImageList(imageList.slice(imageList.indexOf(e.target + 1, 1)))
+  // setImageList(imageList.slice(imageList.indexOf(e.target, 1)))
+
+  const list=[...imageList]
+  list.splice(e,1)
+  console.log('new array',list);
+  setImageList(list)
+
+  setImage(null);
+  // console.log('images index', e);
+  // console.log('images lsit', imageList);
 }
 
 
-  const uploadImage = async () => {
 
-  const imageUri = image.path;
+console.log(
+  'all images',imageList
+);
+
+  const uploadImage = async (image) => {
+
+  const imageUri = image;
+
+ console.log ('Local', image)
+
 
   let filename = imageUri.substring(imageUri.lastIndexOf('/')+ 1);
 
@@ -102,8 +122,14 @@ const handleRemoveItem = (e) => {
     await imgUploadRef.putFile(imageUri);
 
     const imURL= await imgUploadRef.getDownloadURL();
+    console.log('First Image ', imURL);
+    if(imURL){
+    console.log(imURL);
+      setImageList([...imageList, imURL]);
+    }
 
-    setImageList(imageList => [...imageList, imURL]);
+
+
 
     // setImage(null)
 
@@ -199,10 +225,10 @@ const handleRemoveItem = (e) => {
 
 
    <View style={{flexWrap:'wrap',flexDirection:'row',justifyContent:'flex-start',marginVertical:20,marginHorizontal:10}}>
-          {imageList.map(item =>(
+          {imageList.map((item,index) =>(
             <View style={{padding:2}}>
               <Image  source={{uri:item}} style={{ width: 100,height: 100,borderColor: 'gray',borderWidth: 1,marginHorizontal: 3,resizeMode:'contain'}} />
-              <Text onPress={handleRemoveItem} style={{color:'#0999f4', fontWeight: '500'}}> remove</Text>
+              <Text onPress={()=>{handleRemoveItem(index)}} style={{color:'#0999f4', fontWeight: '500'}}> remove</Text>
             </View>
           ) )}
     </View>
