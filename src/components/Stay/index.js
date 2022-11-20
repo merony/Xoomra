@@ -10,7 +10,11 @@ const StayComponent = (props) => {
 
   const stays= props.stay;
 
-  const images =  props.stay.images
+  const images =  props.stay.images ;
+
+  const wantToGo =  props.stay.WantToGo
+
+
 
   //  const images = stays.stays.images
 
@@ -21,6 +25,10 @@ const StayComponent = (props) => {
   // });
 
   console.log("Our Image Test", stays.images);
+
+  console.log("Place Wan to Visit", wantToGo);
+
+  console.log("All Data", stays);
 
   const navi = useNavigation()
   const navigateToStayDetails = () =>{
@@ -41,11 +49,11 @@ const StayComponent = (props) => {
               images?
               images.map((image,index)=>{
                 // console.log(image);
-                if(index===0){
+                if(index===1){
                   return (<Image key={index} style={styles.Image}
                     source={{uri: image}}
                 />)
-                }else{
+                }else{{}
                   return null
                 }
                 
@@ -59,9 +67,26 @@ const StayComponent = (props) => {
 
           
             {/*Title*/}
-            <Text style={styles.stayTtile}>{stays.StayTitle}</Text>
+            <Text style={styles.stayTtile}>{stays.City} {stays.State}</Text>
               {/*Location*/}
-              <Text style={styles.stayLocations}>{stays.Address}</Text>
+            
+
+            {/* {
+              wantToGo?
+              wantToGo.map((destinationCity,index)=>{
+                console.log('Desnintion city', destinationCity);
+                if(index==="City"){
+                  return (<Text key={index} style={styles.stayLocations}> Test </Text>)
+                }else{
+                  return null
+                }
+                
+               }):<Text>loading...</Text>
+            } */}
+            
+              
+
+              {/* <Text style={styles.stayLocations}>{stays.Address}</Text> */}
             {/*Exchange From : Vacouver BC Canada*/}
            
               {/*Accomodation Type*  <Text style={styles.stayLocations}>Exchange : Vacouver BC Canada</Text>/}
