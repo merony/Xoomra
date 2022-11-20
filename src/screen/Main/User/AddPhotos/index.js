@@ -174,22 +174,22 @@ console.log(
 
         <ScrollView>   
 
-        <View style={{flexDirection:'row'}}>
-    <View style={{flex:1,justifyContent:'flex-start'}}>
+        {/* <View style={{flexDirection:'row'}}> */}
+    {/* <View style={{flex:1,justifyContent:'flex-start'}}>
     <Text style={styles.headerTitle}>Add Photos</Text>
-      </View>
-        <TouchableOpacity  onPress={getPhoto}>
+      </View> */}
+        {/* <TouchableOpacity  onPress={getPhoto}>
           <Text style={{color:'#0999f4', fontWeight: '500'}}> Choose></Text>
-        </TouchableOpacity>
-   </View>
+        </TouchableOpacity> */}
+   {/* </View> */}
 
-   <View style={{flexDirection:"column",margin:0,borderBottomColor:'gray',borderBottomWidth:1,marginVertical:20, alignItems: 'center',}}>
+   {/* <View style={{flexDirection:"column",margin:0,borderBottomColor:'gray',borderBottomWidth:1,marginVertical:20, alignItems: 'center',}}> */}
     
 
     {/* <TouchableOpacity style={styles.selectButton} onPress={uploadPhotoIDPressed}>
       <Text style={styles.buttonText}>TAKE PHOTO</Text>
     </TouchableOpacity> */}
-    <View style={styles.imageContainer}>
+    {/* <View style={styles.imageContainer}>
       {image !== null ? (
         <Image source={{ uri: image.path }} style={styles.imageBox} />
       ) : null}
@@ -205,8 +205,8 @@ console.log(
           <Text style={styles.buttonText}>ADD </Text>
         </TouchableOpacity>
       )}
-    </View>
-  </View>
+    </View> */}
+  {/* </View> */}
 
 
 
@@ -214,12 +214,12 @@ console.log(
 
    <View style={{flexDirection:'row'}}>
     <View style={{flex:1,justifyContent:'flex-start'}}>
-    <Text style={{color:'#283239', fontWeight: '500', fontSize: 18,}}>Photos</Text>
-    {/* <Text style={styles.headerTitle}>Add Photos</Text> */}
+    {/* <Text style={{color:'#283239', fontWeight: '500', fontSize: 18,}}>Photos</Text> */}
+    <Text style={styles.headerTitle}>Add Photos</Text>
       </View>
-        {/* <TouchableOpacity  onPress={getPhoto}>
+        <TouchableOpacity  onPress={getPhoto}>
           <Text style={{color:'#0999f4', fontWeight: '500'}}> Choose></Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
    </View>
 
 
