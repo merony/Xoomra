@@ -5,30 +5,25 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-<<<<<<< HEAD
-=======
-  ScrollView,
-  Alert,
->>>>>>> d8541dfa2b1eebadc4ee66c736d103b5c835ff4c
   View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button } from 'react-native-paper';
+import DatePicker from 'react-native-date-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import DropDownPicker from 'react-native-dropdown-picker';
-import DatePicker from 'react-native-date-picker';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
+import { add } from 'react-native-reanimated';
 import auth from '@react-native-firebase/auth'
 import styles from './styles';
 import { usersDB } from '../../../../data/firRef';
-import { add } from 'react-native-reanimated';
-import { Button } from 'react-native-paper';
 
 const ViewPersonalInformationScreen = ({navigation, props}) => {
 
