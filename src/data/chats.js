@@ -1,20 +1,5 @@
 
 
-//   const chat= {
-//     "id": "1",
-//     "user": {
-//       "id": "u2",
-//       "name": "Naruto",
-//       "image": "https://gartic.com.br/imgs/mural/na/naruto_uzumakinrt/avatar.png?v=0"
-//     },
-//     "lastMessage": {
-//       "id": "m1",
-//       "text": "言ったことは、まげねぇ。それが俺の忍道だ！！",
-//       "createdAt": "2022-10-14T13:30:00.000Z"
-//     }
-
-//   }
-
 const chats = 
     [
         {

@@ -39,7 +39,7 @@ const MessageResponseScreen = ({navigation, props}) => {
   const dummyDataGuestName = 'Lukas'
   const dummyDataUserName = 'Vadim'
   // order status has five status ' unreceived, received, interested, accepted, rejected'
-  const dummyDataOrderStatusOfGuestsOrder = 'interested'
+  const dummyDataOrderStatusOfGuestsOrder = 'received'
   const dummyDataOrderStatusOfHostsOrder = 'accepted'
 
   const [orderStatusOfGuestsOrder,setOrderStatusOfGuestsOrder] = useState(dummyDataOrderStatusOfGuestsOrder)

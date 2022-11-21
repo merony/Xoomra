@@ -65,7 +65,7 @@ const HelpScreen = ({navigation, props}) => {
               onPress={()=>{cellPressed(0)}}
             >
              <MaterialIcons name='search' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Finding out a  stay that's right for you</Text>
+             <Text style={styles.textInCell}> Finding out a stay that's right for you</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>
@@ -92,10 +92,10 @@ const HelpScreen = ({navigation, props}) => {
 
             <TouchableOpacity 
               style={styles.cell}
-              onPress={()=>{cellPressed(0)}}
+              onPress={()=>{cellPressed(3)}}
             >
              <MaterialIcons name='home' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Getting protected througn Xcover</Text>
+             <Text style={styles.textInCell}> Getting protected through Xcover</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>
@@ -124,7 +124,7 @@ const HelpScreen = ({navigation, props}) => {
 
             <TouchableOpacity 
               style={styles.cell}
-              onPress={()=>{cellPressed(0)}}
+              onPress={()=>{cellPressed(4)}}
             >
              <MaterialIcons name='settings' size={25} color='#283239' style={styles.icon}/>
              <Text style={styles.textInCell}> Optimizing your listing</Text>
@@ -134,17 +134,17 @@ const HelpScreen = ({navigation, props}) => {
 
             <TouchableOpacity 
               style={styles.cell}
-              onPress={()=>{cellPressed(1)}}
+              onPress={()=>{cellPressed(5)}}
             >
-             <MaterialIcons name='credit-card' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Getting paid</Text>
+             <MaterialIcons name='people' size={25} color='#283239' style={styles.icon}/>
+             <Text style={styles.textInCell}> Meet new friends</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>
 
             <TouchableOpacity 
               style={styles.cell}
-              onPress={()=>{cellPressed(2)}}
+              onPress={()=>{cellPressed(6)}}
             >
              <MaterialIcons name='star-outline' size={25} color='#283239' style={styles.icon}/>
              <Text style={styles.textInCell}> Achieving your hotsing goals</Text>
@@ -154,10 +154,10 @@ const HelpScreen = ({navigation, props}) => {
 
             <TouchableOpacity 
               style={styles.cell}
-              onPress={()=>{cellPressed(0)}}
+              onPress={()=>{cellPressed(7)}}
             >
              <MaterialIcons name='cancel' size={25} color='#283239' style={styles.icon}/>
-             <Text style={styles.textInCell}> Changes, cancellations and refunds</Text>
+             <Text style={styles.textInCell}> Changes and cancellations</Text>
              <MaterialIcons name='keyboard-arrow-right' size={25} color='#283239' style={styles.icon}/>
 
             </TouchableOpacity>

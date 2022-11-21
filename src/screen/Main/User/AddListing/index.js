@@ -87,31 +87,39 @@ const AddListingScreen = ({navigation, props}) => {
 
 
   useEffect(() => {
-    //Runs only on the first render
-    AccommodationsDB.add({
-  StayTitle : 'Untitled',
-  Status : 'draft',
-  uid: auth().currentUser.uid,
+    //Runs only on the first render+
+
+    setData();
+    
+    
   
-})
-
-.then(function(docRef) {
-  console.log("Document written with ID: ", docRef.id);
-
-  getDocID(docRef.id);
-
-  Alert.alert("Document written with ID: ", docID);
-})
-.catch(function(error) {
-  console.error("Error adding document: ", error);
-});
 
    
   }, []);
 
 
 
-  const addImagesPressed = () => {
+  const setData = async () => {
+
+    const userData = (await cUserDB.get()).data();
+    console.log ('User Data', userData)
+    AccommodationsDB.add({
+      StayTitle : 'Untitled',
+      Status : 'draft',
+      uid: auth().currentUser.uid,
+      
+    })
+    
+    .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+    
+      getDocID(docRef.id);
+    
+      Alert.alert("Document written with ID: ", docID);
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
+    });
 
   }
   const addListingPressed = () => {
