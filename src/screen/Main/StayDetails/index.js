@@ -25,6 +25,7 @@ import { useRoute } from '@react-navigation/native';
 
 const StayDetailsScreen = ({navigation, props, route}) => {
   //get place id from stay screen, find the stay from places and sent it to component
+
   // const route = useRoute()
   // const stays = places.find(place => place.id === route.params.id)
   const {listingID} = route.params;
@@ -122,6 +123,7 @@ console.log( " Profile First=> ", profileData);
 
 
    }
+
 
   return (
     <View >

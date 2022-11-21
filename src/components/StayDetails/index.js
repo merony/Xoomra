@@ -204,7 +204,7 @@ const StayDetailsComponent = (props) => {
           </Pressable>
           <Divider/>
 
-          {/*Sleeping Arrangements*/}
+          {/*Sleeping Arrangements area*/}
           <Pressable >
           <View style={styles.titleContainer}>
             <Text style={styles.stayDetailsTitle}>Sleeping Arrangements</Text>
@@ -231,12 +231,12 @@ const StayDetailsComponent = (props) => {
           </Pressable>
           <Divider/>
 
-          {/* Want to go */}
+          {/* Want to go  area*/}
           <Pressable >
-          <View style={styles.titleContainer}>
-            {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
-            <Text style={styles.stayDetailsTitle}>Want To Go</Text>
-          </View>
+            <View style={styles.titleContainer}>
+              {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
+              <Text style={styles.stayDetailsTitle}>Want To Go</Text>
+            </View>
 
 
           {/* {
@@ -264,26 +264,27 @@ const StayDetailsComponent = (props) => {
           </Pressable>
           <Divider/>
 
-          {/* description */}
+          {/* Accommodation Details area */}
           <Pressable onPress={onDescriptionPressed}>
+
           <View style={styles.titleContainer}>
             <Text style={styles.stayDetailsTitle}>Accommodation Details</Text>
           </View>
 
             <LongTextComponent dataText = {stays.AccommodationDetails} dataFold = {descriptionFolded}/>
+
+
           </Pressable>
           <Divider/>
 
 
           {/* house rules */}
-          {/* hard code data for now */}
+          {/* use description for now */}
           <Pressable onPress={onRulePressed}>
           <View style={styles.titleContainer}>
             {/* <Fontisto name="shield" size={25} color={'#030f14'} style={{paddingTop:5}}/> */}
             <Text style={styles.stayDetailsTitle}>House Rules</Text>
           </View>
-
-            
 
             <LongTextComponent dataText = {stays.HouseRules} dataFold = {ruleFolded}/>
           </Pressable>

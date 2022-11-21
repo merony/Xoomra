@@ -8,8 +8,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingBottom: 8,
         marginVertical : 3,
-        width:'90%',
-        marginLeft:'5%',
         alignItems:'center',
         borderRadius:10,
         backgroundColor: '#e3f3fd'
@@ -23,8 +21,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingBottom: 8,
         marginVertical : 3,
-        width:'90%',
-        marginLeft:'5%',
         borderRadius:10,
         backgroundColor: '#e3f3fd',
 
@@ -33,7 +29,9 @@ const styles = StyleSheet.create({
     scrollViewContainer:{
         // flex:1,
         height:550,
-        width:'100%'
+        marginHorizontal:20,
+        
+
     },
     HeadTitle:{
 
@@ -42,11 +40,10 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'black',
         marginTop:20,
+        
     },
 
     title:{
-        marginLeft:'10%',
-        width:'80%',
         marginBottom:2
         // backgroundColor:'red'
     },
@@ -67,8 +64,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 30,
         marginTop: 25,
-        width:'80%',
-        marginLeft:'10%',
+        width:'90%',
+        marginHorizontal:20,
         // height:60,
         
     },
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
         marginLeft:5
     },
     pickerContainer:{
-        width:"90%",
+        width:"100%",
         paddingLeft:1,
         alignSelf:'center',
         backgroundColor:'#e3f3fd',
@@ -98,9 +95,7 @@ const styles = StyleSheet.create({
         fontSize:10
     },
     howItWorks:{
-        width:'80%',
-        marginLeft:'10%',
-        marginTop:20
+        marginTop:20,
     }
 
   
