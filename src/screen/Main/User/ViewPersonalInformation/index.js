@@ -5,6 +5,11 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+<<<<<<< HEAD
+=======
+  ScrollView,
+  Alert,
+>>>>>>> d8541dfa2b1eebadc4ee66c736d103b5c835ff4c
   View
 } from 'react-native';
 import { useEffect, useState } from 'react';
@@ -15,33 +20,82 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import DropDownPicker from 'react-native-dropdown-picker';
+import DatePicker from 'react-native-date-picker';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import styles from './styles';
 import { usersDB } from '../../../../data/firRef';
+import { add } from 'react-native-reanimated';
+import { Button } from 'react-native-paper';
 
 const ViewPersonalInformationScreen = ({navigation, props}) => {
-  
+
 const [profilePhoto,setProfilePhoto] = useState(null)
 const [firstName,setFirstName] = useState('')
 const [lastName,setLastName] = useState('')
-const [email,setEmail] = useState('')
-const [gender,setGender] = useState('')
-const [dob,setDob] = useState('')
 const [address,setAddress] = useState('')
 const [mobileNumber,setMobileNumber] = useState('')
 const [emergencyContactEmail,setEmergencyContactEmail] = useState('')
 const [emergencyContactNumber,setEmergencyContactNumber] = useState('')
+const [edit,setEdit] = useState(false)
 
+ 
+  const savePressed = async() => {
+
+    
+    const profilesCollection = await usersDB.where(`mobile`,`==`,mobileNumber).get()
+                                                // .doc(auth().currentUser.uid)
+    
+    if (firstName.length === 0  || lastName.length === 0 
+      || address.length === 0 ||mobileNumber.length === 0){
+
+      Alert.alert('',"Please fill all Information")
+    }
+
+
+    else{
+
+    
+      if (profilesCollection.docs.length === 0 || profilesCollection.docs[0].data().uid === auth().currentUser.uid ){
+        console.log("ITS THE SAME USER can save it Or number doesnt exist")
+           usersDB.doc(auth().currentUser.uid).update({
+             
+              firstName : firstName,
+              lastName : lastName,
+              Address : address,
+              mobile : mobileNumber,
+              emergencyMobile : emergencyContactEmail,
+              emergencyEmail : emergencyContactNumber,
+              })
+              navigation.replace("UserNav")
+      }
+      else if (profilesCollection.docs[0].data().uid !== auth().currentUser.uid){
+        Alert.alert('',"Mobile Number Already Exists")
+      }
+
+      
+
+      }
+
+    }
+  
 
 
 useEffect(() => {
-  //Runs on every render
+
+  console.log(auth().currentUser.uid)
   getUserInfo()
-  // test();
-  //  console.log(auth().currentUser.uid)
-});
+  navigation.setOptions({
+    headerRight: () => (
+      <TouchableOpacity title="X"  onPress = { () => setEdit(true)} >
+          <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Edit</Text>
+      </TouchableOpacity>
+    )
+  })
+
+}, []);
 
 
 const getUserInfo = async () =>{
@@ -50,9 +104,6 @@ const getUserInfo = async () =>{
   // console.log(profilesCollection)
   setFirstName(userPersonalInformation.firstName)
   setLastName(userPersonalInformation.lastName)
-  setEmail(userPersonalInformation.email)
-  setGender(userPersonalInformation.gender)
-  setDob(userPersonalInformation.DOB)
   setAddress(userPersonalInformation.Address)
   setMobileNumber(userPersonalInformation.mobile)
   setEmergencyContactEmail(userPersonalInformation.emergencyEmail)
@@ -69,63 +120,57 @@ const getUserInfo = async () =>{
       <ScrollView>
       <Text style={styles.headerTitle}>Personal Information</Text>
 
-      {/* Photo */}
-      <View style={{flexDirection:"column",margin:10,marginVertical:3}}>
-        
-        <Image 
-                    source={require('../../../../Image/rony-photo.jpg')}  
-                    style={{width: 100, height: 100, borderRadius: 400/ 2}} />
+    <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>First Name</Text>
+    <View style = {styles.formField}>
+    <Ionicons style={{ paddingVertical: 4}} name='person' size={18} color='#283239' />
+    <TextInput placeholder={firstName} style = {styles.formInput} 
+      editable={edit} value={firstName} onChangeText={setFirstName}/>
+    </View>
 
-      </View>
-     
-     {/* first name */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoDesc}>First name</Text>
-        <Text style={styles.infoValue}> {firstName} </Text>
-      </View>
+    <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>Last Name</Text>
+    <View style = {styles.formField}>
+    <Ionicons style={{ paddingVertical: 4}} name='person' size={18} color='#283239' />
+    <TextInput placeholder={lastName} style = {styles.formInput}
+     editable={edit} value={lastName} onChangeText={setLastName}/>
+    </View>
 
-      {/* Last name */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoDesc}>Last name</Text>
-        <Text style={styles.infoValue}>{lastName}</Text>
-      </View>
+    <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>Address</Text>
+    <View style = {styles.formField}>
+    <Ionicons style={{ paddingVertical: 4}} name='location-outline' size={18} color='#283239' />
+    <TextInput placeholder={address} style = {styles.formInput}
+     editable={edit} value={address} onChangeText={setAddress}/>
+    </View>
 
-      {/* Gender */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoDesc}>Gender</Text>
-        <Text style={styles.infoValue}>{gender}</Text>
+    <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>Mobile Number</Text>
+    <View style = {styles.formField}>
+    <MaterialIcons style={{ paddingVertical: 4}} name='settings-cell' size={18} color='#283239' />
+    <TextInput placeholder={mobileNumber} style = {styles.formInput}
+     editable={edit} value={mobileNumber} onChangeText={setMobileNumber} keyboardType={'number-pad'}/>
+    </View>
+    
+    <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>Emergency Contact Email </Text>
 
-      </View>
+    <View style = {styles.formField}>
+    <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
+    <TextInput placeholder={emergencyContactEmail} style = {styles.formInput}
+     editable={edit} value={emergencyContactEmail} onChangeText={setEmergencyContactEmail}/>
+    </View>
 
-      {/* DOB */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoDesc}>Date Of Birth</Text>
-        {/* <Text style={styles.infoValue}>{dob.substring(15,26)}</Text> */}
-      </View>
+    <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>Emergency Contact Number </Text>
 
-      {/* Address */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoDesc}>Address</Text>
-        <Text style={styles.infoValue}>{address}</Text>
-      </View>
+    <View style = {styles.formField}>
+    <MaterialIcons style={{ paddingVertical: 4}} name='settings-cell' size={18} color='#283239' />
+    <TextInput placeholder={emergencyContactNumber} style = {styles.formInput}
+     editable={edit} value={emergencyContactNumber} onChangeText={setEmergencyContactNumber}/>
+    </View>
 
-      {/* Mobile Number */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoDesc}>Mobile Number</Text>
-        <Text style={styles.infoValue}>{mobileNumber}</Text>
-      </View>
+  
+    </ScrollView>
 
-      {/* Emergency contact Name and Number */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoDesc}>Emergency contact Email and Number</Text>
-        <Text style={styles.infoValue}>{emergencyContactEmail}</Text>
-        <Text style={styles.infoValue}>{emergencyContactNumber}</Text>
-
-      </View>
-
-     
-
-      </ScrollView>
+    {(edit) && <TouchableOpacity onPress={savePressed} style = {styles.customBTN}>
+        <Text style={styles.textBTN}>Save</Text>
+    </TouchableOpacity>}
+    
   </View>
       
      
