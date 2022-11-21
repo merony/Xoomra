@@ -70,14 +70,24 @@ const ProfileInputScreen = ({navigation, props}) => {
       {label: 'Welsh', value: 'Welsh'},{label: 'Xhosa', value: 'Xhosa'}
     ]);
 
+    useEffect(() => {
+      //Runs only on the first render
+      profilesDB.doc(auth().currentUser.uid).set({
+        uid : auth().currentUser.uid,
+        email : auth().currentUser.email,
+        isProfileCompleted: false,
+        
+       
+})
+     
+    }, []);
+
 
     const savePressed = () =>{
 
       console.log("PRESSED")
 
-      profilesDB.doc(auth().currentUser.uid).set({
-        uid : auth().currentUser.uid,
-        email : auth().currentUser.email,
+      profilesDB.doc(auth().currentUser.uid).update({
         FacebookURL : facebookLinkFromUI,
         LinkedinURL : linkedinLinkFromUI,
         Interest : interestFromUI,

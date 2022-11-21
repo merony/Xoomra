@@ -78,7 +78,6 @@ const PersonalInformationScreen = ({navigation, props}) => {
 
     
     const profilesCollection = await usersDB.where(`mobile`,`==`,mobileNumberFromUI).get()
-                                                // .doc(auth().currentUser.uid)
     
     if (firstNameFromUI.length === 0  || lastNameFromUI.length === 0 ||  
         genderValue.length === 0  || addressFromUI.length === 0 ||
@@ -108,8 +107,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
               emergencyMobile : emergencyMobileFromUI,
               emergencyEmail : emergencyEmailFromUI,
               overallRating:5,
-              isCompleted: true,
-              isVerified: false,
+              isCompleted: false
               
               })
               console.log(auth().currentUser.uid)

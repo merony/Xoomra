@@ -9,7 +9,7 @@ import {
     Alert
 } from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import {cUserDB, profilesDB, usersDB, verificationsDB} from '../../data/firRef';
+import {cUserDB, profilesDB, usersDB, verificationsDB,cVerificationDB} from '../../data/firRef';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,12 +25,26 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import styles from './styles';
 
+
 const VerificationScreen = ({navigation, props}) => {
     
 
     const [photoID,setPhotoID] = useState(null)
     const [proofOfAddress,setProofOfAddress] = useState(null)
     const [userWithID,setUserWithID] = useState(null)
+    const [imageList, setImageList] = useState([]);
+
+    useEffect(() => {
+      //Runs only on the first render
+      verificationsDB.doc(auth().currentUser.uid).set({
+        uid: auth().currentUser.uid,
+        email: auth().currentUser.email,
+        isVerified: false,
+        
+       
+})
+     
+    }, []);
 
 
       const capturePhotoID = () =>{
@@ -39,6 +53,9 @@ const VerificationScreen = ({navigation, props}) => {
           cropping: true,
         }).then(image => {
           setPhotoID(image)
+          uploadImage(image.path)
+          console.log(imageList)
+
         });
         }
 
@@ -48,6 +65,9 @@ const VerificationScreen = ({navigation, props}) => {
           cropping: true,
         }).then(image => {
           setProofOfAddress(image)
+          uploadImage(image.path)
+          console.log(imageList)
+
         });
         }
 
@@ -57,51 +77,68 @@ const VerificationScreen = ({navigation, props}) => {
             cropping: true,
           }).then(image => {
             setUserWithID(image)
+            uploadImage(image.path)
+            console.log(imageList)
+
           });
           }
+
+
+          const uploadImage = async (image) => {
+
+            const imageUri = image;
+          
+           console.log ('Local', image)
+          
+          
+            let filename = imageUri.substring(imageUri.lastIndexOf('/')+ 1);
+          
+            try {
+          
+              const imgUploadRef = storage().ref(filename)
+          
+              await imgUploadRef.putFile(imageUri);
+          
+              const imURL= await imgUploadRef.getDownloadURL();
+              console.log('First Image ', imURL);
+              if(imURL){
+              console.log(imURL);
+                setImageList([...imageList, imURL]);
+              }
+        
+            } catch (e) {
+              console.log(e);
+              
+            }
+          
+              //  Alert.alert(filename)
+            
+            }
     
     
       
 
-      const submit = async () => {
+      const submit = () => {
 
-        const photoIDUri = photoID.path
-        const proofOfAddressUri = proofOfAddress.path
-        const userWithIDUri = userWithID.path
+        if (imageList.length === 0 ){
 
-        let IDFileName = photoIDUri.substring(photoIDUri.lastIndexOf('/')+ 1)
-        let AddressFileName = proofOfAddressUri.substring(proofOfAddressUri.lastIndexOf('/')+ 1)
-        let userWithIDFileName = userWithIDUri.substring(userWithIDUri.lastIndexOf('/')+ 1)
-
-        if (photoID === null || proofOfAddress === null || userWithID === null){
-
-          Alert.alert('Please upload all required documents to submit')
-
+          Alert.alert("","Please Fill All Information")
         }
         else{
-
-        
-
-        try {
-      
-          await storage().ref(IDFileName).putFile(photoIDUri);
-          await storage().ref(AddressFileName).putFile(proofOfAddressUri);
-          await storage().ref(userWithIDFileName).putFile(userWithIDUri);
-
-          usersDB.doc(auth().currentUser.uid).update({
-            
-            isVerified: true
-            
-            })
-
+          // console.log(imageList)
+         verificationsDB.doc(auth().currentUser.uid).update({
+          
+          images : imageList,
+          isVerified: true
+          
+          })
+          .then (() =>{
+    
           navigation.replace("TabNavigator")
-          
-        } catch (e) {
-          console.log(e);
-          
+    
+          })
         }
       
-      }
         }
 
     return (

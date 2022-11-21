@@ -27,7 +27,7 @@ import React from 'react';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
-import {usersDB} from '../../data/firRef';
+import {usersDB,cUserDB} from '../../data/firRef';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
    * LTI update could not be added via codemod */
@@ -71,7 +71,7 @@ import {usersDB} from '../../data/firRef';
         console.log('User account created & signed in!');
         Alert.alert("","Account Created")
         navigation.navigate('Personal Information')
-        usersDB.doc(auth().currentUser.uid).set({
+        cUserDB.set({
           uid: auth().currentUser.uid,
           email: emailFromUI,
           isCompleted: false,
