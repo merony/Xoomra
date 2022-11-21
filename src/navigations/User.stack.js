@@ -52,11 +52,11 @@ const UserNav = ({navigation, props}) => {
                     headerTitle: " ",
                   
                     
-                    headerRight: () => (
-                        <TouchableOpacity title="X"  onPress = { () => navigation.navigate("Edit Personal Information")} >
-                            <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Edit</Text>
-                        </TouchableOpacity>
-                      )
+                    // headerRight: () => (
+                    //     <TouchableOpacity title="X"  onPress = { () => navigation.navigate("Edit Personal Information")} >
+                    //         <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Edit</Text>
+                    //     </TouchableOpacity>
+                    //   )
                     
                             }} 
                 />

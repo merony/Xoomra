@@ -107,6 +107,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
               mobile : mobileNumberFromUI,
               emergencyMobile : emergencyMobileFromUI,
               emergencyEmail : emergencyEmailFromUI,
+              overallRating:5,
               isCompleted: true,
               isVerified: false,
               
