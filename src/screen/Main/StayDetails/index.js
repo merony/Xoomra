@@ -1,4 +1,4 @@
-import {AccommodationsDB, cUserDB, usersDB} from '../../../data/firRef';
+import {AccommodationsDB, cUserDB, profilesDB, usersDB} from '../../../data/firRef';
 import {
   FlatList,
   Image,
@@ -29,10 +29,18 @@ const StayDetailsScreen = ({navigation, props, route}) => {
   // const stays = places.find(place => place.id === route.params.id)
   const {listingID} = route.params;
 
+  const {listingUID} = route.params;
+
 
   console.log( " ID First=> ", listingID);
 
+  console.log( " UID First=> ", listingUID);
+
   const [accomodation,setAccomodation] = useState([]);
+
+  const [personalData,setPersonalData] = useState([])
+
+  const [profileData,setProfileData] = useState([])
 
 
   useEffect(() => {
@@ -49,16 +57,26 @@ const StayDetailsScreen = ({navigation, props, route}) => {
 
     const getListingID = listingID;
 
-    console.log( " Lisitng ID First=> ", listingID);
+    const getUserID = listingUID;
 
-    //  loadData(getListingID);
+   
+  
+
+     loadData(getListingID, getUserID)
+     
+     .then(() => {
+
+      console.log( " Profiles in use effect=> ", profileData);
+     });
+
+ 
      
    
   }, []);
 
-  loadData = async(ID) => {
+  loadData = async(getListingID, getUserID) => {
 
-    const listingData =  AccommodationsDB.doc(ID).get().data
+    const listingData = await AccommodationsDB.doc(getListingID).get()
     .then((querySnapshot) => {
 
       setAccomodation(querySnapshot.data())
@@ -76,23 +94,38 @@ const StayDetailsScreen = ({navigation, props, route}) => {
 
     // setAccomodation(listings);
 
-      console.log( " Data Details=> ", accomodation);
 
-      console.log( " Lisitng ID=> ", getListingID);
+
+     
   });
 
 
+  const userData = await usersDB.doc(getUserID).get()
+  .then((querySnapshot) => {
+
+    setPersonalData(querySnapshot.data())
+
+});
+
+  const userProfileData = await profilesDB.doc(getUserID).get()
+  .then((querySnapshot) => {
+
+    setProfileData(querySnapshot.data())
+   
+});
+
+console.log( " Accomodation First=> ", accomodation);
+console.log( " User ID First=> ", personalData);
+console.log( " Profile First=> ", profileData);
 
 
-  console.log( " Data=> ", listingData);
 
-  
-  // Alert.alert(accomodations);
-  }
+
+   }
 
   return (
     <View >
-     {/* <StayDetailsComponent stays={accomodation}/> */}
+     <StayDetailsComponent profileDatas={profileData} personalDatas={personalData} stays={accomodation}/>
     </View>
   );
 };

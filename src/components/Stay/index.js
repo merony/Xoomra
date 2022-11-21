@@ -1,4 +1,5 @@
 import {Image, Pressable, Text, View} from 'react-native';
+import { useEffect, useState } from 'react';
 
 import React from 'react';
 import styles from './styles.js';
@@ -9,10 +10,12 @@ const StayComponent = (props) => {
 
 
   const stays= props.stay;
+  
 
   const images =  props.stay.images ;
 
   const wantToGo =  props.stay.WantToGo
+
 
 
 
@@ -26,15 +29,17 @@ const StayComponent = (props) => {
 
   console.log("Our Image Test", stays.images);
 
-  console.log("Place Wan to Visit", wantToGo);
+  // console.log("Place Wan to Visit", wantToGo);
 
   console.log("All Data", stays);
 
-  console.log("Listing Id", stays.id);
+  console.log("Listing Id", stays.docID);
+
+
 
   const navi = useNavigation()
   const navigateToStayDetails = () =>{
-    navi.navigate('StayDetailsScreen', {listingID: stays.id})
+    navi.navigate('StayDetailsScreen', {listingID: stays.docID, listingUID: stays.uid})
   }
 
   

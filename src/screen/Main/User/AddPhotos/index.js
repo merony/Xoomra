@@ -154,6 +154,7 @@ console.log(
     }
     else{
       AccommodationsDB.doc(getListingID).update({
+        docID: getListingID,
         images : imageList,
 
       })

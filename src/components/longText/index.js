@@ -21,8 +21,8 @@ import styles from './styles';
 const LongTextComponent = (props) => {
 
 
-  const longText = props.data[0].description
-  const ShouldBeFolded =props.data[1]
+  const longText = props.dataText;
+  const ShouldBeFolded = props.dataFold;
 
 
     if(ShouldBeFolded){

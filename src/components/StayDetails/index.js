@@ -1,20 +1,26 @@
-import {Image, Pressable, Text, View,Alert,Modal,TouchableOpacity,ScrollView  } from 'react-native';
-
-import React from 'react';
-import styles from './styles.js';
+import {AccommodationsDB, cUserDB, profilesDB, usersDB} from '../../data/firRef';
+import {Alert, Image, Modal, Pressable, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import LongTextComponent from '../longText/index.js';
-import Divider from '../Divider/index.js';
+import { useEffect, useState } from 'react';
+
 import DatePicker from 'react-native-date-picker'
-import DatePickerComponent from '../DatePicker/index.js';
 import DatePickerCheckOutComponent from '../DatePicker/indexCheckOut.js';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import RequestStayScreen from '../../screen/Main/RequestStay/index';
-import MaxNightsWarning from '../MaxNightsWarning/index.js';
+import DatePickerComponent from '../DatePicker/index.js';
 import DateRangePicker from '../DateRangPicker/index.js';
+import Divider from '../Divider/index.js';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import { ImageSlider } from "react-native-image-slider-banner";
+import LongTextComponent from '../longText/index.js';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaxNightsWarning from '../MaxNightsWarning/index.js';
+import React from 'react';
+import RequestStayScreen from '../../screen/Main/RequestStay/index';
+import styles from './styles.js';
+
+// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
+
+
 
 
 const StayDetailsComponent = (props) => {
@@ -24,6 +30,8 @@ const StayDetailsComponent = (props) => {
   const [descriptionFolded,setDescriptionFolded] = useState(true)
   const [ruleFolded,setRuleFolded] = useState(true)
 
+
+
   const dummyDataForWantToGo = 'I would like to exchange with someone in Valencia, Spain.'
   const dummyDataForMaxNights = 6
   const dummyDataUserRating = 4.75
@@ -31,6 +39,23 @@ const StayDetailsComponent = (props) => {
   const dummyDataHostName = 'John'
 
   const stays= props.stays;
+  const personalData= props.personalDatas;
+  const profileData= props.profileDatas;
+  const images = stays.images;
+  const myDestination =  stays.WantToGo 
+
+
+  // console.log ('User Personal Information Data', personalData);
+  
+  console.log ('User Accodmodation Data', stays.AccommodationDetails);
+  console.log ('User Personal Data', personalData);
+  console.log ('User profile Data', profileData.overallRatings);
+
+  console.log ('User wantso to go Data', myDestination);
+
+  console.log ('User Pictures Data', images);
+
+
   const data = [stays,descriptionFolded]
   const navi = useNavigation()
   const onDescriptionPressed = () =>{
@@ -86,6 +111,29 @@ const StayDetailsComponent = (props) => {
     
   }
 
+
+
+
+
+  useEffect(() => {
+    //Runs on every render
+
+     
+  });
+
+
+  useEffect(() => {
+    //Runs only on the first render
+    
+  
+   
+  }, []);
+
+
+
+
+
+
   //if rating is better than 4.5, he is a super host
   const ReturnHostReviews = (propsR) =>{
     const rating= propsR.rating
@@ -115,11 +163,30 @@ const StayDetailsComponent = (props) => {
         <ScrollView style = {styles.container}>
 
           {/* image */}
-          <Image style={styles.Image}source={{uri: stays.image}}/>
+          {/* <Image style={styles.Image}source={{uri: stays.image}}/> */}
+
+         
+
+          <ImageSlider 
+  //   data={() =>{
+  //     const arr = []
+  //     images.map((image) => {
+  //       return arr.push({'img': image} );
+  //     }
+  //     );
+  //   }
+  // }
+
+    data={images}
+    autoPlay={false}
+    onItemChanged={(item) => console.log("item", item)}
+    closeIconColor="#fff"
+    style={styles.Image}
+/>
           {/* title */}
-          <Text style={styles.stayDetailsTitle}>{stays.title}</Text>
+          <Text style={styles.stayDetailsTitle}>{stays.StayTitle}</Text>
           {/* location */}
-          <Text style={styles.stayDetailsSubTitle}>{stays.location}</Text>
+          <Text style={styles.stayDetailsSubTitle}>{stays.City} {stays.State}</Text>
           <Divider/>
 
           {/* host info area*/}
@@ -127,8 +194,8 @@ const StayDetailsComponent = (props) => {
             <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}> 
               <View>
                 {/* limits, type*/}
-                <Text style={styles.stayDetailsHostTitle}>Hosted by {dummyDataHostName}</Text>
-                <ReturnHostReviews rating={dummyDataUserRating} bar={dummyDataSuperHostBar}/>
+                <Text style={styles.stayDetailsHostTitle}>Hosted by {personalData.firstName} {personalData.lastName}  </Text>
+                <ReturnHostReviews rating={profileData.overallRatings} bar={dummyDataSuperHostBar}/>
               </View>
                 <View>
                   <Image style={styles.hostImage}source={{uri: stays.image}}/>
@@ -146,7 +213,7 @@ const StayDetailsComponent = (props) => {
             {/* type */}
             <View style={{flexDirection:'row'}}>
             <MaterialIcons name='local-hotel' size={20} color={'#030f14'} style={{paddingLeft:5}}/>
-            <Text style={styles.stayDetailsSubTitle}> {stays.type}  </Text>
+            <Text style={styles.stayDetailsSubTitle}> {stays.AccommodationType}  </Text>
             
           </View>
           {/* guest */}
@@ -158,7 +225,7 @@ const StayDetailsComponent = (props) => {
           {/* nights */}
           <View style={{flexDirection:'row'}}>
             <Fontisto name="night-clear" size={15} color={'#030f14'} style={{paddingLeft:30,paddingTop:4}}/>
-            <Text style={styles.stayDetailsSubTitle}>{stays.maxNights} nights</Text>
+            <Text style={styles.stayDetailsSubTitle}>{stays.maxAvailableDays} nights</Text>
           </View>      
           </View>
           </Pressable>
@@ -171,7 +238,29 @@ const StayDetailsComponent = (props) => {
             <Text style={styles.stayDetailsTitle}>Want To Go</Text>
           </View>
 
-            <LongTextComponent data = {[{description:dummyDataForWantToGo},false]}/>
+
+          {/* {
+              myDestination?
+              myDestination.map((destination,index)=>{
+                // console.log(image);
+                if(index=== "City"){
+                  return (<Text key={index}> {destination}</Text>)
+                }else{{}
+                  return null
+                }
+                
+               }):<Text></Text>
+            } */}
+
+          <Text
+          numberOfLines={5} 
+          ellipsizeMode='tail' 
+          style={styles.stayDescription}>
+           
+          </Text>
+
+
+            {/* <LongTextComponent data = {[{description:dummyDataForWantToGo},false]}/> */}
           </Pressable>
           <Divider/>
 
@@ -181,7 +270,7 @@ const StayDetailsComponent = (props) => {
             <Text style={styles.stayDetailsTitle}>Accommodation Details</Text>
           </View>
 
-            <LongTextComponent data = {[stays,descriptionFolded]}/>
+            <LongTextComponent dataText = {stays.AccommodationDetails} dataFold = {descriptionFolded}/>
           </Pressable>
           <Divider/>
 
@@ -194,7 +283,9 @@ const StayDetailsComponent = (props) => {
             <Text style={styles.stayDetailsTitle}>House Rules</Text>
           </View>
 
-            <LongTextComponent data = {[stays,ruleFolded]}/>
+            
+
+            <LongTextComponent dataText = {stays.HouseRules} dataFold = {ruleFolded}/>
           </Pressable>
           <Divider/>
 

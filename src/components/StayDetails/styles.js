@@ -78,11 +78,9 @@ const styles = StyleSheet.create({
         fontSize: 10,
         paddingTop: 15,
         paddingBottom:15,
-
-
-
-
     },
+
+    
     customBTN : {
         backgroundColor: '#0999f4',
         borderRadius: 10,
