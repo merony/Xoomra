@@ -53,6 +53,8 @@ const StayDetailsComponent = (props) => {
 
   console.log ('User wantso to go Data', myDestination);
 
+  console.log ('User wantso to goCity Data', myDestination.City);
+
   console.log ('User Pictures Data', images);
 
 
