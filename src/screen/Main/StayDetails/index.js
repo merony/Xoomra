@@ -26,6 +26,7 @@ const StayDetailsScreen = ({props}) => {
   //get place id from stay screen, find the stay from places and sent it to component
   const route = useRoute()
   const stays = places.find(place => place.id === route.params.id)
+  console.log(`length of data: ${places.length}`)
   return (
     <View >
      <StayDetailsComponent stays={stays}/>

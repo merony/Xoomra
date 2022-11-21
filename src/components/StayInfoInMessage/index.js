@@ -74,7 +74,7 @@ const StayInfoInMessageComponent = (props) => {
         buttonText1 = 'Interested'
         buttonText2 = 'Reject'
 
-        title = `New request ${isUserHost()} ${chatData.hostName}`
+        title = `New request from ${chatData.hostName}`
         temp = 
 
         <View style={{flexDirection:'column',alignItems:'center'}}>
