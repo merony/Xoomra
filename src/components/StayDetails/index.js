@@ -137,63 +137,61 @@ const StayDetailsComponent = (props) => {
           </Pressable>
           <Divider/>
 
-          {/*Sleeping Arrangements*/}
+          {/*Sleeping Arrangements area*/}
           <Pressable >
-          <View style={styles.titleContainer}>
-            <Text style={styles.stayDetailsTitle}>Sleeping Arrangements</Text>
-          </View>
-          <View style={styles.sleepContainer}>
-            {/* type */}
-            <View style={{flexDirection:'row'}}>
-            <MaterialIcons name='local-hotel' size={20} color={'#030f14'} style={{paddingLeft:5}}/>
-            <Text style={styles.stayDetailsSubTitle}> {stays.type}  </Text>
-            
-          </View>
-          {/* guest */}
-          <View style={{flexDirection:'row'}}>
-            <Fontisto name="person" size={18} color={'#030f14'} style={{paddingLeft:20}} />
-            <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} guests</Text>
-           
-          </View>
-          {/* nights */}
-          <View style={{flexDirection:'row'}}>
-            <Fontisto name="night-clear" size={15} color={'#030f14'} style={{paddingLeft:30,paddingTop:4}}/>
-            <Text style={styles.stayDetailsSubTitle}>{stays.maxNights} nights</Text>
-          </View>      
-          </View>
+            <View style={styles.titleContainer}>
+              <Text style={styles.stayDetailsTitle}>Sleeping Arrangements</Text>
+            </View>
+
+            <View style={styles.sleepContainer}>
+              {/* type */}
+              <View style={{flexDirection:'row'}}>
+                <MaterialIcons name='local-hotel' size={20} color={'#030f14'} style={{paddingLeft:5}}/>
+                <Text style={styles.stayDetailsSubTitle}> {stays.type}  </Text>
+              </View>
+
+              {/* guest */}
+              <View style={{flexDirection:'row'}}>
+                <Fontisto name="person" size={18} color={'#030f14'} style={{paddingLeft:20}} />
+                <Text style={styles.stayDetailsSubTitle}>{stays.maxGuest} guests</Text>
+              </View>
+
+              {/* nights */}
+              <View style={{flexDirection:'row'}}>
+                <Fontisto name="night-clear" size={15} color={'#030f14'} style={{paddingLeft:30,paddingTop:4}}/>
+                <Text style={styles.stayDetailsSubTitle}>{stays.maxNights} nights</Text>
+              </View>      
+            </View>
           </Pressable>
           <Divider/>
 
-          {/* Want to go */}
+          {/* Want to go  area*/}
           <Pressable >
-          <View style={styles.titleContainer}>
-            {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
-            <Text style={styles.stayDetailsTitle}>Want To Go</Text>
-          </View>
+            <View style={styles.titleContainer}>
+              {/* <Fontisto name="list-2" size={18} color={'#030f14'} style={{paddingTop:5}} /> */}
+              <Text style={styles.stayDetailsTitle}>Want To Go</Text>
+            </View>
 
             <LongTextComponent data = {[{description:dummyDataForWantToGo},false]}/>
           </Pressable>
           <Divider/>
 
-          {/* description */}
+          {/* Accommodation Details area */}
           <Pressable onPress={onDescriptionPressed}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.stayDetailsTitle}>Accommodation Details</Text>
-          </View>
-
+            <View style={styles.titleContainer}>
+              <Text style={styles.stayDetailsTitle}>Accommodation Details</Text>
+            </View>
             <LongTextComponent data = {[stays,descriptionFolded]}/>
           </Pressable>
           <Divider/>
 
 
           {/* house rules */}
-          {/* hard code data for now */}
+          {/* use description for now */}
           <Pressable onPress={onRulePressed}>
-          <View style={styles.titleContainer}>
-            {/* <Fontisto name="shield" size={25} color={'#030f14'} style={{paddingTop:5}}/> */}
-            <Text style={styles.stayDetailsTitle}>House Rules</Text>
-          </View>
-
+            <View style={styles.titleContainer}>
+              <Text style={styles.stayDetailsTitle}>House Rules</Text>
+            </View>
             <LongTextComponent data = {[stays,ruleFolded]}/>
           </Pressable>
           <Divider/>
