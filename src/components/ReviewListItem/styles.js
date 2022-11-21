@@ -69,9 +69,6 @@ reviewText:{
 },
 singleReviewContainer:{
     marginVertical:10
-},
-listContainer1:{
-    height:600
 }
  
 });
