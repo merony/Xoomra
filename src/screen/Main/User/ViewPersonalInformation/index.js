@@ -104,6 +104,8 @@ const getUserInfo = async () =>{
   setEmergencyContactEmail(userPersonalInformation.emergencyEmail)
   setEmergencyContactNumber(userPersonalInformation.emergencyMobile)
 
+  console.log(userPersonalInformation)
+
 }
 
 

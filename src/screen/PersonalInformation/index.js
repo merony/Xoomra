@@ -107,7 +107,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
               emergencyMobile : emergencyMobileFromUI,
               emergencyEmail : emergencyEmailFromUI,
               overallRating:5,
-              isCompleted: false
+              isCompleted: true
               
               })
               console.log(auth().currentUser.uid)

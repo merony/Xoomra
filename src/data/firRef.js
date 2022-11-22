@@ -6,7 +6,7 @@ const cUserDB = firestore()
 .collection('users')
 .doc('PersonalInformations')
 .collection('user')
-.doc(auth().currentUser.uid)
+// .doc(auth().currentUser.uid)
 
       
 const usersDB = firestore()
@@ -18,7 +18,7 @@ const cprofileDB = firestore()
 .collection('users')
 .doc('Profiles')
 .collection('profile')
-.doc(auth().currentUser.uid)
+// .doc(auth().currentUser.uid)
 
 const profilesDB = firestore()
 .collection('users')
@@ -29,7 +29,7 @@ const cVerificationDB = firestore()
 .collection('users')
 .doc('Verifications')
 .collection('verification')
-.doc(auth().currentUser.uid)
+// .doc(auth().currentUser.uid)
 
 
 const verificationsDB = firestore()
