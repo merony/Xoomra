@@ -15,13 +15,13 @@ import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Loader from '../../../components/Loader/Loader';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import StayComponent from '../../../components/Stay';
 import { TextInput } from 'react-native-gesture-handler';
 import stayFeed from '../../../data/stayFeed';
 import styles from './styles';
-import Loader from '../../../components/Loader/Loader';
 
 const StayListScreen = ({ navigation, props }) => {
 
@@ -43,9 +43,6 @@ const StayListScreen = ({ navigation, props }) => {
     //Runs only on the first render
 
     loadData();
-
-
-
 
 
   }, []);
@@ -79,7 +76,6 @@ const StayListScreen = ({ navigation, props }) => {
     console.log(" Data=> ", accomodations);
 
 
-    // Alert.alert(accomodations);
   }
 
 
