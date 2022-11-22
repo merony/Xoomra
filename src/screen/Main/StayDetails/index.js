@@ -1,4 +1,4 @@
-import {AccommodationsDB, cUserDB, profilesDB, usersDB} from '../../../data/firRef';
+import {AccommodationsDB, profilesDB, usersDB} from '../../../data/firRef';
 import {
   FlatList,
   Image,
