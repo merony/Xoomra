@@ -53,7 +53,7 @@ const StayDetailsComponent = (props) => {
 
   // console.log ('User Personal Information Data', personalData);
 
-  console.log('User Accodmodation Data', stays.AccommodationDetails);
+  console.log('User Accodmodation Data', stays);
   console.log('User Personal Data', personalData);
   console.log('User profile Data', profileData.overallRatings);
 
@@ -84,7 +84,7 @@ const StayDetailsComponent = (props) => {
       if (dummyDataForMaxNights >= totalNights) {
         navi.navigate('RequestStayScreen',
           {
-            id: stays.id, checkInDate: checkInDate,
+            stays: stays, checkInDate: checkInDate,
             checkOutDate: checkOutDate, totalNights: totalNights
           })
       } else {
@@ -95,6 +95,7 @@ const StayDetailsComponent = (props) => {
       Alert.alert('ERROR', 'Stay at least for 1 night to continue')
     }
   }
+  console.log('stays' ,stays)
   const onHostPressed = () => {
     Alert.alert('navigate to host profile')
   }
@@ -214,7 +215,7 @@ const StayDetailsComponent = (props) => {
         </Pressable>
         <Divider />
 
-        {/*Sleeping Arrangements area*/}
+      
         <Pressable >
           <View style={styles.titleContainer}>
             <Text style={styles.stayDetailsTitle}>Sleeping Arrangements</Text>
@@ -306,6 +307,7 @@ const StayDetailsComponent = (props) => {
       </ScrollView>
 
       {/* reserve area*/}
+
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%', alignItems: 'center', marginLeft: 20, height: 70 }}>
         {/* date picker area */}
         <View style={styles.datePickerContainer}>
