@@ -75,6 +75,7 @@ const ProfileInputScreen = ({navigation, props}) => {
       profilesDB.doc(auth().currentUser.uid).set({
         uid : auth().currentUser.uid,
         email : auth().currentUser.email,
+        overallRating:5,
         isProfileCompleted: false,
         
        

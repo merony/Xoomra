@@ -12,6 +12,7 @@ import {
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import {cUserDB, usersDB} from '../../data/firRef';
 import { useEffect, useState } from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -26,9 +27,9 @@ import React from 'react';
 import { RotateInUpLeft } from 'react-native-reanimated';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+import moment from 'moment';
 import search from '../../data/search';
 import styles from './styles';
-import moment from 'moment';
 
 const PersonalInformationScreen = ({navigation, props}) => {
 
@@ -106,7 +107,6 @@ const PersonalInformationScreen = ({navigation, props}) => {
               mobile : mobileNumberFromUI,
               emergencyMobile : emergencyMobileFromUI,
               emergencyEmail : emergencyEmailFromUI,
-              overallRating:5,
               isCompleted: false
               
               })

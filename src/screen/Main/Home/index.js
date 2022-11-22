@@ -1,11 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+import { AccommodationsDB, cUserDB, usersDB } from '../../../data/firRef';
 import {
     FlatList,
     Image,
@@ -22,6 +15,7 @@ import Entype from 'react-native-vector-icons/Entypo'
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Loader from '../../../components/Loader/Loader';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import StayComponent from '../../../components/Stay';
@@ -38,6 +32,60 @@ import styles from './styles';
   
   
   const HomeScreen = ({navigation, props}) => {
+
+    const [accomodations, setAccomodations] = useState([]);
+    const [laoding, setLoading] = useState(false);
+
+    useEffect(() => {
+      //Runs on every render
+  
+      // test();
+  
+  
+    });
+  
+  
+    useEffect(() => {
+      //Runs only on the first render
+  
+      loadData();
+  
+  
+    }, []);
+  
+  
+    loadData = async () => {
+      setLoading(true)
+      const listingData = await AccommodationsDB.get()
+        .then((querySnapshot) => {
+  
+          const listings = []
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+  
+            listings.push(doc.data());
+            setLoading(false)
+  
+  
+          });
+  
+  
+          setAccomodations(listings);
+  
+          // console.log( " Data=> ", accomodations);
+        });
+  
+  
+  
+  
+      console.log(" Data=> ", accomodations);
+  
+  
+    }
+  
+
+
 
     const renderItem = ({ item }) => (
       // <Item title={item.title} />
@@ -81,12 +129,10 @@ import styles from './styles';
             </View>
 
 
-
-
             </ImageBackground>
 
             <FlatList
-        data={stayFeed}
+        data={accomodations}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
