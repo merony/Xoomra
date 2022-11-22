@@ -49,6 +49,9 @@ const MyListingNav = ({navigation, props}) => {
                  options={{
                     headerShown: true, 
                     headerTitle: " ",
+
+
+                    
                       }}
                 
                 />
@@ -60,7 +63,20 @@ const MyListingNav = ({navigation, props}) => {
                 }}
                 />
                 <MyListingStack.Screen name="Listing Review" component={ListingReviewScreen} />
-                <MyListingStack.Screen name="Preview Listing" component={PreviewListingScreen} />
+                <MyListingStack.Screen name="Preview Listing" component={PreviewListingScreen} 
+                
+                options={{
+                    headerShown: true, 
+                     
+                    headerTitle: " ",
+                    
+                    headerRight: () => (
+                        <TouchableOpacity title="X"  onPress = { () => navigation.replace("UserNav")} >
+                            <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>later</Text>
+                        </TouchableOpacity>
+                      )
+    
+                      }}/>
                 <MyListingStack.Screen name="Edit Listing" component={EditListingScreen} />
                       
             </MyListingStack.Navigator>

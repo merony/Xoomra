@@ -1,4 +1,3 @@
-import {AccommodationsDB, cUserDB, usersDB} from '../../../../data/firRef';
 import {
   Alert,
   Image,
@@ -12,6 +11,7 @@ import {
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
+import {AccommodationsDB} from '../../../../data/firRef';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 import DatePickerComponent  from '../../../../components/DatePicker'
@@ -23,6 +23,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import auth from '@react-native-firebase/auth'
+import {cUserDB} from '../../../../data/firCuRef';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 

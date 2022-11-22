@@ -122,7 +122,7 @@ const PersonalInformationScreen = ({navigation, props}) => {
     return (
 
        
-          <View style={{ justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}} > 
+          <View style={{ justifyContent: 'center', margin: 20,}} > 
             <Text style={styles.headerTitle}>Personal Information</Text>
             <ScrollView>
             <View style = {styles.formField}>

@@ -1,6 +1,6 @@
 import * as Progress from 'react-native-progress';
 
-import {AccommodationsDB, cUserDB, usersDB} from '../../../../data/firRef';
+import {AccommodationsDB, usersDB} from '../../../../data/firRef';
 import {
     Alert,
     FlatList,
@@ -59,9 +59,9 @@ const getListingID = listingID;
    
     // Alert.alert(auth().currentUser.uid)
 
-    Alert.alert('Doc Id :', getListingID)
+    // Alert.alert('Doc Id :', getListingID)
   
-})
+  }, []);
 
 
 const getPhoto = () =>{
@@ -148,9 +148,9 @@ console.log(
 
   const addListingPressed = () => {
 
-    if (imageList.length === 0 ){
+    if (imageList.length <= 3 ){
 
-      Alert.alert("","Please Fill All Information")
+      Alert.alert("","Please Add Minimum 4 Photos")
     }
     else{
       AccommodationsDB.doc(getListingID).update({
