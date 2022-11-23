@@ -2,16 +2,6 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 
-
-    headerTitle :{
-
-        fontSize: 24,
-        fontWeight: '500',
-        color: '#030f14',
-        marginBottom: 0
-        
-    },
-
     Image: {
 
         width: '100%',
@@ -43,8 +33,7 @@ const styles = StyleSheet.create({
         paddingLeft:10,
         fontWeight: "700",
         height:40,
-        // width:'90%',
-        // backgroundColor:'red'
+        width:'90%'
     },    
      stayDetailsTitle:{
 

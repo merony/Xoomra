@@ -2,15 +2,12 @@ import {
     ActivityIndicator,
     View
 } from 'react-native';
+import { useEffect, useState } from 'react';
 import React from 'react';
-
 const Loader = (props) => {
-
-
-
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <ActivityIndicator color={'blue'} size={'large'} />
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size={'large'} color={'blue'} />
         </View>
     );
 };

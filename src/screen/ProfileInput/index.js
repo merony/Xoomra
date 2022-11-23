@@ -4,7 +4,6 @@ import {
     Pressable,
     Text,
     TouchableOpacity,
-    Alert,
     View
 } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
@@ -17,9 +16,7 @@ import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ImagePicker from 'react-native-image-crop-picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import storage from '@react-native-firebase/storage';
 import React from 'react';
 import SelectList from 'react-native-dropdown-select-list'
 import auth from '@react-native-firebase/auth'
@@ -32,8 +29,6 @@ const ProfileInputScreen = ({navigation, props}) => {
     const [linkedinLinkFromUI,setlinkedinLinkFromUI] = useState("")
     const [interestFromUI,setInterestFromUI] = useState("")
     const [aboutYourSelfFromUI,setAboutYourSelfFromUI] = useState("")
-    const [profilePic,setProfilePic] = useState(null)
-    const [profilePicURL,setProfilePicURL] = useState('Empty')
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState([]);
     const [items, setItems] = useState([
@@ -88,81 +83,12 @@ const ProfileInputScreen = ({navigation, props}) => {
      
     }, []);
 
-    const uploadImage = async (image) => {
-
-      const imageUri = image;
-    
-     console.log ('Local', image)
-    
-      let filename = imageUri.substring(imageUri.lastIndexOf('/')+ 1);
-    
-      try {
-    
-        const imgUploadRef = storage().ref(filename)
-    
-        await imgUploadRef.putFile(imageUri);
-    
-        const imURL= await imgUploadRef.getDownloadURL();
-        console.log(imURL);
-        if(imURL){
-          setProfilePicURL(imURL)
-
-        }
-  
-      } catch (e) {
-        console.log(e);
-        
-      }
-          
-      }
-
-
-    const chooseProfilePic = () =>{
-      Alert.alert(
-        "Profile Picture",
-        "Please Select How You Want To Upload",
-        [
-          {
-            text: "Camera",
-            onPress: profilePicCam,
-          },
-          {text: ""},
-          {
-            text: "Gallary",
-            onPress: profilePicGallary,
-          },
-        ],
-        {cancelable: true}
-      );
-
-    }
-
-    const profilePicGallary = () =>{
-      ImagePicker.openPicker({
-        cropping: true
-      }).then(image => {
-        setProfilePic(image)
-        uploadImage(image.path)
-      });
-    }
-
-    const profilePicCam = () =>{
-      ImagePicker.openCamera({
-        cropping: true,
-      }).then(image => {
-        setProfilePic(image)
-        uploadImage(image.path)
-      });
-    }
-
-
 
     const savePressed = () =>{
 
       console.log("PRESSED")
 
       profilesDB.doc(auth().currentUser.uid).update({
-        ProfilePic : profilePicURL,
         FacebookURL : facebookLinkFromUI,
         LinkedinURL : linkedinLinkFromUI,
         Interest : interestFromUI,
@@ -179,27 +105,11 @@ const ProfileInputScreen = ({navigation, props}) => {
 
       <View style={{flexDirection: "column", justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}}>
 
-        <ScrollView>
+
           <Text style={styles.headerTitle}>Profile</Text>
-              <View style={{flexDirection:"column",margin:10,marginVertical:2}}>
 
-            <View style={{flexDirection:'row'}}>
-              <View style={{flex:1,justifyContent:'flex-start'}}>
-                <Text style={{color:'#283239', fontWeight: '300',marginHorizontal:10}}>Profile Picture</Text>
-              </View>
-              <TouchableOpacity onPress={chooseProfilePic}>
-                <Text style={{color:'#0999f4', fontWeight: '500'}}> Choose </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flexDirection:'row',justifyContent:'flex-start',marginVertical:20}}>
-              {/* {photoID !== null && <Image source={{uri:photoID.path}} style={{  width: 150,height: 150,borderColor: 'gray',borderWidth:0.5,resizeMode:'contain'}} />}   */}
-              {profilePic !== null && <Image 
-                      source={{uri:profilePic.path}} 
-                      style={{width: 70, height: 70, borderRadius: 400/ 2,resizeMode:'contain'}} />}
+          <ScrollView>
 
-            </View>
-
-          </View>
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='logo-facebook' size={18} color='#283239' />
             <TextInput placeholder='Facebook URL' style = {styles.formInput}
@@ -212,7 +122,21 @@ const ProfileInputScreen = ({navigation, props}) => {
               value={linkedinLinkFromUI} onChangeText={setlinkedinLinkFromUI} />
             </View>
 
+            <View style = {styles.formField}>
+            <Ionicons style={{ paddingVertical: 4}} name='heart-outline' size={18} color='#283239' />
+            <TextInput placeholder='Interest' style = {styles.formInput}
+              value={interestFromUI} onChangeText={setInterestFromUI}/>
+            </View>
+
+            <View style = {styles.formField}>
+            <Ionicons style={{ paddingVertical: 4}} name='list' size={18} color='#283239' />
+            <TextInput placeholder='Tell us more about yourself' style = {{ backgroundColor: '#e3f3fd',flex: 1,paddingVertical:0,height:100,textAlign:'left',textAlignVertical:'top',paddingVertical:4}}
+              value={aboutYourSelfFromUI} onChangeText={setAboutYourSelfFromUI} multiline={true}/>
+            </View>
+            
+
             <View style={styles.dropField}>
+
             <Fontisto style={{ paddingVertical: 17}} name='genderless' size={16} color='#283239' />
               <DropDownPicker style = {styles.dropInput}
                     open={open}
@@ -256,28 +180,19 @@ const ProfileInputScreen = ({navigation, props}) => {
                   />
             </View>
 
-            <View style = {styles.formField}>
-            <Ionicons style={{ paddingVertical: 4}} name='heart-outline' size={18} color='#283239' />
-            <TextInput placeholder='Interest' style = {styles.formInput}
-              value={interestFromUI} onChangeText={setInterestFromUI}/>
-            </View>
-
-            <View style = {styles.formField}>
-            <Ionicons style={{ paddingVertical: 4}} name='list' size={18} color='#283239' />
-            <TextInput placeholder='Tell us more about yourself' style = {{ backgroundColor: '#e3f3fd',flex: 1,paddingVertical:0,height:100,textAlign:'left',textAlignVertical:'top',paddingVertical:4}}
-              value={aboutYourSelfFromUI} onChangeText={setAboutYourSelfFromUI} multiline={true}/>
-            </View>
-            
 
             <TouchableOpacity onPress={savePressed} style = {styles.customBTN}>
                 <Text style={styles.textBTN}>Save</Text>
             </TouchableOpacity>
 
-            
-
-           
-           
             </ScrollView>
+
+            <View style={{marginTop:100}}>
+          
+
+            </View>
+           
+
     </View>
         
        

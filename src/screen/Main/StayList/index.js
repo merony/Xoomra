@@ -41,10 +41,7 @@ const StayListScreen = ({ navigation, props }) => {
 
   useEffect(() => {
     //Runs only on the first render
-
     loadData();
-
-
   }, []);
 
 
@@ -56,12 +53,10 @@ const StayListScreen = ({ navigation, props }) => {
         const listings = []
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          console.log('AccommodationsDB  =>', doc.data());
 
           listings.push(doc.data());
           setLoading(false)
-
-
         });
 
 
@@ -69,13 +64,6 @@ const StayListScreen = ({ navigation, props }) => {
 
         // console.log( " Data=> ", accomodations);
       });
-
-
-
-
-    console.log(" Data=> ", accomodations);
-
-
   }
 
 

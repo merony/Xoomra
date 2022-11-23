@@ -32,10 +32,7 @@ const VerificationScreen = ({navigation, props}) => {
     const [photoID,setPhotoID] = useState(null)
     const [proofOfAddress,setProofOfAddress] = useState(null)
     const [userWithID,setUserWithID] = useState(null)
-    const [photoIDURL,setPhotoIDURL] = useState('')
-    const [proofOfAddressURL,setProofOfAddressURL] = useState('')
-    const [userWithIDURL,setUserWithIDURL] = useState('')
-  
+    const [imageList, setImageList] = useState([]);
 
     useEffect(() => {
       //Runs only on the first render
@@ -56,7 +53,7 @@ const VerificationScreen = ({navigation, props}) => {
           cropping: true,
         }).then(image => {
           setPhotoID(image)
-          uploadImage(image.path,photoID)
+          uploadImage(image.path)
           console.log(imageList)
 
         });
@@ -68,7 +65,7 @@ const VerificationScreen = ({navigation, props}) => {
           cropping: true,
         }).then(image => {
           setProofOfAddress(image)
-          uploadImage(image.path,proofOfAddress)
+          uploadImage(image.path)
           console.log(imageList)
 
         });
@@ -80,14 +77,14 @@ const VerificationScreen = ({navigation, props}) => {
             cropping: true,
           }).then(image => {
             setUserWithID(image)
-            uploadImage(image.path,userWithID)
+            uploadImage(image.path)
             console.log(imageList)
 
           });
           }
 
 
-          const uploadImage = async (image,type) => {
+          const uploadImage = async (image) => {
 
             const imageUri = image;
           
@@ -105,19 +102,8 @@ const VerificationScreen = ({navigation, props}) => {
               const imURL= await imgUploadRef.getDownloadURL();
               console.log('First Image ', imURL);
               if(imURL){
-                console.log(imURL);
-
-                // setImageList([...imageList, imURL]);
-                if (type === photoID ){
-                  setPhotoIDURL(imURL)
-                }
-                else if (type === proofOfAddress){
-                  setProofOfAddressURL(imURL)
-                }
-                else if (type === userWithID){
-                  setUserWithIDURL(imURL)
-                }
-
+              console.log(imURL);
+                setImageList([...imageList, imURL]);
               }
         
             } catch (e) {
@@ -134,19 +120,15 @@ const VerificationScreen = ({navigation, props}) => {
 
       const submit = () => {
 
-        if (photoIDURL === '' || proofOfAddressURL === '' || userWithIDURL === '' ){
+        if (imageList.length === 0 ){
 
-      
-          Alert.alert("","Please Upload All Required Documents")
+          Alert.alert("","Please Fill All Information")
         }
         else{
           // console.log(imageList)
          verificationsDB.doc(auth().currentUser.uid).update({
           
-          // images : imageList,
-          photoID : photoIDURL,
-          proofOfAddress : proofOfAddressURL,
-          userWithID : userWithIDURL,
+          images : imageList,
           isVerified: true
           
           })

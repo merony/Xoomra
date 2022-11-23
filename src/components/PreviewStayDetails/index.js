@@ -37,11 +37,11 @@ const PreviewStayDetailsComponent = (props) => {
   const dummyDataSuperHostBar = 4.5
   const dummyDataHostName = 'John'
 
-  const stays = props.stays;
-  const personalData = props.personalDatas;
-  const profileData = props.profileDatas;
-  const images = stays.images;
-  const myDestination = stays.WantToGo
+  const stays = props?.stays;
+  const personalData = props?.personalDatas;
+  const profileData = props?.profileDatas;
+  const images = stays?.images;
+  const myDestination = stays?.WantToGo
 
 
 
@@ -52,11 +52,11 @@ const PreviewStayDetailsComponent = (props) => {
 
   // console.log ('User Personal Information Data', personalData);
 
-  console.log('User Accodmodation Data', stays.AccommodationDetails);
-  console.log('User Personal Data', personalData);
-  console.log('User profile Data', profileData.overallRatings);
+  // console.log('User Accodmodation Data', stays.AccommodationDetails);
+  // console.log('User Personal Data', personalData);
+  // console.log('User profile Data', profileData.overallRatings);
 
-  console.log('User wantso to go Data', myDestination);
+  // console.log('User wantso to go Data', myDestination);
 
   console.log('User Pictures Data', images);
 
@@ -197,7 +197,7 @@ const PreviewStayDetailsComponent = (props) => {
             <View>
               {/* limits, type*/}
               <Text style={styles.stayDetailsHostTitle}>Hosted by {personalData.firstName} {personalData.lastName}  </Text>
-              <ReturnHostReviews rating={profileData.overallRatings} bar={dummyDataSuperHostBar} />
+              <ReturnHostReviews rating={profileData?.overallRatings} bar={dummyDataSuperHostBar} />
             </View>
             <View>
               <Image style={styles.hostImage} source={{ uri: stays.image }} />

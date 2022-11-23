@@ -1,11 +1,10 @@
 import {
-  Alert,
-  FlatList,
-  Image,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View
+    FlatList,
+    Image,
+    Pressable,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -14,7 +13,6 @@ import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ManageListingItem from '../../../../components/ManageListingItem';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import React from 'react';
@@ -25,14 +23,10 @@ import styles from './styles';
 const ManageListingScreen = ({navigation, props}) => {
     
 const stays = places
-const addPressed = (id) =>{
-  Alert.alert(`navi to add listing screen`)
-}
-
 const dummyDatalistings = [
   {
     stay:stays[0],
-    isPublished:false,
+    isPublished:true,
   },
   {
     stay:stays[1],
@@ -47,32 +41,31 @@ const dummyDatalistings = [
     isPublished:true,
   }
 ]
-const dummyDatalisting = dummyDatalistings[0]
 
-
+const [selectedSubject, setSelectedSubject] = useState('');
 
 
     return (
-      <View style={{flexDirection: "column",paddingHorizontal:20,paddingVertical:20}}>
-        <TouchableOpacity onPress={addPressed}>
-          <Text 
-            style={styles.addListing}>
-            Add New Listing
-          </Text>
-        </TouchableOpacity>
-        {/* flatlistContainer */}
-        <View style={styles.flatlistContainer}>
 
-          <FlatList
-            data={dummyDatalistings}
-            renderItem={({item}) => <ManageListingItem listing={item} />}
-           />
+      <View style={{flexDirection: "column", margin: 20}}>
+
+<View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
+
+<TouchableOpacity title="X"  onPress = { () => navigation.navigate("Add Listing")} >
+                            <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Add New Listing</Text>
+                        </TouchableOpacity>
+
+</View>
+
+
+
+         
 
         </View>
 
 
-      </View>
-        
+  
+
        
     
   );
