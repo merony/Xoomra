@@ -41,12 +41,12 @@ const ManageListingItem = (props) => {
     return temp
   }
   const pickerData = [
-    {key:'Operations',value:'Operations'},
     {key:'Delete',value:'Delete'},
     {key:'Publish',value:'Publish'},
     {key:'Unpublish',value:'Unpublish'},
   ]
   const [selected,setSelected] = useState('')
+  const [isPublished1,setIsPublished1] = useState(listing.isPublished)
 
   
   //still need to operate the data base and refresh page.
@@ -61,6 +61,8 @@ const ManageListingItem = (props) => {
       Alert.alert('Listing already published. No change will be made.')
     }else{
       listing.isPublished=true
+      setIsPublished1(true)
+      setSelected('Publish')
       Alert.alert('Listing Published')
     }
   }
@@ -68,6 +70,8 @@ const ManageListingItem = (props) => {
   const unPublishListing = () =>{
     if(listing.isPublished){
       listing.isPublished=false
+      setIsPublished1(false)
+      setSelected('Unpublish')
       Alert.alert('Listing Unpublished')
     }else{
       Alert.alert('Listing already unpublished. No change will be made.')
@@ -79,19 +83,19 @@ const ManageListingItem = (props) => {
     switch (option) {
       case 'Delete':
         Alert.alert('Warning','Do you want to delete this listing?',[
-          {text:'Confirm',onPress:deleteListing()},
+          {text:'Confirm',onPress:() => deleteListing()},
           {text:'cancel',style:'cancel'}
         ])
         break;
       case 'Publish':
         Alert.alert('Warning','Do you want to publish this listing?',[
-          {text:'Confirm',onPress:publishListing()},
+          {text:'Confirm',onPress:() => publishListing()},
           {text:'cancel',style:'cancel'}
         ])
         break;
       case 'Unpublish':
         Alert.alert('Warning','Do you want to unpublish this listing?',[
-          {text:'Confirm',onPress:unPublishListing()},
+          {text:'Confirm',onPress:() => unPublishListing()},
           {text:'cancel',style:'cancel'}
         ])
         break;
@@ -102,13 +106,11 @@ const ManageListingItem = (props) => {
   }
   
   const pickerSelected = (val) =>{
-    showConfirm(val) 
-    setSelected('Operations')
-    
+    showConfirm(val)
   }
 
 
-  const editPressed = (id) =>{
+  const editPressed = () =>{
     Alert.alert(`navi to edit screen, listing id:${listing.stay.id}`)
   }
   
@@ -148,7 +150,8 @@ const ManageListingItem = (props) => {
                   <SelectList 
                     placeholder={'Operations'}
                     data={pickerData} 
-                    setSelected={(val) => pickerSelected(val)}
+                    setSelected={(val) => {pickerSelected(val)}
+                  }
                     boxStyles={styles.boxStyles}
                     inputStyles={styles.inputStyles}
                     dropdownStyles={styles.dropdownStyles}
