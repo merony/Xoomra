@@ -1,11 +1,11 @@
 import {
   Alert,
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -14,16 +14,13 @@ import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ManageListingItem from '../../../../components/ManageListingItem';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import places from '../../../../data/stayFeed';
-<<<<<<< HEAD
 import styles from './styles';
-=======
-import ManageListingItem from '../../../../components/ManageListingItem';
->>>>>>> 64660120f3654b34800269f02fc63feccf8e3d06
 
 const ManageListingScreen = ({navigation, props}) => {
     
@@ -66,37 +63,16 @@ const dummyDatalisting = dummyDatalistings[0]
         {/* flatlistContainer */}
         <View style={styles.flatlistContainer}>
 
-<<<<<<< HEAD
-      <View style={{flexDirection: "column", margin: 20}}>
-
-<View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
-
-<TouchableOpacity title="X"  onPress = { () => navigation.navigate("Add Listing")} >
-                            <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Add New Listing</Text>
-                        </TouchableOpacity>
-
-</View>
-
-
-
-         
-=======
           <FlatList
             data={dummyDatalistings}
             renderItem={({item}) => <ManageListingItem listing={item} />}
            />
->>>>>>> 64660120f3654b34800269f02fc63feccf8e3d06
 
         </View>
 
 
-<<<<<<< HEAD
-  
-
-=======
       </View>
         
->>>>>>> 64660120f3654b34800269f02fc63feccf8e3d06
        
     
   );
