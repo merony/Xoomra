@@ -1,27 +1,29 @@
 import {
+    Alert,
     FlatList,
     Image,
     Pressable,
+    ScrollView,
     Text,
     TouchableOpacity,
-    View,ScrollView,Alert
+    View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Divider from '../../../components/Divider/index';
+import DividerWide from '../../../components/DividerWide';
 import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LongTextComponent from '../../../components/longText/index'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
 import places from '../../../data/stayFeed';
+import styles from './styles';
 import { useRoute } from '@react-navigation/native';
-import Divider from '../../../components/Divider/index';
-import LongTextComponent from '../../../components/longText/index'
-import DividerWide from '../../../components/DividerWide';
 
 const RequestStayScreen = ({navigation, props}) => {
 
