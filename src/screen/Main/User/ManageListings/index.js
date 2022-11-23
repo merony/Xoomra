@@ -1,4 +1,5 @@
 import {
+  Alert,
     FlatList,
     Image,
     Pressable,
@@ -18,15 +19,23 @@ import {Picker} from '@react-native-picker/picker';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import places from '../../../../data/stayFeed';
+<<<<<<< HEAD
 import styles from './styles';
+=======
+import ManageListingItem from '../../../../components/ManageListingItem';
+>>>>>>> 64660120f3654b34800269f02fc63feccf8e3d06
 
 const ManageListingScreen = ({navigation, props}) => {
     
 const stays = places
+const addPressed = (id) =>{
+  Alert.alert(`navi to add listing screen`)
+}
+
 const dummyDatalistings = [
   {
     stay:stays[0],
-    isPublished:true,
+    isPublished:false,
   },
   {
     stay:stays[1],
@@ -41,12 +50,23 @@ const dummyDatalistings = [
     isPublished:true,
   }
 ]
+const dummyDatalisting = dummyDatalistings[0]
 
-const [selectedSubject, setSelectedSubject] = useState('');
+
 
 
     return (
+      <View style={{flexDirection: "column",paddingHorizontal:20,paddingVertical:20}}>
+        <TouchableOpacity onPress={addPressed}>
+          <Text 
+            style={styles.addListing}>
+            Add New Listing
+          </Text>
+        </TouchableOpacity>
+        {/* flatlistContainer */}
+        <View style={styles.flatlistContainer}>
 
+<<<<<<< HEAD
       <View style={{flexDirection: "column", margin: 20}}>
 
 <View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
@@ -60,12 +80,23 @@ const [selectedSubject, setSelectedSubject] = useState('');
 
 
          
+=======
+          <FlatList
+            data={dummyDatalistings}
+            renderItem={({item}) => <ManageListingItem listing={item} />}
+           />
+>>>>>>> 64660120f3654b34800269f02fc63feccf8e3d06
 
         </View>
 
 
+<<<<<<< HEAD
   
 
+=======
+      </View>
+        
+>>>>>>> 64660120f3654b34800269f02fc63feccf8e3d06
        
     
   );
