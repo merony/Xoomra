@@ -13,6 +13,7 @@ import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ManageListingItem from '../../../../components/ManageListingItem';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-picker/picker';
 import React from 'react';
@@ -49,24 +50,25 @@ const [selectedSubject, setSelectedSubject] = useState('');
 
       <View style={{flexDirection: "column", margin: 20}}>
 
-<View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
+   <View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
 
 <TouchableOpacity title="X"  onPress = { () => navigation.navigate("Add Listing")} >
                             <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Add New Listing</Text>
                         </TouchableOpacity>
+                        </View>
+
+                         {/* flatlistContainer */}
+        <View style={styles.flatlistContainer}>
+
+<FlatList
+  data={dummyDatalistings}
+  renderItem={({item}) => <ManageListingItem listing={item} />}
+ />
 
 </View>
 
-
-
-         
-
         </View>
 
-
-  
-
-       
     
   );
    };

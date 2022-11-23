@@ -58,7 +58,7 @@ const PreviewStayDetailsComponent = (props) => {
 
   // console.log('User wantso to go Data', myDestination);
 
-  console.log('User Pictures Data', images);
+  console.log('User Pictures Data', personalData);
 
 
   const data = [stays, descriptionFolded]
@@ -196,10 +196,11 @@ const PreviewStayDetailsComponent = (props) => {
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <View>
               {/* limits, type*/}
-              <Text style={styles.stayDetailsHostTitle}>Hosted by {personalData.firstName} {personalData.lastName}  </Text>
+              <Text style={styles.stayDetailsHostTitle}>Hosted by {personalData?.firstName} {personalData?.lastName}  </Text>
               <ReturnHostReviews rating={profileData?.overallRatings} bar={dummyDataSuperHostBar} />
             </View>
             <View>
+              
               <Image style={styles.hostImage} source={{ uri: stays.image }} />
             </View>
           </View>

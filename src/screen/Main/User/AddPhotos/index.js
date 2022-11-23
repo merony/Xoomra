@@ -36,7 +36,11 @@ const AddPhotosScreen = ({navigation, props, route}) => {
 
 const {listingID} = route.params;
 
+const {listingUID} = route.params;
+
 const getListingID = listingID;
+
+const getListingUID = listingUID;
 
 // IMAGE IT WILL HELp store Image URI
   const [image, setImage] = useState(null);
@@ -160,7 +164,7 @@ console.log(
       })
       .then (() =>{
 
-        navigation.navigate('Preview Listing', {listingID: getListingID})
+        navigation.navigate('Preview Listing', {listingID: getListingID, listingUID: getListingUID})
 
       })
     }
