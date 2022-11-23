@@ -39,6 +39,14 @@ stayDetailsSubTitle1:{
     fontWeight: "300",
     color:'black',
 },
+stayDetailsSubTitleLink:{
+    fontSize: 14,
+    paddingTop: 5,
+    paddingLeft:15,
+    fontWeight: "300",
+    color:'black',
+    textDecorationLine:'underline'
+},
 name:{
     fontSize:24,
     color:'black',

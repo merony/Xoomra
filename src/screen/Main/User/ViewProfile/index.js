@@ -4,7 +4,7 @@ import {
     Pressable,
     Text,
     TouchableOpacity,
-    View
+    View,Linking
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -30,10 +30,10 @@ const ViewProfileScreen = ({navigation, props}) => {
       overAllRating:4.92,
       reviews:['2','312','231'],
       phoneNumber:'12345',
-      FacebookU:'www.facebook.com',
+      FacebookU:'http://www.facebook.com',
       Intrests:'If you decide to go this route, you’ll need to submit a letter of interest to the desired company (along with your fine-tuned resume). Read on for a concise definition and find out how to write a letter of interest for a job. We’ve also included some successful letter of interest samples.',
       Languages:['Albanian','Shanghaiese','Southern Quechua'],
-      LinkedinURL:'www.linkin.com',
+      LinkedinURL:'http://www.linkedin.com',
       aboutYourSelf:'Many companies don’t advertise all of their positions externally. It can be worthwhile to submit an application to a company that isn’t in the midst of hiring. There’s a chance they may need your expertise, and you may even be the perfect fit.',
       email:'rafikk@gmail.com',
       isProfileCompleted:true,
@@ -41,6 +41,15 @@ const ViewProfileScreen = ({navigation, props}) => {
     }
   const dummyDataReviews = chats
   const dummyDataUserListing = places[0]
+
+  const openFB = () =>{
+    let url = dummyDataUserProfile.FacebookU
+    Linking.openURL(url)
+  }
+  const openLK = () =>{
+    let url = dummyDataUserProfile.LinkedinURL
+    Linking.openURL(url)
+  }
 
   const returnLanguage = (arrOfLanguages) =>{
     let temp
@@ -68,7 +77,7 @@ const ViewProfileScreen = ({navigation, props}) => {
     if(propsV.isVerified){
       temp = 
         <View style={styles.subContainer1}>
-          <MaterialIcons name='verified-user' size={18} color={'blue'} style={{paddingTop:6}}/>
+          <MaterialIcons name='verified-user' size={18} color={'#283239'} style={{paddingTop:6}}/>
           <Text style={styles.stayDetailsSubTitle}>Verified user </Text>
         </View>
     }else{
@@ -82,7 +91,7 @@ const ViewProfileScreen = ({navigation, props}) => {
     if(propsI.isVerified){
       temp =
       <View style={styles.subContainer1}>
-        <Fontisto name="check" size={12} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
+        <Fontisto name="passport" size={18} color={'#283239'} style={{paddingTop:6,paddingLeft:2}} />
         <Text style={styles.stayDetailsSubTitle}>Identity </Text>
       </View>
     }else{
@@ -96,7 +105,7 @@ const ViewProfileScreen = ({navigation, props}) => {
     if(propsE.email!==''){
       temp =
         <View style={styles.subContainer1}>
-          <Fontisto name="check" size={12} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
+          <Fontisto name="email" size={16} color={'#283239'} style={{paddingTop:6,paddingLeft:2}} />
           <Text style={styles.stayDetailsSubTitle}>Email address </Text>
         </View>
     }else{
@@ -110,9 +119,41 @@ const ViewProfileScreen = ({navigation, props}) => {
     if(propsP.phone!==""){
       temp =
       <View style={styles.subContainer1}>
-        <Fontisto name="check" size={12} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
+        <MaterialIcons name='phone-android' size={20} color={'#283239'} style={{paddingTop:6}}/>
         <Text style={styles.stayDetailsSubTitle}>Phone number </Text>
       </View>
+    }else{
+      temp = null
+    }
+
+    return temp
+  }
+  const ReturnFacebook = (propsP) =>{
+    let temp
+    if(propsP.FacebookU!==""){
+      temp =
+      <TouchableOpacity 
+        style={styles.subContainer1}
+        onPress={openFB}>
+        <MaterialIcons name='facebook' size={20} color={'#283239'} style={{paddingTop:6}}/>
+        <Text style={styles.stayDetailsSubTitleLink}>Facebook </Text>
+      </TouchableOpacity>
+    }else{
+      temp = null
+    }
+
+    return temp
+  }
+  const ReturnLinkedin = (propsP) =>{
+    let temp
+    if(propsP.LinkedinURL!==""){
+      temp =
+      <TouchableOpacity 
+        style={styles.subContainer1}
+        onPress={openLK}>
+        <Fontisto name="linkedin" size={16} color={'#283239'} style={{paddingTop:6,paddingLeft:3}} />
+        <Text style={styles.stayDetailsSubTitleLink}>Linkedin </Text>
+      </TouchableOpacity>
     }else{
       temp = null
     }
@@ -130,18 +171,18 @@ const ViewProfileScreen = ({navigation, props}) => {
             source={{uri:dummyDataUserProfile.image}}
             style={styles.image}/>
 
-          <Text style={styles.name}>Hi, I'm{dummyDataUserProfile.name}</Text>
+          <Text style={styles.name}>Hi, I'm {dummyDataUserProfile.name}</Text>
 
           <Text>{returnLanguage(dummyDataUserProfile.Languages)}</Text>
 
           <View style={styles.subContainer1}>
-            <Fontisto name="check" size={12} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
+            <Fontisto name="check" size={12} color={'#283239'} style={{paddingTop:6,paddingLeft:2}} />
             <Text style={styles.stayDetailsSubTitle}>Superhost </Text>
           </View>
 
           <View style={styles.subContainer1}>
-            <Fontisto name="star" size={15} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
-            <Text style={styles.stayDetailsSubTitle}>{dummyDataUserProfile.reviews.length} reviews </Text>
+            <Fontisto name="star" size={15} color={'#283239'} style={{paddingTop:6,paddingLeft:2}} />
+            <Text style={styles.stayDetailsSubTitle}>{dummyDataReviews.length} reviews </Text>
           </View>
 
           <ReturnVerifiedUser isVerified={dummyDataUserProfile.isProfileCompleted} />
@@ -159,12 +200,17 @@ const ViewProfileScreen = ({navigation, props}) => {
 
           <ReturnPhone phone={dummyDataUserProfile.phoneNumber}/>
 
+          <ReturnFacebook FacebookU={dummyDataUserProfile.FacebookU}/>
+
+          <ReturnLinkedin LinkedinURL={dummyDataUserProfile.LinkedinURL}/>
+
+
         </View>
 
         {/* listing container */}
         <View style={styles.subContainer2}>
 
-          <Text style={styles.name1}>{dummyDataUserProfile.name}'s' listing</Text>
+          <Text style={styles.name1}>{dummyDataUserProfile.name}'s listing</Text>
 
           {/* image */}
           <Image style={styles.image1}source={{uri: dummyDataUserListing.image}}/>
@@ -184,7 +230,8 @@ const ViewProfileScreen = ({navigation, props}) => {
 
             <FlatList
               data={dummyDataReviews}
-              renderItem={({item}) => <ReviewListItem review={item} />}
+              renderItem={({item}) => <ReviewListItem review={item} 
+              nestedScrollEnabled/>}
             />
           </View>
 
