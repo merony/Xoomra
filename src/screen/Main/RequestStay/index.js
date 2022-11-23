@@ -58,9 +58,15 @@ const onReservePressed = () =>{
 
   return (
 
+    <View > 
+
+
+<Text style={styles.headerTitle}>Accomodation Details</Text>
+   
+
     <ScrollView style={{flexDirection: "column",margin:20}}>
     
-     <Divider/>
+     
 
      <View style={{flexDirection:'row',paddingLeft:10}}>
         <Image style={styles.hostImage}source={{uri: stays?.images?.[0]}}/>
@@ -135,11 +141,9 @@ const onReservePressed = () =>{
 
    
 
-
-
-
-
   </ScrollView>
+
+  </View>
       
      
   );
