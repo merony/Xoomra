@@ -44,6 +44,8 @@ const StayDetailsComponent = (props) => {
   const images = stays.images;
   const myDestination = stays.WantToGo
 
+
+
   const modifiedArray = images?.map((item, index) => {
     return { img: item }
   })
@@ -51,13 +53,13 @@ const StayDetailsComponent = (props) => {
 
   // console.log ('User Personal Information Data', personalData);
 
-  // console.log('User Accodmodation Data', stays.AccommodationDetails);
-  // console.log('User Personal Data', personalData);
-  // console.log('User profile Data', profileData.overallRatings);
+  console.log('User Accodmodation Data', stays);
+  console.log('User Personal Data', personalData);
+  console.log('User profile Data', profileData.overallRatings);
 
-  // console.log('User wantso to go Data', myDestination);
+  console.log('User wantso to go Data', myDestination);
 
-  // console.log('User Pictures Data', images);
+  console.log('User Pictures Data', images);
 
 
   const data = [stays, descriptionFolded]
@@ -82,7 +84,7 @@ const StayDetailsComponent = (props) => {
       if (dummyDataForMaxNights >= totalNights) {
         navi.navigate('RequestStayScreen',
           {
-            id: stays.id, checkInDate: checkInDate,
+            stays: stays, checkInDate: checkInDate,
             checkOutDate: checkOutDate, totalNights: totalNights
           })
       } else {
@@ -93,6 +95,7 @@ const StayDetailsComponent = (props) => {
       Alert.alert('ERROR', 'Stay at least for 1 night to continue')
     }
   }
+  console.log('stays' ,stays)
   const onHostPressed = () => {
     Alert.alert('navigate to host profile')
   }
@@ -136,11 +139,7 @@ const StayDetailsComponent = (props) => {
   }, []);
 
 
-  console.log('images', images)
 
-  const _modifiedArray = images?.map((item, index) => {
-    return { img: item }
-  })
 
 
 
@@ -170,7 +169,6 @@ const StayDetailsComponent = (props) => {
 
 
 
-
   return (
     <View style={{ flexDirection: 'column' }}>
       <ScrollView style={styles.container}>
@@ -190,7 +188,7 @@ const StayDetailsComponent = (props) => {
           //   }
           // }
 
-          data={_modifiedArray}
+          data={modifiedArray}
           autoPlay={false}
           onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"
@@ -208,7 +206,7 @@ const StayDetailsComponent = (props) => {
             <View>
               {/* limits, type*/}
               <Text style={styles.stayDetailsHostTitle}>Hosted by {personalData.firstName} {personalData.lastName}  </Text>
-              <ReturnHostReviews rating={profileData?.overallRatings} bar={dummyDataSuperHostBar} />
+              <ReturnHostReviews rating={profileData.overallRatings} bar={dummyDataSuperHostBar} />
             </View>
             <View>
               <Image style={styles.hostImage} source={{ uri: stays.image }} />
@@ -217,7 +215,7 @@ const StayDetailsComponent = (props) => {
         </Pressable>
         <Divider />
 
-        {/*Sleeping Arrangements area*/}
+       
         <Pressable >
           <View style={styles.titleContainer}>
             <Text style={styles.stayDetailsTitle}>Sleeping Arrangements</Text>
@@ -308,23 +306,15 @@ const StayDetailsComponent = (props) => {
 
       </ScrollView>
 
-      <View style={styles.datePickerContainer}>
-        <View style={styles.dateBox}>
-          <DatePickerComponent style={styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
-        </View>
-        <Text>to</Text>
-        <View style={styles.dateBox}>
-
-          <DatePickerCheckOutComponent style={styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights} />
-        </View>
-      </View>
-
-
-
       {/* reserve area*/}
+
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%', alignItems: 'center', marginLeft: 20, height: 70 }}>
         {/* date picker area */}
-
+        <View style={styles.datePickerContainer}>
+          <DatePickerComponent style={styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
+          <Text>-</Text>
+          <DatePickerCheckOutComponent style={styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights} />
+        </View>
 
         {/* reserve button area */}
         <Pressable style={styles.customBTN} onPress={onReservePressed}>
