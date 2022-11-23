@@ -90,9 +90,6 @@ const RequestStayScreen = ({navigation, props}) => {
        {/* <Text style={styles.stayTtile}>{stays.location}</Text> */}
 
 
-      
-
-
        <View style={{width:'98%',paddingLeft:'2%'}}>
         <TextInput placeholder='Tell the host more about yourself and your trip?' style = {styles.formInput} multiline ={true}
         value={selfIntroduction} onChangeText={setSelfIntroduction}/>
