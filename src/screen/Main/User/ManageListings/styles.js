@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
 
     subContainer:{
-        marginTop:25
+        marginTop:10
     },
     formInput :{
         // flex: 1,
@@ -81,22 +81,32 @@ const styles = StyleSheet.create({
         marginLeft:5
     },
     pickerContainer:{
-        width:"100%",
-        paddingLeft:1,
-        alignSelf:'center',
         backgroundColor:'#e3f3fd',
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius:10,
+        width:170,
 
     },
     picker:{
-        height:50,
-        fontSize:10
+        height:30,
+        width:100
     },
-    howItWorks:{
-        marginTop:20,
+    addListing:{
+        alignSelf:'flex-end',
+        fontWeight:'bold',
+        color:'black',
+        textDecorationLine:'underline',
+        
+    },
+    flatlistContainer:{
+
+        width:350,
+        height:900,
+        marginTop:30
+        
     }
+
 
   
  

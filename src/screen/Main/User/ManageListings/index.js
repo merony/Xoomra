@@ -1,4 +1,5 @@
 import {
+  Alert,
     FlatList,
     Image,
     Pressable,
@@ -18,15 +19,19 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import places from '../../../../data/stayFeed';
-import {Picker} from '@react-native-picker/picker';
+import ManageListingItem from '../../../../components/ManageListingItem';
 
 const ManageListingScreen = ({navigation, props}) => {
     
 const stays = places
+const addPressed = (id) =>{
+  Alert.alert(`navi to add listing screen`)
+}
+
 const dummyDatalistings = [
   {
     stay:stays[0],
-    isPublished:true,
+    isPublished:false,
   },
   {
     stay:stays[1],
@@ -41,52 +46,30 @@ const dummyDatalistings = [
     isPublished:true,
   }
 ]
+const dummyDatalisting = dummyDatalistings[0]
 
-const [selectedSubject, setSelectedSubject] = useState('');
+
 
 
     return (
+      <View style={{flexDirection: "column",paddingHorizontal:20,paddingVertical:20}}>
+        <TouchableOpacity onPress={addPressed}>
+          <Text 
+            style={styles.addListing}>
+            Add New Listing
+          </Text>
+        </TouchableOpacity>
+        {/* flatlistContainer */}
+        <View style={styles.flatlistContainer}>
 
-      <View style={{flexDirection: "column"}}>
-        
-        {/* cell container */}
-        <View>
-          <Image/>
-
-          {/* infoContainer */}
-          <View>
-            <Text>Title</Text>
-
-            {/* rowContainer */}
-            <View>
-              <Text>Published</Text>
-
-              <TouchableOpacity>
-                <Text>EDIT</Text>
-              </TouchableOpacity>
-
-              <View style={styles.subContainer}>
-                <Text style={styles.title}>Choose the Subject</Text>
-                <View style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={selectedSubject}
-                  style={styles.picker}   
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectedSubject(itemValue)
-                  }>
-                  <Picker.Item label="Hosting" value="host" />
-                  <Picker.Item label="Traveling" value="guest" />
-                  <Picker.Item label="General Experience" value="general experience" />
-                </Picker>
-              </View>
-            </View>
-
-          </View>
+          <FlatList
+            data={dummyDatalistings}
+            renderItem={({item}) => <ManageListingItem listing={item} />}
+           />
 
         </View>
 
 
-      </View>
       </View>
         
        
