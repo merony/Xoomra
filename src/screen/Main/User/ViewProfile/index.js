@@ -14,6 +14,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { profilesDB,usersDB,verificationsDB } from '../../../../data/firRef';
+import auth from '@react-native-firebase/auth'
 import React from 'react';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
@@ -22,6 +24,52 @@ import chats from '../../../../data/chats';
 import ReviewListItem from '../../../../components/ReviewListItem';
 
 const ViewProfileScreen = ({navigation, props}) => {
+
+const [firstName,setFirstName] = useState('')
+const [lastName,setLastName] = useState('')
+const [address,setAddress] = useState('')
+const [mobileNumber,setMobileNumber] = useState('')
+const [emergencyContactEmail,setEmergencyContactEmail] = useState('')
+const [emergencyContactNumber,setEmergencyContactNumber] = useState('')
+const [profilePicURL,setProfilePicURL] = useState('')
+const [facebookLink,setFacebookLink] = useState("")
+const [linkedinLink,setlinkedinLink] = useState("")
+const [overallRating,setOverallRating] = useState('')
+const [interest,setInterest] = useState("")
+const [aboutYourSelf,setAboutYourSelf] = useState("")
+const [Languages,setLanguages] = useState([])
+const [isVerified,setIsVerified] = useState(null)
+
+  const getUserInfo = async () =>{
+
+    // Getting Profile Info from Database 
+    const userProfileInformation =  (await profilesDB.doc(auth().currentUser.uid).get()).data()
+    setProfilePicURL(userProfileInformation.ProfilePic)
+    setFacebookLink(userProfileInformation.FacebookURL)
+    setlinkedinLink(userProfileInformation.LinkedinURL)
+    setInterest(userProfileInformation.Interest)
+    setAboutYourSelf(userProfileInformation.aboutYourSelf)
+    setLanguages(userProfileInformation.Languages)
+    setOverallRating(userProfileInformation.overallRating)
+ 
+    // Getting Personal Info From Database
+    const userPersonalInformation =  (await usersDB.doc(auth().currentUser.uid).get()).data()
+    setFirstName(userPersonalInformation.firstName)
+    setLastName(userPersonalInformation.lastName)
+    setAddress(userPersonalInformation.Address)
+    setMobileNumber(userPersonalInformation.mobile)
+    setEmergencyContactEmail(userPersonalInformation.emergencyEmail)
+    setEmergencyContactNumber(userPersonalInformation.emergencyMobile)
+
+    const userVerificationInformation = (await verificationsDB.doc(auth().currentUser.uid).get()).data()
+    setIsVerified(userVerificationInformation.isVerified)
+  }
+
+  useEffect(() => {
+    //Runs only on the first render
+    //get user profile info
+    getUserInfo()
+  }, []);
 
   const dummyDataUserProfile = 
     {
@@ -45,7 +93,7 @@ const ViewProfileScreen = ({navigation, props}) => {
   const returnLanguage = (arrOfLanguages) =>{
     let temp
 
-    if(arrOfLanguages.length===0){
+    if(arrOfLanguages.length===0 || !arrOfLanguages){
       temp=''
     }else if(arrOfLanguages.length===1){
       temp = `Speaks ${arrOfLanguages[0]}`
@@ -79,7 +127,16 @@ const ViewProfileScreen = ({navigation, props}) => {
   }
   const ReturnIdentity = (propsI) =>{
     let temp
-    if(propsI.isVerified){
+    // if(propsI.isVerified){
+    //   temp =
+    //   <View style={styles.subContainer1}>
+    //     <Fontisto name="check" size={12} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
+    //     <Text style={styles.stayDetailsSubTitle}>Identity </Text>
+    //   </View>
+    // }else{
+    //   temp = null
+    // }
+    if(propsI){
       temp =
       <View style={styles.subContainer1}>
         <Fontisto name="check" size={12} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
@@ -127,12 +184,12 @@ const ViewProfileScreen = ({navigation, props}) => {
         <View style={styles.subContainer2}>
 
           <Image 
-            source={{uri:dummyDataUserProfile.image}}
+            source={{uri:profilePicURL}}
             style={styles.image}/>
 
-          <Text style={styles.name}>Hi, I'm{dummyDataUserProfile.name}</Text>
+          <Text style={styles.name}>Hi, I'm {firstName} {lastName}</Text>
 
-          <Text>{returnLanguage(dummyDataUserProfile.Languages)}</Text>
+          <Text>{returnLanguage(Languages)}</Text>
 
           <View style={styles.subContainer1}>
             <Fontisto name="check" size={12} color={'blue'} style={{paddingTop:6,paddingLeft:2}} />
@@ -144,14 +201,14 @@ const ViewProfileScreen = ({navigation, props}) => {
             <Text style={styles.stayDetailsSubTitle}>{dummyDataUserProfile.reviews.length} reviews </Text>
           </View>
 
-          <ReturnVerifiedUser isVerified={dummyDataUserProfile.isProfileCompleted} />
+          <ReturnVerifiedUser isVerified={isVerified} />
 
         </View>
 
         {/* verification container */}
         <View style={styles.subContainer2}>
 
-          <Text style={styles.name1}>{dummyDataUserProfile.name} confimed</Text>
+          <Text style={styles.name1}>{firstName} {lastName} confimed</Text>
 
           <ReturnIdentity isVerified={dummyDataUserProfile.isProfileCompleted}/>
 
@@ -164,7 +221,7 @@ const ViewProfileScreen = ({navigation, props}) => {
         {/* listing container */}
         <View style={styles.subContainer2}>
 
-          <Text style={styles.name1}>{dummyDataUserProfile.name}'s' listing</Text>
+          <Text style={styles.name1}>{firstName} {lastName}'s' listing</Text>
 
           {/* image */}
           <Image style={styles.image1}source={{uri: dummyDataUserListing.image}}/>
