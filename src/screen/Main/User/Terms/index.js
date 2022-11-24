@@ -26,7 +26,7 @@ const TermsScreen = ({navigation, props}) => {
 
       <View style={{flexDirection: "column"}}>
 
-       <Text> Terms Screen </Text>
+       <Text> Terms Screensss </Text>
 
     </View>
         
