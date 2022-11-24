@@ -20,6 +20,7 @@ import styles from './styles';
 import places from '../../../../data/stayFeed';
 import chats from '../../../../data/chats';
 import ReviewListItem from '../../../../components/ReviewListItem';
+import ScrollTopView from 'react-native-scrolltotop';
 
 const ViewProfileScreen = ({navigation, props}) => {
 
