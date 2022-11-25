@@ -25,9 +25,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import auth from '@react-native-firebase/auth'
+import {cUserDB} from '../../data/firCuRef';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
-import {usersDB,cUserDB} from '../../data/firRef';
+import {usersDB} from '../../data/firRef';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
    * LTI update could not be added via codemod */
@@ -75,6 +76,7 @@ import {usersDB,cUserDB} from '../../data/firRef';
           uid: auth().currentUser.uid,
           email: emailFromUI,
           isCompleted: false,
+          overallRating: 5,
      
          
 })

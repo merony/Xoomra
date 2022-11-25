@@ -73,13 +73,13 @@ import styles from './styles';
   
           setAccomodations(listings);
   
-          // console.log( " Data=> ", accomodations);
+          
         });
   
   
   
   
-      console.log(" Data=> ", accomodations);
+      console.log(" my Data=> ", accomodations);
   
   
     }

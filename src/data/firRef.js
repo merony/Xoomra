@@ -25,6 +25,12 @@ const verificationsDB = firestore()
 const AccommodationsDB = firestore()
 .collection('Accommodations')
 
+const ExchangeDB = firestore()
+.collection('Exchanges')
+
+const MessagesDB = firestore()
+.collection('Messages')
 
 
-  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB } ;
+
+  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB, ExchangeDB, MessagesDB } ;

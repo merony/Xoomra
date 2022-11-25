@@ -27,13 +27,13 @@ const StayComponent = (props) => {
   //   console.log("Single Image",image);
   // });
 
-  console.log("Our Image Test", stays.images);
+  // console.log("Our Image Test", stays.images);
 
   // console.log("Place Wan to Visit", wantToGo);
 
-  console.log("All Data", stays);
+  // console.log("All Data", stays);
 
-  console.log("Listing Id", stays.docID);
+  console.log("Listing Is", stays.docID);
 
 
 

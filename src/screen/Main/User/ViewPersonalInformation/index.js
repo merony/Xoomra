@@ -41,6 +41,9 @@ const [edit,setEdit] = useState(false)
 
     
     const profilesCollection = await usersDB.where(`mobile`,`==`,mobileNumber).get()
+
+
+
                                                 // .doc(auth().currentUser.uid)
     
     if (firstName.length === 0  || lastName.length === 0 
@@ -96,6 +99,8 @@ useEffect(() => {
 const getUserInfo = async () =>{
 
   const userPersonalInformation =  (await usersDB.doc(auth().currentUser.uid).get()).data()
+
+  console.log('test data', userPersonalInformation)
   // console.log(profilesCollection)
   setFirstName(userPersonalInformation.firstName)
   setLastName(userPersonalInformation.lastName)

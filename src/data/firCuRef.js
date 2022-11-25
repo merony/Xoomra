@@ -24,10 +24,10 @@ const cVerificationDB = firestore()
 .collection('verification')
 .doc(auth().currentUser.uid)
 
+const cAccommodationsDB = firestore()
+.collection('Accommodations')
+.where( "uid", "==", auth().currentUser.uid)
 
 
 
-
-
-
-  export  {cUserDB, cprofileDB , cVerificationDB  } ;
+  export  {cUserDB, cprofileDB , cVerificationDB, cAccommodationsDB  } ;

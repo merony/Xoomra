@@ -153,6 +153,8 @@ const AddListingScreen = ({navigation, props}) => {
           availabilityStart : new Date(availabilityFrom),
           availabilityEnd : new Date(availabilityTo),
         },
+        docID:docID,
+        created_at: new Date() ,
 
 
       })

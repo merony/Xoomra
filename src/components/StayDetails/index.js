@@ -53,13 +53,13 @@ const StayDetailsComponent = (props) => {
 
   // console.log ('User Personal Information Data', personalData);
 
-  console.log('User Accodmodation Data', stays);
-  console.log('User Personal Data', personalData);
-  console.log('User profile Data', profileData.overallRatings);
+  // console.log('User Accodmodation Data', stays);
+  // console.log('User Personal Data', personalData);
+  // console.log('User profile Data', profileData.overallRating);
 
-  console.log('User wantso to go Data', myDestination);
+  // console.log('User wantso to go Data', myDestination);
 
-  console.log('User Pictures Data', images);
+  // console.log('User Pictures Data', images);
 
 
   const data = [stays, descriptionFolded]
@@ -205,8 +205,8 @@ const StayDetailsComponent = (props) => {
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <View>
               {/* limits, type*/}
-              <Text style={styles.stayDetailsHostTitle}>Hosted by {personalData.firstName} {personalData.lastName}  </Text>
-              <ReturnHostReviews rating={profileData.overallRatings} bar={dummyDataSuperHostBar} />
+              <Text style={styles.stayDetailsHostTitle}>Hosted by {personalData?.firstName} {personalData?.lastName}  </Text>
+              <ReturnHostReviews rating={profileData.overallRating} bar={dummyDataSuperHostBar} />
             </View>
             <View>
               <Image style={styles.hostImage} source={{ uri: stays.image }} />
