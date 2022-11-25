@@ -22,7 +22,7 @@ import { Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 const ReviewListItem = (props) => {
-  console.log(props.review)
+  // console.log(props.review)
 
     return (
    

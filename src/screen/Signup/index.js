@@ -72,7 +72,8 @@ import {usersDB} from '../../data/firRef';
         console.log('User account created & signed in!');
         Alert.alert("","Account Created")
         navigation.navigate('Personal Information')
-        cUserDB.set({
+        console.log(auth().currentUser.uid)
+        usersDB.doc(auth().currentUser.uid).set({
           uid: auth().currentUser.uid,
           email: emailFromUI,
           isCompleted: false,

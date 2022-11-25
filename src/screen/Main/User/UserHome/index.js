@@ -19,13 +19,42 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { profilesDB,usersDB,verificationsDB} from '../../../../data/firRef';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import styles from './styles';
 
 const UserHomeScreen = ({navigation, props}) => {
+
+const [firstName,setFirstName] = useState('')
+const [lastName,setLastName] = useState('')
+const [profilePicURL,setProfilePicURL] = useState('')
+const [isVerified,setIsVerified] = useState(null)
+
+
+  const getUserInfo = async () =>{
+
+    // Getting Profile Info from Database 
+    const userProfileInformation =  (await profilesDB.doc(auth().currentUser.uid).get()).data()
+    setProfilePicURL(userProfileInformation.ProfilePic)
     
+ 
+    // Getting Personal Info From Database
+    const userPersonalInformation =  (await usersDB.doc(auth().currentUser.uid).get()).data()
+    setFirstName(userPersonalInformation.firstName)
+    setLastName(userPersonalInformation.lastName)
+
+    const userVerificationInformation = (await verificationsDB.doc(auth().currentUser.uid).get()).data()
+    setIsVerified(userVerificationInformation.isVerified)
+    console.log('Verification',isVerified)
+   
+  }
+
+  useEffect(() => {
+    //Runs only on the first render
+    getUserInfo()
+  }, []);
 
 
     return (
@@ -40,11 +69,12 @@ const UserHomeScreen = ({navigation, props}) => {
         <View >
                     <Pressable style={styles.row} onPress={() => {navigation.navigate(`View Profile`)}}>
                     <Image 
-                      source={require('../../../../Image/rony-photo.jpg')}  
+                      source={{uri:profilePicURL}} 
                       style={{width: 50, height: 50, borderRadius: 400/ 2}} />
                     <View>
-                    <Text style ={styles.profileText}>Nur Rony </Text>
-                    <Text style ={{color:'#0999f4', fontWeight: '500', fontSize: 12,  paddingLeft : 10, paddingTop: 5}}>Verified</Text>
+                    <Text style ={styles.profileText}>{firstName} {lastName} </Text>
+                    {!isVerified && <Text style ={{fontWeight: '500', fontSize: 12,  paddingLeft : 10, paddingTop: 5}}>Unverified</Text>}
+                    {isVerified && <Text style ={{color:'#0999f4', fontWeight: '500', fontSize: 12,  paddingLeft : 10, paddingTop: 5}}>Verified</Text>}
                     </View>
                     
                     <Text style={{fontWeight: '400', fontSize: 20,}} > > </Text>

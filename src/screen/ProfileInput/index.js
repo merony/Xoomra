@@ -76,6 +76,7 @@ const ProfileInputScreen = ({navigation, props}) => {
         uid : auth().currentUser.uid,
         email : auth().currentUser.email,
         overallRating:5,
+        Languages:[],
         isProfileCompleted: false,
         
        
@@ -94,8 +95,8 @@ const ProfileInputScreen = ({navigation, props}) => {
         Interest : interestFromUI,
         aboutYourSelf : aboutYourSelfFromUI,
         Languages : value,
-        isProfileCompleted: true
-
+        isProfileCompleted: true,
+        overallRating:5
         })
 
         navigation.navigate('Verification Screen')
