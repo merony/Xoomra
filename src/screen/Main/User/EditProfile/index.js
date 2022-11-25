@@ -15,7 +15,7 @@ import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { profilesDB } from '../../../../data/firRef';
+import { profilesDB,usersDB } from '../../../../data/firRef';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
@@ -177,7 +177,7 @@ const updatePressed = () =>{
 
     })
 
-    navigation.navigate(`View Profile`)}
+    navigation.replace(`TabNavigator`)}
 
   return (
 
