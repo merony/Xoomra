@@ -28,6 +28,8 @@ const cAccommodationsDB = firestore()
 .collection('Accommodations')
 .where( "uid", "==", auth().currentUser.uid)
 
+const cMessagesDB = firestore()
+.collection('Messages')
+.where( 'users', 'array-contains', auth().currentUser.uid)
 
-
-  export  {cUserDB, cprofileDB , cVerificationDB, cAccommodationsDB  } ;
+  export  {cUserDB, cprofileDB , cVerificationDB, cAccommodationsDB, cMessagesDB  } ;

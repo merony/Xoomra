@@ -1,4 +1,4 @@
-import {AccommodationsDB, profilesDB, usersDB} from '../../../data/firRef';
+import {AccommodationsDetailsDB, profilesDB, usersDB} from '../../../data/firRef';
 import {
   FlatList,
   Image,
@@ -77,7 +77,7 @@ const StayDetailsScreen = ({navigation, props, route}) => {
 
   loadData = async(getListingID, getUserID) => {
 
-    const listingData = await AccommodationsDB.doc(getListingID).get()
+    const listingData = await AccommodationsDetailsDB.doc(getListingID).get()
     .then((querySnapshot) => {
 
       setAccomodation(querySnapshot.data())

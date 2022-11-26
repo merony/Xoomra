@@ -1,4 +1,4 @@
-import { AccommodationsDB, cUserDB, usersDB } from '../../../data/firRef';
+import { AccommodationsDB, usersDB } from '../../../data/firRef';
 import {
     FlatList,
     Image,
@@ -35,6 +35,8 @@ import styles from './styles';
 
     const [accomodations, setAccomodations] = useState([]);
     const [laoding, setLoading] = useState(false);
+
+    const [testData, setTextData] = useState([[1], [2]]);
 
     useEffect(() => {
       //Runs on every render
@@ -89,7 +91,7 @@ import styles from './styles';
 
     const renderItem = ({ item }) => (
       // <Item title={item.title} />
-      <StayComponent stay={item}/>
+      <StayComponent stay={item} testData ={testData}/>
     );
 
   

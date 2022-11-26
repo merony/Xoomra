@@ -4,18 +4,32 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import styles from './styles.js';
 import { useNavigation } from '@react-navigation/native';
+import {usersDB} from '../../data/firRef';
 
 const StayComponent = (props) => {
 
 
 
   const stays= props.stay;
+  const testData = props.testData;
   
-
   const images =  props.stay.images ;
 
-  const wantToGo =  props.stay.WantToGo
+  const wantToGo =  props.stay.WantToGo ;
 
+
+
+  useEffect(() => {
+    //Runs on every render
+    // test();
+  });
+
+  useEffect(() => {
+    //Runs only on the first render+
+
+
+
+  }, []);
 
 
 
@@ -34,6 +48,8 @@ const StayComponent = (props) => {
   // console.log("All Data", stays);
 
   console.log("Listing Is", stays.docID);
+
+
 
 
 
@@ -74,7 +90,7 @@ const StayComponent = (props) => {
 
           
             {/*Title*/}
-            <Text style={styles.stayTtile}>{stays.City} {stays.State}</Text>
+            <Text style={styles.stayTtile}>{stays.City} {stays.State} </Text>
               {/*Location*/}
             
 

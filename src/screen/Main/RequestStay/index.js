@@ -1,4 +1,4 @@
-import {AccommodationsDB, ExchangeDB, MessagesDB} from '../../../data/firRef';
+import {AccommodationsDB, ExchangeDB, MessagesDB, verificationsDB} from '../../../data/firRef';
 import {
   Alert,
   FlatList,
@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {cAccommodationsDB, cUserDB} from '../../../data/firCuRef';
+import {cAccommodationsDB, cMessagesDB, cUserDB} from '../../../data/firCuRef';
 import {useEffect, useState} from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,7 +40,9 @@ const RequestStayScreen = ({navigation, props, route}) => {
   const [myAccomodation, setMyAccomodation] = useState([]);
 
 
-  console.log('Test Log', auth().currentUser.uid);
+
+
+  // console.log('Test Log', auth().currentUser.uid);
 
   const getMyListingID = async () => {
     // const data =
@@ -73,9 +75,12 @@ const RequestStayScreen = ({navigation, props, route}) => {
     await cAccommodationsDB.get()
      .then(querySnapshot => {
 
+
+      // console.log('Total Accomodation: ', querySnapshot.size)
+
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, 'this is doc id  => ', doc.data());
+        // console.log(doc.id, 'this is doc id  => ', doc.data());
 
         listings.push(doc.data());
 
@@ -90,9 +95,11 @@ const RequestStayScreen = ({navigation, props, route}) => {
 
     setMyAccomodation(listings[0].docID)
 
-    console.log(' to see if its work here ', myAccomodation);
+    // console.log(' to see if its work here ', myAccomodation);
 
-    console.log(' to see if its work here ', listings);
+    // console.log(' to see if its work here ', listings);
+
+    // console.log('this Message Listing id  => ', listingData._changes);
 
     
   };
@@ -103,7 +110,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
   // const stays = places.find(place => place.id === route.params.id)
 
   const {stays, checkInDate, checkOutDate, totalNights} = route.params;
-  console.log('previos screen data => ', stays);
+  // console.log('previos screen data => ', stays);
 
   const [descriptionFolded, setDescriptionFolded] = useState(true);
   const onDescriptionPressed = () => {
@@ -121,6 +128,9 @@ const RequestStayScreen = ({navigation, props, route}) => {
   };
 
   const setExchange = async () => {
+
+
+
     ExchangeDB.add({
       exchangeCompleted: false,
       status: 'Ongoing',
@@ -169,6 +179,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
             users: [auth().currentUser.uid, stays.uid],
             listings: [stays.docID, myAccomodation ],
             created_at: new Date() ,
+            exchangeID: exchageDocID,
           }).then (async () =>{
 
             await MessagesDB.doc(exchageDocID)
@@ -184,10 +195,6 @@ const RequestStayScreen = ({navigation, props, route}) => {
 
             });
           })
-
-            
-
-
           
         };
 

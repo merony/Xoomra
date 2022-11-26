@@ -22,8 +22,15 @@ const verificationsDB = firestore()
 .collection('verification')
 
 
+
 const AccommodationsDB = firestore()
 .collection('Accommodations')
+.where( "Status", "==", "published")
+
+
+const AccommodationsDetailsDB = firestore()
+.collection('Accommodations')
+
 
 const ExchangeDB = firestore()
 .collection('Exchanges')
@@ -33,4 +40,4 @@ const MessagesDB = firestore()
 
 
 
-  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB, ExchangeDB, MessagesDB } ;
+  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB, ExchangeDB, MessagesDB, AccommodationsDetailsDB } ;
