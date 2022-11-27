@@ -28,6 +28,12 @@ const AccommodationsDB = firestore()
 .where( "Status", "==", "published")
 
 
+const MyAccommodationsDB = firestore()
+
+
+
+
+
 const AccommodationsDetailsDB = firestore()
 .collection('Accommodations')
 

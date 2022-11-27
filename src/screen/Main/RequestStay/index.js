@@ -44,7 +44,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
 
   // console.log('Test Log', auth().currentUser.uid);
 
-  const getMyListingID = async () => {
+  getMyListingID = async () => {
     // const data =
     //  await firestore()
     //   .collection('Accommodations')
@@ -89,19 +89,18 @@ const RequestStayScreen = ({navigation, props, route}) => {
     });
 
     const filteredData = listings.filter(elem => {
-      return auth().currentUser.uid === elem.uid;
+      return 'published' === elem.Status;
     });
 
 
-    setMyAccomodation(listings[0].docID)
+    setMyAccomodation(filteredData[0])
 
-    // console.log(' to see if its work here ', myAccomodation);
+    console.log(' to see if its work here ', stays.StayTitle);
 
     // console.log(' to see if its work here ', listings);
 
     // console.log('this Message Listing id  => ', listingData._changes);
 
-    
   };
 
   getMyListingID();
@@ -135,7 +134,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
       exchangeCompleted: false,
       status: 'Ongoing',
       users: [auth().currentUser.uid, stays.uid],
-      listings: [stays.docID, myAccomodation ],
+      listings: [stays.docID, myAccomodation.uid ],
       created_at: new Date() ,
     })
       .then(function (docRef) {
@@ -150,7 +149,9 @@ const RequestStayScreen = ({navigation, props, route}) => {
             .collection(auth().currentUser.uid)
             .doc(stays.docID)
             .set({
+              guestListingID: myAccomodation.uid,
               listingID: stays.docID,
+              StayTitle: stays.StayTitle,
               uid: stays.uid,
               guestID: auth().currentUser.uid,
               checkInDate:  new Date(checkInDate) ,
@@ -160,9 +161,11 @@ const RequestStayScreen = ({navigation, props, route}) => {
 
           await ExchangeDB.doc(exchageDocID)
             .collection(stays.uid)
-            .doc(myAccomodation)
+            .doc(myAccomodation.docID)
             .set({
-              listingID: myAccomodation,
+              guestListingID: stays.docID,
+              listingID: myAccomodation.uid,
+              StayTitle: myAccomodation.StayTitle,
               uid: auth().currentUser.uid,
               guestID: stays.uid,
               checkInDate: null,
@@ -177,7 +180,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
 
           await MessagesDB.doc(exchageDocID).set({
             users: [auth().currentUser.uid, stays.uid],
-            listings: [stays.docID, myAccomodation ],
+            listings: [stays.docID, myAccomodation.docID ],
             created_at: new Date() ,
             exchangeID: exchageDocID,
           }).then (async () =>{

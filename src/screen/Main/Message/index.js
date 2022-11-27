@@ -1,5 +1,5 @@
-import {ExchangeDB, usersDB} from '../../../data/firRef';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   Pressable,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {ExchangeDB, usersDB} from '../../../data/firRef';
 import {cAccommodationsDB, cMessagesDB, cUserDB} from '../../../data/firCuRef';
 import {useEffect, useState} from 'react';
 
@@ -27,7 +28,7 @@ import styles from './styles';
 import {useIsFocused} from '@react-navigation/native';
 
 const MessageScreen = ({navigation, props, route}) => {
-  const [chat, setChat] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [exchangeData, setExchangeData] = useState([]);
   const [myUserData, setMyUserData] = useState([]);
   const [hostUserData, setHostUserData] = useState([]);
@@ -37,26 +38,17 @@ const MessageScreen = ({navigation, props, route}) => {
   getMessages = async () => {
     await cMessagesDB.get().then(querySnapshot => {
       // console.log(' Current mesage data 1 ', querySnapshot);
-
       // console.log('Total Documents: ', querySnapshot.size);
-      
+
+     
 
       const messageListing = [];
       const exchange = [];
       const users = [];
+
+       // 1. Step 1. get all reciver message id from message database push it to users array 
+         //and send the list to function get user data  getHostUserData(users);
       querySnapshot.forEach(async doc => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, 'this Message id  => ', doc.data());
-
-        // const otherUserId = chat[0].users.filter(
-        //   elem => elem !== auth().currentUser.uid,
-        // );
-
-        // console.log(
-        //   ' Message data  =>',
-        //   doc.data().users.filter(elem => elem !== auth().currentUser.uid).toString(),
-        // );
-
         users.push(
           doc
             .data()
@@ -67,120 +59,118 @@ const MessageScreen = ({navigation, props, route}) => {
         messageListing.push(doc.data());
         exchange.push((await ExchangeDB.doc(doc.id).get()).data());
 
-        // await usersDB.get().then(qSnapshot => {
-        //   qSnapshot.forEach(async data => {
-        //     // console.log("usrs",data.data());
-        //     users.push(await data.data());
-        //   });
-        // });
-        // console.log(
-        //   ' Exchange data  =>',
-        //   (await ExchangeDB.doc(doc.id).get()).data(),
-        // );
-
-        // const userID = doc
-        //   .data()
-        //   .users.filter(elem => elem !== auth().currentUser.uid);
-
-        // usrIds.push(userID[0]);
-        // console.log('users data1', userID);
-
-        // users.push(await usersDB.doc(userID).get());
+     
       });
 
-      // usrIds.forEach(async elem => {
-      //   users.push(await usersDB.doc(elem).get()).data();
-      // });
-
-      // console.log('users', users);
-      // console.log('exchange data', exchange);
-      // console.log( 'exchange ids', exchange.length);
-
-      // console.log( 'message ids', messageListing);
+      
 
       try {
         // Block of code to try
-
-        setChat(messageListing);
+       
+        setMessages(messageListing);
         setExchangeData(exchange);
+        // 1. Step 2 store it to hostUserData state
         getHostUserData(users);
 
-        // console.log('listing aexc data', exchangeData);
-
-        // const otherUserId = exchangeData[0].users.filter(
-        //   elem => elem !== auth().currentUser.uid,
-        // );
-
-        // console.log('other user ', otherUserId);
-
-        // console.log('exchange data', exchange);
-
-        // console.log( 'CHATS CHATS', chat[0].users.indexOf(auth().currentUser.uid));
-
-        // console.log('CHATS CHATS', chat[0].users);
-
-        // const filteredData = chat.filter(elem => {
-        //   return auth().currentUser.uid === elem.users;
-        // });
       } catch (err) {
         console.log('data are not set', err);
       }
     });
   };
 
+  // const usersData = [];
+
+    // 1. Step 3 host ysers data from database annd save it to  hostUserData state
+
   const getHostUserData = async otherUsers => {
-    console.log('Other user id', otherUsers);
-    const usersData = [];
-    // users.push((await usersDB.doc(userID).get()).data());
-    // await usersDB.doc(userID).get().data()
-
-    // await usersDB.doc(id).get()
-
-    // const userDocument =  (usersDB.doc(id[0])).data();
-
+   
     if (otherUsers.length !== 0) {
-      console.log('Other user for loop id', otherUsers);
+      // console.log('Other user for loop id', otherUsers);
 
       otherUsers.forEach(async elem => {
+        // console.log('this for loop lopp working');
         usersDB.doc(elem).onSnapshot(documentSnapshot => {
-          console.log('this lopp working');
+          console.log('User data document shop: ', documentSnapshot.data());
 
-          // console.log('User data document shop: ', documentSnapshot.data());
-          usersData.push(documentSnapshot.data());
+          hostUserData.push(documentSnapshot.data());
+          setHostUserData([...hostUserData]);
+
+          // (await ExchangeDB.doc(MESSAGE ID).collection(auth().currentUser.uid).doc('other user listing id').get()).data());
         });
 
-        // await usersDB.doc(elem).get().then(querySnapshot => {
-
-        //   usersData.push(querySnapshot.data());
-        // })
+    
       });
 
-      console.log('User Data', usersData);
     } else {
       console.log('User Data doesnot exist');
     }
 
-    if (usersData.length !== 0) {
-      setHostUserData(usersData);
 
-      console.log('user array data', usersData);
-    } else {
-      console.log('Host user data not exist');
-    }
+    await cAccommodationsDB.get().then(querySnapshot => {
+      // console.log('No. of current user listings', querySnapshot.size);
 
-    try {
-      // Block of code to try;;
-    } catch (err) {
-      console.log(err);
-    }
+      const otherUsersListingsId = [];
 
-    console.log('All users data', hostUserData);
+      querySnapshot.forEach(async doc => {
 
-    console.log('All exchange data', exchangeData);
 
-    console.log('All Chat message data', chat);
+        messages.forEach(elem => {
+          elem.listings?.forEach(e => {
+            if (e !== doc.data().docID) {
+              otherUsersListingsId.push({
+                listingId: e,
+                exchangeId: elem.exchangeID.trim(),
+                uid: elem.users.filter(
+                  eee => eee !== auth().currentUser.uid,
+                )[0],
+              });
+            }
+          });
 
-    //   setHostUserData(documentSnapshot.data());
+        });
+
+
+      });
+
+      console.log('other listing', otherUsersListingsId )
+
+
+
+      otherUsersListingsId.forEach(async Elem => {
+        // console.log('this is otherUsersListingsId elem ', Elem);
+        const data = (
+          await ExchangeDB.doc(Elem.exchangeId)
+            .collection(auth().currentUser.uid)
+            .doc(Elem.listingId)
+            .get()
+        ).data();
+
+        const user = hostUserData.find(ele => ele.uid === Elem.uid);
+
+         console.log('data.user find same  id', user)
+
+        // console.log('data.checkInDate', data.checkInDate)
+
+        hostAccomodations.push({
+          listingId: Elem.listingId,
+          messageId: Elem.exchangeId,
+          hostingId: user.uid,
+          StayTitle: data.StayTitle,
+          checkInDate: data.checkInDate,
+          checkOutDate: data.checkOutDate,
+          username: user.firstName,
+          picture: user?.photo,
+        });
+
+      
+        setHostAccomodations([...hostAccomodations]);
+        console.log('this is accomodatin data', hostAccomodations);
+
+     
+      });
+    });
+
+
   };
 
   useEffect(() => {
@@ -191,12 +181,22 @@ const MessageScreen = ({navigation, props, route}) => {
   useEffect(() => {
     //Runs only on the first render+
 
-      getMessages().then(() => {
-        // getMessages().then(()=>{
-        //   // getMessages();
-        // });
-      });
+    getMessages().then(() => {
+      // getMessages().then(()=>{
+      //   // getMessages();
+      // });
+    });
   }, []);
+
+  const checkData = () => {
+    // console.log('All Host users data', hostUserData);
+
+    //   console.log('All exchange data', exchangeData);s
+
+    // console.log('All Chat message data', messages);
+
+    // console.log('All Host Accomodation data', hostAccomodations);
+  };
 
   return (
     <View>
@@ -204,10 +204,17 @@ const MessageScreen = ({navigation, props, route}) => {
         <Text style={styles.title}>Inbox</Text>
       </View>
 
-      <FlatList
-        data={chats}
-        renderItem={({item}) => <ChatListItem chat={item} />}
-      />
+
+      {checkData()}
+
+      {hostUserData.length ? (
+        <FlatList
+          data={hostAccomodations}
+          renderItem={({item}) => <ChatListItem chat={item} />}
+        />
+      ) : (
+        <ActivityIndicator />
+      )}
     </View>
   );
 };
