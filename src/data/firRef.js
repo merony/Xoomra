@@ -44,6 +44,9 @@ const ExchangeDB = firestore()
 const MessagesDB = firestore()
 .collection('Messages')
 
+const UserMessages = firestore()
+.collection('users')
+.doc('Messages')
+.collection('Message')
 
-
-  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB, ExchangeDB, MessagesDB, AccommodationsDetailsDB } ;
+  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB, ExchangeDB, MessagesDB, AccommodationsDetailsDB, UserMessages } ;

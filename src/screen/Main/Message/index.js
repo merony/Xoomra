@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   Image,
   Pressable,
@@ -7,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ExchangeDB, usersDB} from '../../../data/firRef';
+import {ExchangeDB, UserMessages, usersDB} from '../../../data/firRef';
 import {cAccommodationsDB, cMessagesDB, cUserDB} from '../../../data/firCuRef';
 import {useEffect, useState} from 'react';
 
@@ -34,20 +35,26 @@ const MessageScreen = ({navigation, props, route}) => {
   const [hostUserData, setHostUserData] = useState([]);
   const [myAccomodation, setMyAccomodation] = useState([]);
   const [hostAccomodations, setHostAccomodations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
-  getMessages = async () => {
+  const getMessages = async () => {
+    // setLoading(true);
+    hostAccomodations.splice(0, hostAccomodations.length);
+    setHostAccomodations([...hostAccomodations]);
+    messages.splice(0, messages.length);
+    setMessages([...messages]);
+
     await cMessagesDB.get().then(querySnapshot => {
       // console.log(' Current mesage data 1 ', querySnapshot);
       // console.log('Total Documents: ', querySnapshot.size);
-
-     
 
       const messageListing = [];
       const exchange = [];
       const users = [];
 
-       // 1. Step 1. get all reciver message id from message database push it to users array 
-         //and send the list to function get user data  getHostUserData(users);
+      // 1. Step 1. get all reciver message id from message database push it to users array
+      //and send the list to function get user data  getHostUserData(users);
       querySnapshot.forEach(async doc => {
         users.push(
           doc
@@ -56,22 +63,19 @@ const MessageScreen = ({navigation, props, route}) => {
             .toString(),
         );
 
-        messageListing.push(doc.data());
+        // messageListing.push(doc.data());
+        messages.push(doc.data());
         exchange.push((await ExchangeDB.doc(doc.id).get()).data());
-
-     
       });
-
-      
 
       try {
         // Block of code to try
-       
-        setMessages(messageListing);
+
+        // setMessages(messageListing);
+        setMessages([...messages]);
         setExchangeData(exchange);
         // 1. Step 2 store it to hostUserData state
         getHostUserData(users);
-
       } catch (err) {
         console.log('data are not set', err);
       }
@@ -80,10 +84,9 @@ const MessageScreen = ({navigation, props, route}) => {
 
   // const usersData = [];
 
-    // 1. Step 3 host ysers data from database annd save it to  hostUserData state
+  // 1. Step 3 host ysers data from database annd save it to  hostUserData state
 
   const getHostUserData = async otherUsers => {
-   
     if (otherUsers.length !== 0) {
       // console.log('Other user for loop id', otherUsers);
 
@@ -97,14 +100,10 @@ const MessageScreen = ({navigation, props, route}) => {
 
           // (await ExchangeDB.doc(MESSAGE ID).collection(auth().currentUser.uid).doc('other user listing id').get()).data());
         });
-
-    
       });
-
     } else {
       console.log('User Data doesnot exist');
     }
-
 
     await cAccommodationsDB.get().then(querySnapshot => {
       // console.log('No. of current user listings', querySnapshot.size);
@@ -112,9 +111,8 @@ const MessageScreen = ({navigation, props, route}) => {
       const otherUsersListingsId = [];
 
       querySnapshot.forEach(async doc => {
-
-
         messages.forEach(elem => {
+          console.log('this for loop workign');
           elem.listings?.forEach(e => {
             if (e !== doc.data().docID) {
               otherUsersListingsId.push({
@@ -126,15 +124,10 @@ const MessageScreen = ({navigation, props, route}) => {
               });
             }
           });
-
         });
-
-
       });
 
-      console.log('other listing', otherUsersListingsId )
-
-
+      console.log('other listing', otherUsersListingsId);
 
       otherUsersListingsId.forEach(async Elem => {
         // console.log('this is otherUsersListingsId elem ', Elem);
@@ -147,11 +140,11 @@ const MessageScreen = ({navigation, props, route}) => {
 
         const user = hostUserData.find(ele => ele.uid === Elem.uid);
 
-         console.log('data.user find same  id', user)
+        console.log('data.user find same  id', user);
 
         // console.log('data.checkInDate', data.checkInDate)
 
-        hostAccomodations.push({
+        const reqOptions = {
           listingId: Elem.listingId,
           messageId: Elem.exchangeId,
           hostingId: user.uid,
@@ -159,18 +152,53 @@ const MessageScreen = ({navigation, props, route}) => {
           checkInDate: data.checkInDate,
           checkOutDate: data.checkOutDate,
           username: user.firstName,
-          picture: user?.photo,
-        });
+          picture: user?.photo ? user.photo : null,
+          created_at: new Date(),
+        };
 
-      
-        setHostAccomodations([...hostAccomodations]);
-        console.log('this is accomodatin data', hostAccomodations);
+        try {
+          await UserMessages.doc(Elem.exchangeId).set(reqOptions);
 
-     
+          //the data fro m databse
+          //the data below is same
+
+          hostAccomodations.push({
+            listingId: Elem.listingId,
+            messageId: Elem.exchangeId,
+            hostingId: user.uid,
+            StayTitle: data.StayTitle,
+            checkInDate: data.checkInDate,
+            checkOutDate: data.checkOutDate,
+            username: user.firstName,
+            picture: user?.photo,
+            created_at: new Date(),
+          });
+
+          setHostAccomodations([...hostAccomodations]);
+
+          // console.log('this is accomodatin data', hostAccomodations);
+          // setLoading(false);
+          console.log('user messages object added successfully');
+        } catch (exception) {
+          console.error(exception);
+        }
       });
     });
 
+    SaveDataInLocalStorage();
+  };
 
+  const SaveDataInLocalStorage = async () => {
+    try {
+      await AsyncStorage.setItem(
+        'userMessagesData',
+        JSON.stringify(hostAccomodations),
+      );
+
+      console.log('data saved in local storage');
+    } catch (ex) {
+      console.error('error saving/getting data from local', ex);
+    }
   };
 
   useEffect(() => {
@@ -178,24 +206,44 @@ const MessageScreen = ({navigation, props, route}) => {
     // test();
   });
 
+  const checkDataFromLocalStorage = async () => {
+    let jsonValue = await AsyncStorage.getItem('userMessagesData');
+    const localSData = jsonValue != null ? JSON.parse(jsonValue) : null;
+
+    console.log('local storage data', localSData);
+
+    if (localSData.length) {
+      setHostAccomodations(localSData);
+    } else {
+      getMessages().then(() => {
+        // getMessages().then(()=>{
+        //   // getMessages();
+        // });
+      });
+    }
+  };
+
   useEffect(() => {
     //Runs only on the first render+
+    checkDataFromLocalStorage();
 
-    getMessages().then(() => {
-      // getMessages().then(()=>{
-      //   // getMessages();
-      // });
-    });
+    // getMessages().then(() => {
+    //   // getMessages().then(()=>{
+    //   //   // getMessages();
+    //   // });
+    // });
   }, []);
 
   const checkData = () => {
     // console.log('All Host users data', hostUserData);
-
     //   console.log('All exchange data', exchangeData);s
-
     // console.log('All Chat message data', messages);
-
     // console.log('All Host Accomodation data', hostAccomodations);
+  };
+
+  const handleRefresh = async () => {
+    console.log('refreshing');
+    getMessages();
   };
 
   return (
@@ -203,18 +251,25 @@ const MessageScreen = ({navigation, props, route}) => {
       <View style={{paddingLeft: 20}}>
         <Text style={styles.title}>Inbox</Text>
       </View>
-
-
-      {checkData()}
-
-      {hostUserData.length ? (
-        <FlatList
-          data={hostAccomodations}
-          renderItem={({item}) => <ChatListItem chat={item} />}
-        />
-      ) : (
-        <ActivityIndicator />
-      )}
+      {/* {checkData()} */}
+      {/* {!loading ? ( */}
+      <FlatList
+        ListEmptyComponent={
+          <View
+            style={{
+              paddingHorizontal: 20,
+              height: Dimensions.get('window').height,
+            }}>
+            <Text>No data found</Text>
+          </View>
+        }
+        refreshing={refresh}
+        onRefresh={handleRefresh}
+        data={hostAccomodations}
+        renderItem={({item}) => <ChatListItem chat={item} />}
+      />
+      {/* ) : (  <ActivityIndicator />
+      )} */}
     </View>
   );
 };
