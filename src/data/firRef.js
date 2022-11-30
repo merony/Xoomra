@@ -29,9 +29,7 @@ const AccommodationsDB = firestore()
 
 
 const MyAccommodationsDB = firestore()
-
-
-
+.collection('Accommodations')
 
 
 const AccommodationsDetailsDB = firestore()
@@ -49,4 +47,4 @@ const UserMessages = firestore()
 .doc('Messages')
 .collection('Message')
 
-  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB, ExchangeDB, MessagesDB, AccommodationsDetailsDB, UserMessages } ;
+  export  {usersDB, profilesDB, verificationsDB, AccommodationsDB, ExchangeDB, MessagesDB, AccommodationsDetailsDB, UserMessages, MyAccommodationsDB } ;

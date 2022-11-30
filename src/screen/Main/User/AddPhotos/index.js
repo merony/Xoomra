@@ -1,6 +1,5 @@
 import * as Progress from 'react-native-progress';
 
-import {AccommodationsDB, usersDB} from '../../../../data/firRef';
 import {
     Alert,
     FlatList,
@@ -12,6 +11,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import {MyAccommodationsDB, usersDB} from '../../../../data/firRef';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useEffect, useState } from 'react';
 
@@ -157,7 +157,7 @@ console.log(
       Alert.alert("","Please Add Minimum 4 Photos")
     }
     else{
-      AccommodationsDB.doc(getListingID).update({
+      MyAccommodationsDB.doc(getListingID).update({
         docID: getListingID,
         images : imageList,
 

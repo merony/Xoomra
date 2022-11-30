@@ -11,7 +11,6 @@ import {
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
-import {AccommodationsDB} from '../../../../data/firRef';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 import DatePickerComponent  from '../../../../components/DatePicker'
@@ -21,6 +20,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {MyAccommodationsDB} from '../../../../data/firRef';
 import React from 'react';
 import auth from '@react-native-firebase/auth'
 import {cUserDB} from '../../../../data/firCuRef';
@@ -104,7 +104,7 @@ const AddListingScreen = ({navigation, props}) => {
 
     const userData = (await cUserDB.get()).data();
     console.log ('User Data', userData)
-    AccommodationsDB.add({
+    MyAccommodationsDB.add({
       StayTitle : 'Untitled',
       Status : 'draft',
       uid: auth().currentUser.uid,
@@ -132,7 +132,7 @@ const AddListingScreen = ({navigation, props}) => {
       Alert.alert("","Please Fill All Information")
     }
     else{
-      AccommodationsDB.doc(docID).update({
+      MyAccommodationsDB.doc(docID).update({
         StayTitle : stayTitleFromUI,
         AccommodationType : accomodationTypeValue,
         AccommodationDetails : accommodationDetailsFromUI,
