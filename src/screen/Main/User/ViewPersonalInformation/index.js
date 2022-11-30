@@ -134,6 +134,13 @@ const getUserInfo = async () =>{
      editable={edit} value={lastName} onChangeText={setLastName}/>
     </View>
 
+    <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>Email</Text>
+    <View style = {styles.formField}>
+    <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
+    <TextInput placeholder={auth().currentUser.email} style = {styles.formInput}
+     editable={false} />
+    </View>
+
     <Text style = {{marginBottom:4,paddingBottom:4,marginTop:8}}>Address</Text>
     <View style = {styles.formField}>
     <Ionicons style={{ paddingVertical: 4}} name='location-outline' size={18} color='#283239' />
