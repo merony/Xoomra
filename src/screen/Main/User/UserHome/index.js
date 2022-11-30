@@ -24,6 +24,11 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import styles from './styles';
+import { AppOpenAd, InterstitialAd,
+  RewardedAd,
+  BannerAd,
+  TestIds,
+  BannerAdSize, } from 'react-native-google-mobile-ads';
 
 const UserHomeScreen = ({navigation, props}) => {
 
@@ -31,6 +36,7 @@ const [firstName,setFirstName] = useState('')
 const [lastName,setLastName] = useState('')
 const [profilePicURL,setProfilePicURL] = useState('')
 const [isVerified,setIsVerified] = useState(null)
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2853328535763437~6654218930';
 
 
   const getUserInfo = async () =>{
@@ -123,16 +129,29 @@ const [isVerified,setIsVerified] = useState(null)
                    
             </View>
 
-        <TouchableOpacity style={{justifyContent: 'flex-start',flexDirection: 'row'}} onPress={() => {auth().signOut() && navigation.replace(`OnBoard`)}}>
+        <TouchableOpacity style={{justifyContent: 'flex-start',flexDirection: 'row',marginBottom:50}} onPress={() => {auth().signOut() && navigation.replace(`OnBoard`)}}>
         <Text style={{color:'#0999f4', fontWeight: '500', textDecorationLine: 'underline', paddingTop :50,}}>Log out</Text>
         </TouchableOpacity>
 
         </View>
 
 
+
         </ScrollView>
 
     
+        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
+
+            <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+            {/* <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.FULL_BANNER}
+            requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+            }}
+            /> */}
+
+          </View>
         
       </SafeAreaView>
 

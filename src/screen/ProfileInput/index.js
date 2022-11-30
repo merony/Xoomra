@@ -173,6 +173,10 @@ const ProfileInputScreen = ({navigation, props}) => {
         overallRating:5
         })
 
+        usersDB.doc(auth().currentUser.uid).update({
+          ProfilePic : profilePicURL
+          })
+
         navigation.navigate('Verification Screen')
     }
 

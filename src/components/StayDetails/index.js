@@ -16,6 +16,11 @@ import MaxNightsWarning from '../MaxNightsWarning/index.js';
 import React from 'react';
 import RequestStayScreen from '../../screen/Main/RequestStay/index';
 import styles from './styles.js';
+import { AppOpenAd, InterstitialAd,
+  RewardedAd,
+  BannerAd,
+  TestIds,
+  BannerAdSize, } from 'react-native-google-mobile-ads';
 
 // import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
@@ -31,6 +36,7 @@ const StayDetailsComponent = (props) => {
   const [ruleFolded, setRuleFolded] = useState(true)
 
 
+  const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2853328535763437~6654218930';
 
   const dummyDataForWantToGo = 'I would like to exchange with someone in Valencia, Spain.'
   const dummyDataForMaxNights = 6
@@ -263,7 +269,19 @@ const StayDetailsComponent = (props) => {
             } */}
 
           <LongTextComponent dataText={myDestination?.City + ' , ' + myDestination?.State + ' , ' + myDestination?.Country} />
+          
+          <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
 
+            <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+            {/* <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.FULL_BANNER}
+            requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+            }}
+            /> */}
+
+          </View>
 
           <Text
             numberOfLines={5}
