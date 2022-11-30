@@ -18,10 +18,12 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import SelectList from 'react-native-dropdown-select-list';
+import { useNavigation } from '@react-navigation/native';
 
 const ManageListingItem = (props) => {
     
   const listing = props.listing
+  const navi = useNavigation()
 
   const ReturnPublished = (propR) =>{
     let temp 
@@ -111,7 +113,8 @@ const ManageListingItem = (props) => {
 
 
   const editPressed = () =>{
-    Alert.alert(`navi to edit screen, listing id:${listing.stay.id}`)
+    navi.navigate('Edit Listing', {listingID: listing.stay.id})
+
   }
   
     return (

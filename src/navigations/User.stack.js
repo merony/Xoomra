@@ -18,6 +18,7 @@ import ViewPersonalInformationScreen from '../screen/Main/User/ViewPersonalInfor
 import ViewProfileScreen from '../screen/Main/User/ViewProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HelpDetailScreen from '../screen/Main/User/HelpDetailScreen';
+import EditListingScreen from '../screen/Main/User/EditListing';
 
 const UserStack = createNativeStackNavigator();
 
@@ -93,6 +94,7 @@ const UserNav = ({navigation, props}) => {
                             }}
                 />
                 <UserStack.Screen name="My Listing" component={MyListingScreen} />
+                <UserStack.Screen name="Edit Listing" component={EditListingScreen} />
                 <UserStack.Screen name="Support" component={SupportScreen}
                 options={{
                     headerShown: true, 
