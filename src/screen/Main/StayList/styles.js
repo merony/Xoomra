@@ -28,6 +28,25 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         paddingLeft: 10,
       },
+      subTabMenu:{
+        flexDirection:'row',
+        marginTop:20,
+        borderBottomColor:'grey',
+        borderBottomWidth:0.5,
+        marginHorizontal:20
+      },
+      tabMenuTitleFocused:{
+        width:'50%',
+        fontSize:14,
+        textAlign:'center',
+        backgroundColor:'#cccbc8',
+      },
+        tabMenuTitle:{
+          width:'50%',
+          fontSize:14,
+          textAlign:'center'
+
+      },
 
  
 });

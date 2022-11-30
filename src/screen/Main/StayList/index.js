@@ -22,12 +22,14 @@ import StayComponent from '../../../components/Stay';
 import { TextInput } from 'react-native-gesture-handler';
 import stayFeed from '../../../data/stayFeed';
 import styles from './styles';
+import MapView from 'react-native-maps';
 
 const StayListScreen = ({ navigation, props }) => {
 
 
   const [accomodations, setAccomodations] = useState([]);
   const [laoding, setLoading] = useState(false);
+  const [showList,setShowList] = useState(true)
 
 
   useEffect(() => {
@@ -72,6 +74,69 @@ const StayListScreen = ({ navigation, props }) => {
     <StayComponent stay={item} />
   );
 
+  const tabListPressed = () =>{
+
+    setShowList(true)
+
+  }
+
+  const tabMapPressed = () =>{
+    setShowList(false)
+  }
+
+  const ReturnTabMenu = () =>{
+    let temp
+    if(showList){
+      temp =           
+      <View style={styles.subTabMenu}>
+        <Text 
+          style={styles.tabMenuTitleFocused}
+          onPress={tabListPressed}>List</Text>
+        <Text 
+          style={styles.tabMenuTitle}
+          onPress={tabMapPressed}
+          >Map</Text>
+      </View>
+    }else{
+      temp = 
+      <View style={styles.subTabMenu}>
+      <Text 
+        style={styles.tabMenuTitle}
+        onPress={tabListPressed}>List</Text>
+      <Text 
+        style={styles.tabMenuTitleFocused}
+        onPress={tabMapPressed}
+        >Map</Text>
+    </View>
+    }
+    return temp
+  }
+  
+  const ReturnTab = () =>{
+    let temp
+    if(showList){
+      temp =         
+      <FlatList style={{ marginTop: 25 }}
+      data={accomodations}
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+    />
+    }else{
+      temp = 
+      <View>
+        <MapView
+          style={{width:'100%',height:'100%'}}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      </View>
+    }
+    return temp
+  }
 
   return laoding ? <Loader /> : (
 
@@ -96,16 +161,10 @@ const StayListScreen = ({ navigation, props }) => {
 
       <View style={{ marginTop: 60 }} >
 
-        {/* {accomodations.map(item =>{
-              <StayComponent stay={item}/>
+        <ReturnTabMenu/>
 
-            })} */}
+        <ReturnTab/>
 
-        <FlatList style={{ marginTop: 25 }}
-          data={accomodations}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
 
       </View>
 
