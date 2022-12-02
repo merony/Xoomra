@@ -129,28 +129,28 @@ const MessageScreen = ({navigation, props, route}) => {
 
       console.log('other listing', otherUsersListingsId);
 
-      otherUsersListingsId.forEach(async Elem => {
+      otherUsersListingsId.forEach(async otherUser => {
         // console.log('this is otherUsersListingsId elem ', Elem);
-        const data = (
-          await ExchangeDB.doc(Elem.exchangeId)
+        const otherUserStay = (
+          await ExchangeDB.doc(otherUser.exchangeId)
             .collection(auth().currentUser.uid)
-            .doc(Elem.listingId)
+            .doc(otherUser.listingId)
             .get()
         ).data();
 
-        const user = hostUserData.find(ele => ele.uid === Elem.uid);
+        const user = hostUserData.find(ele => ele.uid === otherUser.uid);
 
         console.log('data.user find same  id', user);
 
         // console.log('data.checkInDate', data.checkInDate)
 
         const reqOptions = {
-          listingId: Elem.listingId,
-          messageId: Elem.exchangeId,
+          listingId: otherUser.listingId,
+          messageId: otherUser.exchangeId,
           hostingId: user.uid,
-          StayTitle: data.StayTitle,
-          checkInDate: data.checkInDate,
-          checkOutDate: data.checkOutDate,
+          StayTitle: otherUserStay.StayTitle,
+          checkInDate: otherUserStay.checkInDate,
+          checkOutDate: otherUserStay.checkOutDate,
           username: user.firstName,
           picture: user?.photo ? user.photo : null,
           created_at: new Date(),
@@ -163,14 +163,14 @@ const MessageScreen = ({navigation, props, route}) => {
           //the data below is same
 
           hostAccomodations.push({
-            listingId: Elem.listingId,
-            messageId: Elem.exchangeId,
+            listingId: otherUser.listingId,
+            messageId: otherUser.exchangeId,
             hostingId: user.uid,
-            StayTitle: data.StayTitle,
-            checkInDate: data.checkInDate,
-            checkOutDate: data.checkOutDate,
+            StayTitle: otherUserStay.StayTitle,
+            checkInDate: otherUserStay.checkInDate,
+            checkOutDate: otherUserStay.checkOutDate,
             username: user.firstName,
-            picture: user?.photo,
+            picture: user?.photo ? user.photo : null,
             created_at: new Date(),
           });
 

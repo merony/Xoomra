@@ -17,7 +17,6 @@ const cprofileDB = firestore()
 .doc(auth().currentUser.uid)
 
 
-
 const cVerificationDB = firestore()
 .collection('users')
 .doc('Verifications')

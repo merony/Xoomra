@@ -156,6 +156,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
               guestID: auth().currentUser.uid,
               checkInDate:  new Date(checkInDate) ,
               checkOutDate:  new Date(checkOutDate) ,
+              seen: false,
               status: 'Interested',
             });
 
