@@ -90,7 +90,6 @@ const SearchScreen = ({navigation, props}) => {
                   <Marker 
                     coordinate={{latitude:latitude,longitude:longitude}}
                     description=''>
-                    
                   </Marker>
                     
                 </MapView>
