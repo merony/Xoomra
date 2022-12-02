@@ -19,22 +19,67 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import searchSugg from '../../../data/search';
 import styles from './styles';
+import GooglePlaceAutoCompleteItem from '../../../components/GooglePlaceAutoComplete';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import MapView from 'react-native-maps';
 
 const SearchScreen = ({navigation, props}) => {
 
     const [inpuText, setInputText] = useState('');
     const [maxStay, setMaxStay] = useState(0);
-  const [maxGuest, setMaxGuest] = useState(0);
+    const [maxGuest, setMaxGuest] = useState(0);
 
     const [date, setDate] = useState(new Date());
     const [open, setOpen] = useState(false);
-    
 
+    const [longitude,setLongitude] = useState(-79.347015)
+    const [latitude,setLatitude] = useState(43.651070)
+
+
+
+      
     return (
 
- <View style ={styles.container}>
-            
-            <TextInput style={styles.formInput} 
+           <View style ={styles.container}>
+
+
+            <View style={{width:'100%',flexDirection:'column-reverse'}}>
+
+            <View style={{width:'100%',zIndex:1}}>
+                <MapView style={{width:'100%',height:250}} />
+              </View>
+
+            <View style={{width:'100%',height:100}}>
+              <GooglePlacesAutocomplete
+                style={{width:'100%',height:500}}
+                placeholder='Search'
+                fetchDetails={true}
+                onPress={(data, details = null) => {
+                  // 'details' is provided when fetchDetails = true
+                  console.log(
+                    `lat: `,details.geometry.location.lat,`\n`,
+                    `lng: `,details.geometry.location.lng,`\n`,
+                    `address: `,details.formatted_address,`\n`,
+                    `house #: `,details.address_components[0].long_name,`\n`,
+                    `street: `,details.address_components[1].long_name,`\n`,
+                    `city: `,details.address_components[4].long_name,`\n`,
+                    `state: `,details.address_components[5].long_name,`\n`,
+                    `country: `,details.address_components[6].long_name,)
+                }}
+                query={{
+                  key: 'AIzaSyCvKybLVxh-zJhh82UhEu31jITa_BNB2zI',
+                  language: 'en',
+                }}
+              />
+            </View>
+
+  
+
+
+
+            </View>
+
+            {/* <TextInput style={styles.formInput} 
             placeholder="Type Destination"
             value={inpuText}
             onChangeText={setInputText}
@@ -52,15 +97,15 @@ const SearchScreen = ({navigation, props}) => {
 
                     <Text style ={styles.locationText}>{item.description}</Text>
             </View>
-            )} />
+            )} /> */}
 
        
 
 
       <View style ={styles.searchRow}>
 
-          <View>
-            <Text style={{fontWeight: 'bold'}}>Stay</Text>
+          <View >
+            <Text style={{fontWeight: 'bold'}} >Stay</Text>
             <Text style={{color: '#8d8d8d', fontSize: 14 }}>Max days of stay</Text>
 
           </View>

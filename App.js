@@ -18,14 +18,16 @@ View,
 import Entype from 'react-native-vector-icons/Entypo'
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Routing from './src/navigations/Routing.stack';
+import {enableLatestRenderer} from 'react-native-maps';
+
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
 
 
 
+enableLatestRenderer();
 const App = () => {
-
 
   return (
     <>
