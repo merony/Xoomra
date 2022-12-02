@@ -22,6 +22,7 @@ import StayComponent from '../../../components/Stay';
 import { TextInput } from 'react-native-gesture-handler';
 import stayFeed from '../../../data/stayFeed';
 import styles from './styles';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const StayListScreen = ({ navigation, props }) => {
 

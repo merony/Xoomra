@@ -22,6 +22,7 @@ import styles from './styles';
 import GooglePlaceAutoCompleteItem from '../../../components/GooglePlaceAutoComplete';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapView from 'react-native-maps';
+import { Marker } from 'react-native-maps';
 
 const SearchScreen = ({navigation, props}) => {
 
@@ -32,9 +33,44 @@ const SearchScreen = ({navigation, props}) => {
     const [date, setDate] = useState(new Date());
     const [open, setOpen] = useState(false);
 
-    const [longitude,setLongitude] = useState(-79.347015)
-    const [latitude,setLatitude] = useState(43.651070)
+    const [longitude,setLongitude] = useState(-79.3840939)
+    const [latitude,setLatitude] = useState(43.6534829)
 
+    const [region,setRegion] = useState(
+      {latitude: 43.6534829,
+      longitude: -79.3840939,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421}
+    )
+
+    let stayAddress
+
+    const updateCoordinates = (details) =>{
+      setRegion(
+        {latitude: details.geometry.location.lat,
+          longitude: details.geometry.location.lng,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421}
+      )
+
+      setLatitude(details.geometry.location.lat)
+      setLongitude(details.geometry.location.lng)
+
+      stayAddress={
+        lat:details.geometry.location.lat,
+        lng:details.geometry.location.lng,
+        address:details.formatted_address,
+        house:details.address_components[0].long_name,
+        street:details.address_components[1].long_name,
+        city:details.address_components[4].long_name,
+        state:details.address_components[5].long_name,
+        country:details.address_components[6].long_name,
+      }
+
+      console.log(stayAddress)
+
+
+    }
 
 
       
@@ -43,28 +79,40 @@ const SearchScreen = ({navigation, props}) => {
            <View style ={styles.container}>
 
 
-            <View style={{width:'100%',flexDirection:'column-reverse'}}>
+            <View style={{width:'100%'}}>
 
-            <View style={{width:'100%',zIndex:1}}>
-                <MapView style={{width:'100%',height:250}} />
+            <View style={{width:'100%',marginTop:50}}>
+                <MapView 
+                  style={{width:'100%',height:250}} 
+                  
+                  region={region}>
+                  
+                  <Marker 
+                    coordinate={{latitude:latitude,longitude:longitude}}
+                    description=''>
+                    
+                  </Marker>
+                    
+                </MapView>
+                  
               </View>
 
-            <View style={{width:'100%',height:100}}>
+            <View style={{width:'100%',height:350,position:'absolute',top:0,left:0}}>
               <GooglePlacesAutocomplete
                 style={{width:'100%',height:500}}
                 placeholder='Search'
                 fetchDetails={true}
                 onPress={(data, details = null) => {
-                  // 'details' is provided when fetchDetails = true
-                  console.log(
-                    `lat: `,details.geometry.location.lat,`\n`,
-                    `lng: `,details.geometry.location.lng,`\n`,
-                    `address: `,details.formatted_address,`\n`,
-                    `house #: `,details.address_components[0].long_name,`\n`,
-                    `street: `,details.address_components[1].long_name,`\n`,
-                    `city: `,details.address_components[4].long_name,`\n`,
-                    `state: `,details.address_components[5].long_name,`\n`,
-                    `country: `,details.address_components[6].long_name,)
+                  // console.log(
+                  //   `lat: `,details.geometry.location.lat,`\n`,
+                  //   `lng: `,details.geometry.location.lng,`\n`,
+                  //   `address: `,details.formatted_address,`\n`,
+                  //   `house #: `,details.address_components[0].long_name,`\n`,
+                  //   `street: `,details.address_components[1].long_name,`\n`,
+                  //   `city: `,details.address_components[4].long_name,`\n`,
+                  //   `state: `,details.address_components[5].long_name,`\n`,
+                  //   `country: `,details.address_components[6].long_name,);
+                    updateCoordinates(details)
                 }}
                 query={{
                   key: 'AIzaSyCvKybLVxh-zJhh82UhEu31jITa_BNB2zI',
