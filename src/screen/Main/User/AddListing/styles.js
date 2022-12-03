@@ -21,6 +21,17 @@ const styles = StyleSheet.create({
         marginBottom : 25,
     },
 
+    subFormField1:{
+
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        justifyContent: 'space-between',
+        borderBottomWidth: 0,
+        paddingBottom: 8,
+        marginBottom : 5,
+        marginTop:50
+        
+    },
     subFormField:{
 
         flexDirection: 'row',
@@ -45,7 +56,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingBottom: 8,
         marginBottom : 25,
-        zIndex:999
+        zIndex:1
         // backgroundColor: '#fff',
     },
 

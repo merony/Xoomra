@@ -26,11 +26,14 @@ import auth from '@react-native-firebase/auth'
 import {cUserDB} from '../../../../data/firCuRef';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const AddListingScreen = ({navigation, props}) => {
 
 
-  const locations = [ {label: 'Newfoundland & Labrador', value: 'Newfoundland-Labrador '},{label: 'Prince Edward Island', value: 'Prince-Edward-Island'}, 
+  const locations = [ 
+  {label: 'Newfoundland & Labrador', value: 'Newfoundland-Labrador '},
+  {label: 'Prince Edward Island', value: 'Prince-Edward-Island'}, 
   {label: 'Nova Scotia', value: 'Nova-Scotia'},
   {label: 'New Brunswick', value: 'New-Brunswick'},
   {label: 'Quebec', value: 'Quebec'},
@@ -42,6 +45,22 @@ const AddListingScreen = ({navigation, props}) => {
   {label: 'Nunavut', value: 'Nunavut'},
   {label: 'Northwest Territories', value: 'Northwest-Territories'},
   {label: 'Yukon Territory', value: 'Yukon-Territory'}];
+
+  const abbreviationsLocations = [
+    'NL',
+    'PE',
+    'NS',
+    'NB',
+    'QC',
+    'ON',
+    'MB',
+    'SK',
+    'AB',
+    'BC',
+    'NU',
+    'NT',
+    'YT',
+  ]
 
   const [stayTitleFromUI,setStayTitleFromUI] = useState("")
   const [accommodationTypeFromUI,setAccommodationTypeFromUI] = useState("")
@@ -75,6 +94,31 @@ const AddListingScreen = ({navigation, props}) => {
       const [date, setDate] = useState(new Date());
       const [open, setOpen] = useState(false);
       const [openTo, setOpenTo] = useState(false);
+
+    const updateLocation = (locationTemp) =>{
+      let temp
+      for(let i=0;i<abbreviationsLocations.length;i++){
+        if(locationTemp===abbreviationsLocations[i]){
+          temp = locations[i].value
+          break
+        }
+      }
+      console.log(`state is : ${temp}`)
+      return temp
+    }
+
+    
+    const updateWantToGoLocation = (locationTemp) =>{
+      let temp
+      for(let i=0;i<abbreviationsLocations.length;i++){
+        if(locationTemp===abbreviationsLocations[i]){
+          temp = locations[i].value
+          break
+        }
+      }
+      console.log(`state is : ${temp}`)
+      return temp
+    }
 
 
 
@@ -116,7 +160,7 @@ const AddListingScreen = ({navigation, props}) => {
     
       getDocID(docRef.id);
     
-      Alert.alert("Document written with ID: ", docID);
+      // Alert.alert("Document written with ID: ", docID);
     })
     .catch(function(error) {
       console.error("Error adding document: ", error);
@@ -145,7 +189,6 @@ const AddListingScreen = ({navigation, props}) => {
           Country : wantToGoCountry ,
           State: wantToGoState ,
           City: wantToGoCity, 
-
         },
         maxGuest : maxGuest,
         maxAvailableDays : maxAvailableDays,
@@ -173,14 +216,11 @@ const AddListingScreen = ({navigation, props}) => {
       <StatusBar/>
 
       
-      <ScrollView>
-
-        {/* <Text>{docID}</Text> */}
-
+      <ScrollView keyboardShouldPersistTaps={'handled'}>
       
         <View style={{ justifyContent: 'center', margin: 20, paddingTop: 0}} > 
 
-         <Text style={styles.headerTitle}>Accomodation Details</Text>
+         <Text style={styles.headerTitle}>Accomodation  Details</Text>
         
           <View style = {styles.formField}>
           <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
@@ -231,7 +271,7 @@ const AddListingScreen = ({navigation, props}) => {
                       }}
                       
                     />
-               </View>
+          </View>
 
           <View style = {styles.formField}>
           <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
@@ -246,7 +286,7 @@ const AddListingScreen = ({navigation, props}) => {
           </View>
 
 
-          <View style ={styles.formField}>
+<View style ={styles.formField}>
 
 
 <View>
@@ -279,6 +319,8 @@ const AddListingScreen = ({navigation, props}) => {
   <Text style={{color: '#8d8d8d', fontSize: 14 }}>Max days of stay</Text>
 
 </View>
+
+
 <View style={{flexDirection: 'row', alignItems: 'center'}}>
   <Pressable
     onPress={() => setMaxAvailableDays(Math.max(0, maxAvailableDays - 1))}
@@ -310,7 +352,7 @@ const AddListingScreen = ({navigation, props}) => {
   <Text  style={{fontSize: 14}}>{availabilityTo.toDateString()}</Text>
   
 
-  {/* <Text style={{color: '#8d8d8d', fontSize: 14 }}>When do you want to visit?</Text> */}
+  <Text style={{color: '#8d8d8d', fontSize: 14 }}>When do you want to visit?</Text>
 </View>
 <View style={{flexDirection: 'row', alignItems: 'center'}}>
 
@@ -349,82 +391,105 @@ const AddListingScreen = ({navigation, props}) => {
           
    
 <View>
-          <Text style={styles.headerTitle}>Accomodation Location</Text>
-          <View style = {styles.subFormField}>
-          <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
-            <TextInput placeholder='Address' style = {styles.formInput}
-            value={addressFromUI} onChangeText={setAddressFromUI}/>
-          </View>
+  <Text style={styles.headerTitle}>Accomodation Location</Text>
 
-          <View style = {styles.subFormField}>
-          <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#f5f5f5' />
-            <TextInput placeholder='City' style = {styles.formInput}
-            value={city} onChangeText={setCity}/>
-          </View>
+  <View style = {styles.subFormField1}>
+    <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
+    <TextInput placeholder='Address' style = {styles.formInput}
+      value={addressFromUI} onChangeText={setAddressFromUI}/>
+  </View>
 
-           <View style={styles.dropField}>
-              <Fontisto style={{ paddingVertical: 15}} name='genderless' size={16} color='#f5f5f5' />
-                <DropDownPicker style = {styles.dropInput}
+  <View style = {styles.subFormField}>
+  <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#f5f5f5' />
+    <TextInput placeholder='City' style = {styles.formInput}
+    value={city} onChangeText={setCity}/>
+  </View>
 
-                      open={locationOpen}
-                      value={accomodationLocationValue}
-                      items={locationState}
-                      setOpen={setLocationOpen}
-                      setValue={setAccomodationLocationValue}
-                      setItems={setLocationState}
-                      multiple={false}
-                      min={1}
-                      // searchable={true}
-                      placeholder={"Select State"}
-                      listMode="SCROLLVIEW"
-                      // mode="SIMPLE"
-                      // zIndex={1000}
-                     
-                      dropDownDirection="BOTTOM"
-                      showBadgeDot={true}
-                      textStyle={{
-                        fontSize: 14,
-                        opacity: 0.5
-                      }}
+  <View style={styles.dropField}>
+    <Fontisto style={{ paddingVertical: 15}} name='genderless' size={16} color='#f5f5f5' />
+      <DropDownPicker style = {styles.dropInput}
 
-                      dropDownContainerStyle={{
-                        backgroundColor: "#fff",
-                        width: 340,
-                        borderWidth:0,
-                        opacity: 1,
-                        zIndex: -999
-                       
+            open={locationOpen}
+            value={accomodationLocationValue}
+            items={locationState}
+            setOpen={setLocationOpen}
+            setValue={setAccomodationLocationValue}
+            setItems={setLocationState}
+            multiple={false}
+            min={1}
+            // searchable={true}
+            placeholder={"Select State"}
+            listMode="SCROLLVIEW"
+            // mode="SIMPLE"
+            // zIndex={1000}
             
-                      }}
+            dropDownDirection="BOTTOM"
+            showBadgeDot={true}
+            textStyle={{
+              fontSize: 14,
+              opacity: 0.5
+            }}
 
-                      containerStyle={{
-
-                        // height: 10,
-                        // margin: 0,
-                        // padding: 0
-
-                      }}
-
-
-                      scrollViewProps={{
-                        decelerationRate: "fast"
-                      }}
+            dropDownContainerStyle={{
+              backgroundColor: "#fff",
+              width: 340,
+              borderWidth:0,
+              opacity: 1,
+              zIndex: -999
+              
   
-                      searchTextInputProps={{
-                        maxLength: 25
-                      }}
-                      
-                    />
-                </View>
+            }}
 
-          </View>
+            containerStyle={{
+
+              // height: 10,
+              // margin: 0,
+              // padding: 0
+
+            }}
+
+
+            scrollViewProps={{
+              decelerationRate: "fast"
+            }}
+
+            searchTextInputProps={{
+              maxLength: 25
+            }}
+            
+          />
+  </View>
+
+  <View style={{ width: '96%', height: 200, position: 'absolute', top: 50, left: 15,zIndex:1}}>
+    <GooglePlacesAutocomplete
+      placeholder='Search'
+      fetchDetails={true}
+      onPress={(data, details = null) => {
+
+        // updateCoordinates(details);
+        console.log(data);
+        setAddressFromUI(data.structured_formatting.main_text);
+        setCity(data.terms[2].value)
+        setAccomodationLocationValue(updateLocation(data.terms[3].value))
+
+      }}
+      query={{
+        key: 'AIzaSyCvKybLVxh-zJhh82UhEu31jITa_BNB2zI',
+        language: 'en',
+        components: 'country:ca'
+      }}
+    />
+    
+  </View>
+
+</View>
 
 
 
           <View>
           <Text style={styles.headerTitle}>Want To Exchange From</Text>
          
-          <View style = {styles.subFormField}>
+          <View style = {styles.subFormField1}>
           <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
             <TextInput placeholder='City' style = {styles.formInput}
             value={wantToGoCity} onChangeText={setWantToGoCity}/>
@@ -485,9 +550,29 @@ const AddListingScreen = ({navigation, props}) => {
                     />
                 </View>
 
+            <View style={{ width: '96%', height: 200, position: 'absolute', top: 50, left: 15,zIndex:1}}>
+              <GooglePlacesAutocomplete
+                placeholder='Search'
+                fetchDetails={true}
+                onPress={(data, details = null) => {
+
+                  // updateCoordinates(details);
+                  setWantToGoCity(data.terms[2].value)
+                  setWantToGoState(updateWantToGoLocation(data.terms[3].value))
+
+                }}
+                query={{
+                  key: 'AIzaSyCvKybLVxh-zJhh82UhEu31jITa_BNB2zI',
+                  language: 'en',
+                  components: 'country:ca'
+                }}
+              />
+              
+            </View>
+
           </View>
 
-    </View>
+        </View>
       
         </ScrollView>
 
