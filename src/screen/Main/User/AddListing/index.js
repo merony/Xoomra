@@ -568,6 +568,7 @@ const AddListingScreen = ({navigation, props}) => {
                 }}
               />
               
+
             </View>
 
           </View>
