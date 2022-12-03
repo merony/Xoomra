@@ -66,6 +66,8 @@ const MessageScreen = ({navigation, props, route}) => {
         // messageListing.push(doc.data());
         messages.push(doc.data());
         exchange.push((await ExchangeDB.doc(doc.id).get()).data());
+
+        console.log('Meesage doc.id ', doc.id)
       });
 
       try {
@@ -74,6 +76,10 @@ const MessageScreen = ({navigation, props, route}) => {
         // setMessages(messageListing);
         setMessages([...messages]);
         setExchangeData(exchange);
+
+        console.log('Meesage', messages)
+
+        console.log('exchange', exchange)
         // 1. Step 2 store it to hostUserData state
         getHostUserData(users);
       } catch (err) {
@@ -108,6 +114,26 @@ const MessageScreen = ({navigation, props, route}) => {
     await cAccommodationsDB.get().then(querySnapshot => {
       // console.log('No. of current user listings', querySnapshot.size);
 
+      const listings = [];
+
+      
+      querySnapshot.forEach(doc => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, 'this is doc id  => ', doc.data());
+
+        listings.push(doc.data());
+
+      });
+
+      const filteredData = listings.filter(elem => {
+        return 'published' === elem.Status;
+      });
+  
+  
+      setMyAccomodation(filteredData[0]);
+
+
+
       const otherUsersListingsId = [];
 
       querySnapshot.forEach(async doc => {
@@ -139,6 +165,7 @@ const MessageScreen = ({navigation, props, route}) => {
         ).data();
 
         const user = hostUserData.find(ele => ele.uid === otherUser.uid);
+        
 
         console.log('data.user find same  id', user);
 
@@ -153,11 +180,12 @@ const MessageScreen = ({navigation, props, route}) => {
           checkOutDate: otherUserStay.checkOutDate,
           username: user.firstName,
           picture: user?.photo ? user.photo : null,
+          host: myAccomodation,
           created_at: new Date(),
         };
 
         try {
-          await UserMessages.doc(Elem.exchangeId).set(reqOptions);
+          await UserMessages.doc(otherUser.exchangeId).set(reqOptions);
 
           //the data fro m databse
           //the data below is same
@@ -171,6 +199,7 @@ const MessageScreen = ({navigation, props, route}) => {
             checkOutDate: otherUserStay.checkOutDate,
             username: user.firstName,
             picture: user?.photo ? user.photo : null,
+            host: myAccomodation,
             created_at: new Date(),
           });
 
@@ -225,13 +254,15 @@ const MessageScreen = ({navigation, props, route}) => {
 
   useEffect(() => {
     //Runs only on the first render+
-    checkDataFromLocalStorage();
+    // checkDataFromLocalStorage();
 
-    // getMessages().then(() => {
-    //   // getMessages().then(()=>{
-    //   //   // getMessages();
-    //   // });
-    // });
+
+    getMessages().then(() => {
+      // getMessages().then(()=>{
+      //   // getMessages();
+      // });
+    });
+
   }, []);
 
   const checkData = () => {

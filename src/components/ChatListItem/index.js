@@ -24,10 +24,10 @@ import {useNavigation} from '@react-navigation/native';
 const ChatListItem = ({chat}) => {
   const navi = useNavigation();
   const onItemPressed = () => {
-    navi.navigate('MessageResponseScreen', {id: chat.messageId});
+    navi.navigate('MessageResponseScreen', {data: chat});
   };
 
-  console.log('Stay Ttile ', chat.StayTitle, ' ', chat.listingId, ' ', chat.messageId);
+  console.log('Stay Ttile ', chat.StayTitle, ' ', chat.listingId, ' ', chat.messageId, ' ', chat.host.StayTitle);
 
   return (
     <Pressable style={styles.container} onPress={onItemPressed}>

@@ -6,24 +6,31 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
+import InputBoxInMessage from '../../../components/InputBoxInMessage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import React from 'react';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
 import MessageResponseItem from '../../../components/MessageResponseItem';
-import messages from '../../../data/message';
-import InputBoxInMessage from '../../../components/InputBoxInMessage';
-import StayInfoInMessageComponent from '../../../components/StayInfoInMessage';
-import places from '../../../data/stayFeed';
+import React from 'react';
 import StayInfoGuestInMessageComponent from '../../../components/StayInfoInMessage/indexGuest';
-const MessageResponseScreen = ({navigation, props}) => {
+import StayInfoInMessageComponent from '../../../components/StayInfoInMessage';
+import messages from '../../../data/message';
+import places from '../../../data/stayFeed';
+import styles from './styles';
+
+const MessageResponseScreen = ({navigation, props, route}) => {
+
+
+  const {data} = route.params;
+
+
+  console.log("chatr data", data.host.AccommodationType)
 
   //get data of host and guest (host is the current user),the listing of current  will be displayed on top
   //send data as chatData to component
