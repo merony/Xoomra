@@ -166,12 +166,14 @@ const getUserInfo = async () =>{
      editable={edit} value={emergencyContactNumber} onChangeText={setEmergencyContactNumber}/>
     </View>
 
-  
-    </ScrollView>
-
     {(edit) && <TouchableOpacity onPress={savePressed} style = {styles.customBTN}>
         <Text style={styles.textBTN}>Save</Text>
     </TouchableOpacity>}
+  
+  
+    </ScrollView>
+
+    
     
   </View>
       
