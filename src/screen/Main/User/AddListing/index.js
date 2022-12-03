@@ -78,6 +78,10 @@ const AddListingScreen = ({navigation, props}) => {
   const [docID, getDocID] = useState("")
   const [accomodationTypeOpen, setAccomodationTypeOpen] = useState(false);
   const [accomodationTypeValue, setAccomodationTypeValue] = useState("");
+  const [lat,setLat] = useState(0)
+  const [lng,setLng] = useState(0)
+  const [latWantToGo,setLatWantToGo] = useState(0)
+  const [lngWantToGo,setLngWantToGo] = useState(0)
   const [accomodationType, setAccomodationType] = useState([
     {label: ' Private Room', value: 'private'},{label: 'Shared Room', value: 'shared'} ]);
 
@@ -185,10 +189,14 @@ const AddListingScreen = ({navigation, props}) => {
         City: city ,
         State: accomodationLocationValue,
         Country: 'Canada' ,
+        lat:lat,
+        lng:lng,
         WantToGo : {
           Country : wantToGoCountry ,
           State: wantToGoState ,
           City: wantToGoCity, 
+          lat:latWantToGo,
+          lng:lngWantToGo,
         },
         maxGuest : maxGuest,
         maxAvailableDays : maxAvailableDays,
@@ -197,7 +205,7 @@ const AddListingScreen = ({navigation, props}) => {
           availabilityEnd : new Date(availabilityTo),
         },
         docID:docID,
-        created_at: new Date() ,
+        created_at: new Date(),
 
 
       })
@@ -471,6 +479,8 @@ const AddListingScreen = ({navigation, props}) => {
         setAddressFromUI(data.structured_formatting.main_text);
         setCity(data.terms[2].value)
         setAccomodationLocationValue(updateLocation(data.terms[3].value))
+        setLat(details.geometry.location.lat)
+        setLng(details.geometry.location.lng)
 
       }}
       query={{
@@ -559,6 +569,8 @@ const AddListingScreen = ({navigation, props}) => {
                   // updateCoordinates(details);
                   setWantToGoCity(data.terms[2].value)
                   setWantToGoState(updateWantToGoLocation(data.terms[3].value))
+                  setLatWantToGo(details.geometry.location.lat)
+                  setLngWantToGo(details.geometry.location.lng)
 
                 }}
                 query={{
