@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical:0
     },
+
     dropField:{
 
         flexDirection: 'row',
@@ -45,11 +46,9 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical:0,
         borderWidth:0,
-        marginHorizontal:0,
+        marginHorizontal:5,
         width: 350,
         
-        
-    
     },
 
     

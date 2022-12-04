@@ -184,7 +184,7 @@ const ProfileInputScreen = ({navigation, props}) => {
 
       <View style={{flexDirection: "column", justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}}>
 
-        <ScrollView>
+        
           <Text style={styles.headerTitle}>Profile</Text>
               <View style={{flexDirection:"column",margin:10,marginVertical:2}}>
 
@@ -217,9 +217,10 @@ const ProfileInputScreen = ({navigation, props}) => {
               value={linkedinLinkFromUI} onChangeText={setlinkedinLinkFromUI} />
             </View>
 
-            <View style={styles.dropField}>
+            {/* <View style={styles.dropField}>
             <Fontisto style={{ paddingVertical: 17}} name='genderless' size={16} color='#283239' />
-              <DropDownPicker style = {styles.dropInput}
+              <DropDownPicker
+               style = {styles.dropInput}
                     open={open}
                     value={value}
                     items={items}
@@ -244,7 +245,7 @@ const ProfileInputScreen = ({navigation, props}) => {
                       borderWidth:0,
                       opacity: 1,
                       minHeight: 100,
-                      zIndex: -999
+                      // zIndex: -999
                      
           
                     }}
@@ -260,6 +261,68 @@ const ProfileInputScreen = ({navigation, props}) => {
                     
                   />
             </View>
+             */}
+{/* 
+dropField:{
+
+flexDirection: 'row',
+borderBottomColor: '#ccc',
+borderBottomWidth: 1,
+paddingBottom: 8,
+marginBottom : 25,
+zIndex:999
+// backgroundColor: '#fff',
+language
+
+}, */}
+              
+              <View 
+              style={{flexDirection:'row',marginBottom:70,marginHorizontal:2,paddingVertical:1}}
+              >
+
+              <DropDownPicker
+               style = {styles.dropInput}
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                    searchable={true}
+                    multiple={true}
+                    min={1}
+                    placeholder={"Select Language"}
+
+                    dropDownDirection="BOTTOM"
+                    showBadgeDot={true}
+                    textStyle={{
+                      fontSize: 14,
+                      opacity: 0.5
+                    }}
+
+                    dropDownContainerStyle={{
+                      backgroundColor: "#fff",
+                      width: 350,
+                      borderWidth:0,
+                      opacity: 1,
+                      minHeight: 100,
+                      // zIndex: -999
+                      marginHorizontal:7
+                     
+          
+                    }}
+
+                    scrollViewProps={{
+                      decelerationRate: "fast"
+                    }}
+
+                    searchTextInputProps={{
+                      maxLength: 25
+                    }}
+
+                    
+                  />
+                  </View>
 
             <View style = {styles.formField}>
             <Ionicons style={{ paddingVertical: 4}} name='heart-outline' size={18} color='#283239' />
@@ -279,10 +342,7 @@ const ProfileInputScreen = ({navigation, props}) => {
             </TouchableOpacity>
 
             
-
-           
-           
-            </ScrollView>
+        
     </View>
         
        

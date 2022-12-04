@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
     formField:{
 
-        flexDirection: 'row',
+        flexDirection: 'column',
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
         paddingBottom: 8,
