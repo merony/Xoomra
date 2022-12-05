@@ -42,7 +42,7 @@ const MessageScreen = ({navigation, props, route}) => {
   const listings = [];
 
   const getMessages = async () => {
-    // setLoading(true);
+    setLoading(true);
     hostAccomodations.splice(0, hostAccomodations.length);
     setHostAccomodations([...hostAccomodations]);
     messages.splice(0, messages.length);
@@ -206,7 +206,7 @@ const MessageScreen = ({navigation, props, route}) => {
           // await UserMessages.doc(otherUser.exchangeId).set(hostAccomodations);
 
           // console.log('this is accomodatin data', hostAccomodations);
-          // setLoading(false);
+          setLoading(false);
           console.log('user messages object added successfully', hostAccomodations);
         } catch (exception) {
           console.error(exception);
@@ -283,7 +283,7 @@ const MessageScreen = ({navigation, props, route}) => {
         <Text style={styles.title}>Inbox</Text>
       </View>
       {/* {checkData()} */}
-      {/* {!loading ? ( */}
+      {!loading ? ( 
       <FlatList
         ListEmptyComponent={
           <View
@@ -299,8 +299,8 @@ const MessageScreen = ({navigation, props, route}) => {
         data={hostAccomodations}
         renderItem={({item}) => <ChatListItem chat={item} />}
       />
-      {/* ) : (  <ActivityIndicator />
-      )} */}
+       ) : (  <ActivityIndicator />
+      )} 
     </View>
   );
 };

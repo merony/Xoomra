@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import {cAccommodationsDB, cMessagesDB, cUserDB} from '../../../data/firCuRef';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
@@ -46,7 +46,7 @@ const MessageResponseScreen = ({navigation, props, route}) => {
   const [otherListing, GetOtherListing ] = useState([]); 
 
 
-  const currentMessageDB = MessagesDB.doc(data.messageId).collection('Message').orderBy('created_at')
+  const currentMessageDB = MessagesDB.doc(data.messageId).collection('Message').orderBy('created_at').limit(30)
 
   const sendMessageDB = MessagesDB.doc(data.messageId).collection('Message')
   // .where( "seen", "==", false)
@@ -245,6 +245,11 @@ alert("dates has been updated")
 
         allMessage.push(doc.data())
 
+
+        sendMessageDB.doc(doc.id).update({
+          seen : true,
+        })
+
         // allMessages.push (doc.data().filter(elem => elem.seen === false))
 
         // console.log("Message Filter", doc.data().filter(elem => elem.seen === 'false') )
@@ -363,103 +368,105 @@ const loadDataOther = async () => {
   //send data as chatData to component
   //if both users orders' status do not contain unreceived, received or rejected, show input box
 
-  const stayIDOfHost = '0'
-  const stayhost = places.find(place => place.id === stayIDOfHost)
-  const stayIDOfGuest = '1'
-  const stayGuest = places.find(place => place.id === stayIDOfGuest)
-    
-  
-  const dummyDataHostName = 'Vadim'
-  const dummyDataGuestName = 'Lukas'
-  const dummyDataUserName = 'Vadim'
-  // order status has five status ' unreceived, received, interested, accepted, rejected'
-  const dummyDataOrderStatusOfGuestsOrder = 'received'
-  const dummyDataOrderStatusOfHostsOrder = 'accepted'
-
-  const [orderStatusOfGuestsOrder,setOrderStatusOfGuestsOrder] = useState(dummyDataOrderStatusOfGuestsOrder)
-  const [orderStatusOfHostsOrder,setOrderStatusOfHostsOrder] = useState(dummyDataOrderStatusOfHostsOrder)
 
 
-
-  const setGuestOrderStatus = (orderStatus) =>{
-    // dummyDataOrderStatusOfGuestsOrder=orderStatus
-    setOrderStatusOfGuestsOrder(orderStatus)
-  }
-  const setHostOrderStatus = (orderStatus) =>{
-    // dummyDataOrderStatusOfHostsOrder=orderStatus
-    setOrderStatusOfHostsOrder(orderStatus)
-  }
-  
-  const stayInfoDataHost = () =>{
-    
-
-      const chatData = {
-        hostName:dummyDataHostName,
-        guestName:dummyDataGuestName,
-        userName:dummyDataUserName,
-        orderStatus:dummyDataOrderStatusOfGuestsOrder,
-        stay:stayhost,
-        setOrderStatus:setGuestOrderStatus,
-      }
-
-      return chatData
-
-    
-  }
-  const stayInfoDataGuest = () =>{
-      const chatData = {
-        hostName:dummyDataGuestName,
-        guestName:dummyDataHostName,
-        userName:dummyDataUserName,
-        orderStatus:dummyDataOrderStatusOfHostsOrder,
-        stay:stayGuest,
-        setOrderStatus:setHostOrderStatus,
-    }
-      return chatData
-
-    }
 
   
-  const sendMSG = () =>{
-    // let temp 
-    // if (
-    //   orderStatusOfGuestsOrder==='unreceived' || 
-    //   orderStatusOfGuestsOrder==='received' ||
-    //   orderStatusOfGuestsOrder==='rejected' ||
-    //   orderStatusOfHostsOrder==='unreceived' ||
-    //   orderStatusOfHostsOrder==='received' ||
-    //   orderStatusOfHostsOrder==='rejected'){
-    //     temp = true
-    //   }else{
-    //     temp = true
-    //   }
-      
-    //   return temp
+  // const sendMSG = () =>{
 
 
-    sendMessageDB.add({
+  //   sendMessageDB.add({
 
-      created_at: new Date() ,
-      exchangeID: data.messageId,
-      fromID: auth().currentUser.uid,
-      fromName: myExchnageListing.hostName,
-      toID: myExchnageListing.uid,
-      text: inputText,
-      seen: false,
-
-
-    }).then(() => {
-
-      loadData();
-
-      setInputText(' ');
-
-      console.log('message sent')
-    });
+  //     created_at: new Date() ,
+  //     exchangeID: data.messageId,
+  //     fromID: auth().currentUser.uid,
+  //     fromName: myExchnageListing.hostName,
+  //     toID: myExchnageListing.uid,
+  //     text: inputText,
+  //     seen: false,
 
 
+  //   }).then(() => {
 
+  //     loadNewMessage();
+
+  //     setInputText(' ');
+
+  //     console.log('message sent')
+  //   });
+
+  // }
+
+
+  const sendMSG = useCallback(
+    function () {
+      sendMessageDB.add({
+
+        created_at: new Date() ,
+        exchangeID: data.messageId,
+        fromID: auth().currentUser.uid,
+        fromName: myExchnageListing.hostName,
+        toID: myExchnageListing.uid,
+        text: inputText,
+        seen: false,
+  
+  
+      }).then(function () {
+        
+          loadNewMessage();
+          setInputText(' ');
+          console.log('message sent')
+        })
+    },
+    [inputText]
+  )
+
+
+  
+
+
+const loadNewMessage = async () => {
+
+
+  try {
+
+    
+    await sendMessageDB.where( "seen", "==", false).orderBy('created_at').get()
+    .then(querySnapshot => {
+
+  
+      querySnapshot.forEach((doc) => {
+  
+  
+        // console.log ('doc id' , doc.data())
+
+
+        // newMsg.push(doc.data())
+
+        allMessages.push(doc.data())
+  
+  
+      });
+
+      GetAllMessages([...allMessages]);
+
+      console.log ('newMsg DB', allMessages)
+
+
+  
+  });
+
+
+  }catch(error){
+
+    console.log ('loadNewMessage DB', error)
   }
+
+
+
+
+  
+}
 
 
     
