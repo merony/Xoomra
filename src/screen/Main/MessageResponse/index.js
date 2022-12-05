@@ -356,7 +356,7 @@ const loadDataOther = async () => {
     })
     loadDataOther();
    
-  }, []);
+  }, [false]);
 
 
   //get data of host and guest (host is the current user),the listing of current  will be displayed on top
