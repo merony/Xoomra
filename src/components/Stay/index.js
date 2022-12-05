@@ -47,7 +47,7 @@ const StayComponent = (props) => {
 
   // console.log("All Data", stays);
 
-  console.log("Listing Is", stays.docID);
+ 
 
 
 

@@ -22,12 +22,31 @@ import StayComponent from '../../../components/Stay';
 import { TextInput } from 'react-native-gesture-handler';
 import stayFeed from '../../../data/stayFeed';
 import styles from './styles';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const StayListScreen = ({ navigation, props }) => {
 
 
   const [accomodations, setAccomodations] = useState([]);
   const [laoding, setLoading] = useState(false);
+  const [location,setLocation] = useState('Canada')
+  const [maxDays,setMaxDays] = useState(0)
+  const [maxGuest,setMaxGuest] = useState(0)
+  const [day1,setDay1] =useState((new Date().toString()))
+  const [day2,setDay2] =useState((new Date().toString()))
+  const destinationKey = 'destinationKey'
+  
+const getData = async () => {
+  try {
+    console.log(`reading ok`)
+    const jsonValue = await AsyncStorage.getItem(destinationKey)
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch(e) {
+    console.log(`reading error`)
+    // error reading value
+  }
+}
+
 
 
   useEffect(() => {
@@ -36,12 +55,15 @@ const StayListScreen = ({ navigation, props }) => {
     // test();
 
 
+
   });
 
 
   useEffect(() => {
     //Runs only on the first render
     loadData();
+
+
   }, []);
 
 
@@ -53,7 +75,7 @@ const StayListScreen = ({ navigation, props }) => {
         const listings = []
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log('AccommodationsDB  =>', doc.data());
+
 
           listings.push(doc.data());
           setLoading(false)
@@ -61,6 +83,14 @@ const StayListScreen = ({ navigation, props }) => {
 
 
         setAccomodations(listings);
+
+        getData().then((data) =>{    
+          setLocation(data.address)
+          setMaxDays(data.maxStay)
+          setMaxGuest(data.maxGuest)
+          setDay1(data.date1)
+          setDay2(data.date2)
+          console.log(data.address)})
 
         // console.log( " Data=> ", accomodations);
       });
@@ -85,8 +115,8 @@ const StayListScreen = ({ navigation, props }) => {
 
 
           <View>
-            <Text style={styles.searchButtonText}>Location Name </Text>
-            <Text style={{ color: '#8d8d8d', fontSize: 14, paddingLeft: 10, }}>3days | 2 Guest | Oct22 - Dec25</Text>
+            <Text style={styles.searchButtonText}>{location} </Text>
+            <Text style={{ color: '#8d8d8d', fontSize: 14, paddingLeft: 10, }}>{maxDays} days | {maxGuest} Guests | {day1.slice(5,10)} - {day2.slice(5,10)}</Text>
           </View>
 
           <Fontisto style={{ justifyContent: 'flex-end', paddingLeft: 80, }} name="player-settings" size={16} color={'#030f14'} />
