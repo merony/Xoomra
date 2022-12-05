@@ -23,7 +23,7 @@ const MrotherUser = (props) => {
     setOpenTo,
     openTo,
     setavailabilityTo}=props
-    console.log("availabilityTo=====>",availabilityTo?.toString())
+    // console.log("availabilityTo=====>",availabilityTo?.toString())
   return (
     <View style={styles.mainContainer}>
     {/* <StayInfoInMessageComponent cData={stayInfoDataHost()}/> */}

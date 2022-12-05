@@ -44,8 +44,7 @@ const MessageResponseScreen = ({navigation, props, route}) => {
   const [otherExchnageListing, GetOtherExchnageListing] = useState([]); 
 
   const [otherListing, GetOtherListing ] = useState([]); 
-  const [openBottom,setOpenBottom]=useState(false)
-  const[openTop,setOpenTop]=useState(false)
+
 
   const currentMessageDB = MessagesDB.doc(data.messageId).collection('Message')
   // .where( "seen", "==", false)
@@ -62,6 +61,9 @@ const MessageResponseScreen = ({navigation, props, route}) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [openTo, setOpenTo] = useState(false);
+
+  const [openBottom,setOpenBottom]=useState(false)
+  const[openTop,setOpenTop]=useState(false)
 
   const [availabilityFrom,setavailabilityFrom] = useState(new Date())
   const [availabilityTo,setavailabilityTo] = useState(new Date())
@@ -88,9 +90,9 @@ const MessageResponseScreen = ({navigation, props, route}) => {
     const date = new Date(myExchnageListing?.checkOutDate?.seconds*1000);
     const options = {   year: 'numeric', month: 'long', day: 'numeric' };
     const today = date.toLocaleDateString('en-US', options);
-    console.log('What day is it', today);
+    // console.log('What day is it', today);
 
-    console.log ('consol', myExchnageListing?.checkOutDate?.seconds)
+    // console.log ('consol', myExchnageListing?.checkOutDate?.seconds)
 
     return today;
   }
@@ -100,7 +102,7 @@ const MessageResponseScreen = ({navigation, props, route}) => {
     const date = new Date(myExchnageListing?.checkInDate?.seconds*1000);
     const options = {  year: 'numeric', month: 'long', day: 'numeric' };
     const today = date.toLocaleDateString('en-US', options);
-    console.log('What day is it', today);
+    // console.log('What day is it', today);
 
     return today;
   }
@@ -199,9 +201,7 @@ alert("dates has been updated")
   const loadDataEx = async () => {
 
 
-
     try{
-
 
       await otherExchnageListingDB.get()
       .then(querySnapshot => {
@@ -211,11 +211,10 @@ alert("dates has been updated")
     
         GetOtherExchnageListing(otherExchangeListinData)
     
-    
-        // console.log('otherExchnageListing Data', otherExchnageListing.StayTitle)
+        console.log('otherExchnageListing Data', querySnapshot.data())
     
         
-      }) ;
+      }) 
 
     }catch(error){
 
@@ -259,7 +258,7 @@ alert("dates has been updated")
 
     GetMyExchnageListing (myReqdata)
 
-    console.log('My Exchange Data', querySnapshot.data().checkOutDate)
+    // console.log('My Exchange Data', querySnapshot.data().checkOutDate)
     
   }) ;
 
@@ -321,28 +320,29 @@ const loadDataOther = async () => {
   });
 
   useEffect(() => {
-    loadData().then(() => {
-
-    })
 
     loadDataEx().then(() => {
 
 
-      if (otherExchnageListing.status === null){
+      if (otherExchangeListinData.status === null){
 
-        console.log ('Its Working', otherExchnageListing.status)
+        console.log ('Its Working', otherExchangeListinData.status)
         
   setOpenBottom(true)
+  setOpenTop(false)
   
       } else{
   
-        console.log ('Its Working not', otherExchnageListing.status)
+        console.log ('Its Working not', otherExchnageListing.status, otherExchangeListinData.status)
 
         setOpenTop(true)
   
       }
     })
 
+    loadData().then(() => {
+
+    })
     loadDataOther();
    
   }, []);
