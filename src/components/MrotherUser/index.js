@@ -57,9 +57,9 @@ const MrotherUser = (props) => {
   <View style={{flexDirection:'column'}}>
 
  <Text onPress={() => setOpen(true)} style={{marginHorizontal: 0, fontSize: 14, fontWeight: 'bold'}}>From</Text>
-    <Text  style={{fontSize: 14}}>{availabilityFrom?.toDateString()}</Text>
+    <Text  style={{fontSize: 14}}>{otherExchnageListing?.checkInDate.toDate().toDateString()}</Text>
     <Text onPress={() => setOpenTo(true)} style={{marginHorizontal: 0, fontSize: 14, fontWeight: 'bold'}}>To</Text>
-    <Text  style={{fontSize: 14}}>{availabilityTo?.toDateString()}</Text> 
+    <Text  style={{fontSize: 14}}>{otherExchnageListing?.checkOutDate.toDate().toDateString()}</Text> 
     {/* <Text>{availabilityTo?.toString()}</Text> */}
         <DatePicker
           modal
