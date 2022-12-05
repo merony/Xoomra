@@ -14,7 +14,7 @@ import {
     Text,
     TouchableOpacity,
     View,
-    alert
+    
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -43,8 +43,9 @@ import { usersDB } from '../../data/firRef';
     
     const [emailFromUI,setEmailFromUI] = useState("")
     const [passwordFromUI,setPasswordFromUI] = useState("")
-
-     const [isCompleted, setCompleted] = useState(false);
+    const [isCompleted, setCompleted] = useState(false);
+    const [missingEmail,setMissingEmail] = useState(false)
+    const [missingPassword,setMissingPassword] = useState(false)
 
     
   const navTransfer = async() =>{
@@ -115,9 +116,24 @@ import { usersDB } from '../../data/firRef';
 
     const signinPressed = async() =>{
       // navigation.navigate("TabNavigator")
-      if (emailFromUI.length === 0 || passwordFromUI.length === 0) {
-        alert("Please enter email and password")
+      setMissingEmail(false)
+      setMissingPassword(false)
+      if (emailFromUI.length === 0 && passwordFromUI.length === 0 ) {
+        setMissingEmail(true)
+        setMissingPassword(true)
+
       }
+
+      else if (emailFromUI.length === 0 && passwordFromUI.length !== 0){
+        setMissingEmail(true)
+
+      }
+
+      else if (emailFromUI.length !== 0 && passwordFromUI.length === 0){
+        setMissingPassword(true)
+      }
+
+     
       else{
       auth()
       .signInWithEmailAndPassword(emailFromUI,passwordFromUI )
@@ -136,6 +152,17 @@ import { usersDB } from '../../data/firRef';
     
         if (error.code === 'auth/invalid-email') {
           console.log('That email address is invalid!');
+          Alert.alert('invalid email')
+
+        }
+
+        if (error.code === 'auth/wrong-password'){
+          Alert.alert('Wrong Password')
+        }
+
+        if (error.code === 'auth/user-not-found') {
+          Alert.alert('User Not Found')
+
         }
     
         console.error(error);
@@ -143,6 +170,14 @@ import { usersDB } from '../../data/firRef';
     }
 
   }
+  const changingEmail = ()=>{
+    setMissingEmail(false)
+  }
+  const changingPassord = ()=>{
+    setMissingPassword(false)
+  }
+
+  
 
 
     return (
@@ -154,18 +189,34 @@ import { usersDB } from '../../data/firRef';
           <View style={{ justifyContent: 'center', marginTop: 15, paddingTop: 0, marginLeft: 15, marginRight: 15}} > 
 
             <Text style={styles.headerTitle}>Sign In</Text>
-          
+
+            
             <View style = {styles.formField}>
-            <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
-            <TextInput placeholder='Email ID' style = {styles.formInput} keyboardType="email-address" 
-              value={emailFromUI} onChangeText={setEmailFromUI}/>
+              <View style={{flexDirection:'row'}}>
+                <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
+                <TextInput placeholder='Email ID' style = {styles.formInput} keyboardType="email-address" 
+                  value={emailFromUI} onChange={changingEmail} onChangeText={setEmailFromUI} />
+              </View>
+              {missingEmail &&
+              <View style={{flexDirection:'row',marginTop:5}}>
+              <MaterialIcons style={{ }} name='error' size={14} color='red' />
+               <Text style={{color:'red',fontSize:10}}>Email is required</Text>
+              </View>}
             </View>
 
+            
+
             <View style = {styles.formField}>
-            <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
-            <TextInput placeholder='Password' style = {styles.formInput} secureTextEntry={true}
-              value={passwordFromUI} onChangeText={setPasswordFromUI}/>
-          
+              <View style={{flexDirection:'row'}}>
+                <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
+                <TextInput placeholder='Password' style = {styles.formInput} secureTextEntry={true}
+                  value={passwordFromUI} onChange={changingPassord} onChangeText={setPasswordFromUI}/>
+              </View>
+              {missingPassword &&
+              <View style={{flexDirection:'row',marginTop:5}}>
+              <MaterialIcons style={{ }} name='error' size={14} color='red' />
+               <Text style={{color:'red',fontSize:10}}>Password is required</Text>
+              </View>}
             </View>
 
             <TouchableOpacity style={{justifyContent: 'flex-end',flexDirection: 'row'}} onPress={() => {navigation.navigate(`Forget Password`)}}>
