@@ -26,6 +26,7 @@ const cVerificationDB = firestore()
 const cAccommodationsDB = firestore()
 .collection('Accommodations')
 .where( "uid", "==", auth().currentUser.uid)
+.where( "Status", "==", "published")
 
 const cMessagesDB = firestore()
 .collection('Messages')

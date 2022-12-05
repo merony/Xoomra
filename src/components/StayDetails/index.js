@@ -1,5 +1,13 @@
 import { AccommodationsDB, cUserDB, profilesDB, usersDB } from '../../data/firRef';
 import { Alert, Image, Modal, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {
+  AppOpenAd,
+  BannerAd,
+  BannerAdSize,
+  InterstitialAd,
+  RewardedAd,
+  TestIds,
+} from 'react-native-google-mobile-ads';
 import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 
@@ -16,11 +24,6 @@ import MaxNightsWarning from '../MaxNightsWarning/index.js';
 import React from 'react';
 import RequestStayScreen from '../../screen/Main/RequestStay/index';
 import styles from './styles.js';
-import { AppOpenAd, InterstitialAd,
-  RewardedAd,
-  BannerAd,
-  TestIds,
-  BannerAdSize, } from 'react-native-google-mobile-ads';
 
 // import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
@@ -91,7 +94,8 @@ const StayDetailsComponent = (props) => {
         navi.navigate('RequestStayScreen',
           {
             stays: stays, checkInDate: checkInDate,
-            checkOutDate: checkOutDate, totalNights: totalNights
+            checkOutDate: checkOutDate, totalNights: totalNights,
+            personalData : personalData
           })
       } else {
         Alert.alert('max nights exceeded')
@@ -126,10 +130,6 @@ const StayDetailsComponent = (props) => {
 
   }
 
-
-
-
-
   useEffect(() => {
     //Runs on every render
 
@@ -141,12 +141,7 @@ const StayDetailsComponent = (props) => {
     //Runs only on the first render
 
 
-
   }, []);
-
-
-
-
 
 
   //if rating is better than 4.5, he is a super host

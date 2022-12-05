@@ -38,6 +38,9 @@ const MessageScreen = ({navigation, props, route}) => {
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
+
+  const listings = [];
+
   const getMessages = async () => {
     // setLoading(true);
     hostAccomodations.splice(0, hostAccomodations.length);
@@ -114,8 +117,7 @@ const MessageScreen = ({navigation, props, route}) => {
     await cAccommodationsDB.get().then(querySnapshot => {
       // console.log('No. of current user listings', querySnapshot.size);
 
-      const listings = [];
-
+      
       
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
@@ -131,6 +133,9 @@ const MessageScreen = ({navigation, props, route}) => {
   
   
       setMyAccomodation(filteredData[0]);
+
+
+       console.log('My Accomodation', listings[0]);
 
 
 
@@ -179,42 +184,37 @@ const MessageScreen = ({navigation, props, route}) => {
           checkInDate: otherUserStay.checkInDate,
           checkOutDate: otherUserStay.checkOutDate,
           username: user.firstName,
-          picture: user?.photo ? user.photo : null,
-          host: myAccomodation,
+          picture: null,
+          host: listings[0],
           created_at: new Date(),
         };
 
         try {
+
+          console.log('reqOptions', reqOptions);
           await UserMessages.doc(otherUser.exchangeId).set(reqOptions);
 
           //the data fro m databse
           //the data below is same
 
-          hostAccomodations.push({
-            listingId: otherUser.listingId,
-            messageId: otherUser.exchangeId,
-            hostingId: user.uid,
-            StayTitle: otherUserStay.StayTitle,
-            checkInDate: otherUserStay.checkInDate,
-            checkOutDate: otherUserStay.checkOutDate,
-            username: user.firstName,
-            picture: user?.photo ? user.photo : null,
-            host: myAccomodation,
-            created_at: new Date(),
-          });
+          hostAccomodations.push(
+            reqOptions
+          );
 
           setHostAccomodations([...hostAccomodations]);
 
+          // await UserMessages.doc(otherUser.exchangeId).set(hostAccomodations);
+
           // console.log('this is accomodatin data', hostAccomodations);
           // setLoading(false);
-          console.log('user messages object added successfully');
+          console.log('user messages object added successfully', hostAccomodations);
         } catch (exception) {
           console.error(exception);
         }
       });
     });
 
-    SaveDataInLocalStorage();
+    // SaveDataInLocalStorage();
   };
 
   const SaveDataInLocalStorage = async () => {

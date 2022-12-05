@@ -12,7 +12,6 @@ container:{
 
 mainContainer:{
     flexDirection:'row',
-    justifyContent:"flex-end",
     // margin:20,
     paddingTop:20,
     paddingHorizontal:20,

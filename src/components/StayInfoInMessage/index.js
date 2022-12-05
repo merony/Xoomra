@@ -1,11 +1,11 @@
 import {
   Alert,
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -218,10 +218,6 @@ const StayInfoInMessageComponent = (props) => {
 
       </View>
 
-
-
-
-       
 
     </Pressable>
         

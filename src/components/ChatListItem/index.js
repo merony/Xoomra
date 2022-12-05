@@ -35,9 +35,8 @@ const ChatListItem = ({chat}) => {
       {/* <Image source={{uri:'https.notjustdev-dummy.s3.us-east-2.amazonaws.com/avators/lukas.jepg'} /> */}
       <Image
         source={{
-          uri: chat.picture
-            ? chat.picture
-            : 'https://st4.depositphotos.com/4329009/19956/v/450/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg',
+          uri:
+             'https://st4.depositphotos.com/4329009/19956/v/450/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg',
         }}
         style={styles.image}
       />
