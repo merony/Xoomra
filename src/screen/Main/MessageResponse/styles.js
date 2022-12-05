@@ -43,6 +43,22 @@ listingContainer:{
     fontSize:14,
 
 },
+inputContainerBeneathOption:{
+    borderColor:'grey',
+    borderWidth:1,
+    paddingHorizontal:10,
+    marginHorizontal:5,
+    borderRadius:30,
+    height:40,
+    marginTop:5,
+    fontSize:14,
+    flexDirection:'row',
+    alignItems:'center',
+    margin : 10,
+},
+inputFocus:{
+    fontSize:14,
+},
 
 image:{
     width:40,

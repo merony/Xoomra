@@ -46,7 +46,9 @@ const MessageResponseScreen = ({navigation, props, route}) => {
   const [otherListing, GetOtherListing ] = useState([]); 
 
 
-  const currentMessageDB = MessagesDB.doc(data.messageId).collection('Message')
+  const currentMessageDB = MessagesDB.doc(data.messageId).collection('Message').orderBy('created_at')
+
+  const sendMessageDB = MessagesDB.doc(data.messageId).collection('Message')
   // .where( "seen", "==", false)
 
   const myExchnageListingDB = ExchangeDB.doc(data.messageId).collection(data.hostingId).doc(data.host.docID)
@@ -56,6 +58,8 @@ const MessageResponseScreen = ({navigation, props, route}) => {
   const otherExchnageListingDB = ExchangeDB.doc(data.messageId).collection(auth().currentUser.uid).doc(data.listingId)
 
   const otherListingDB = AccommodationsDetailsDB.doc(data.listingId)
+
+  const [inputText,setInputText] = useState('')
 
 
   const [date, setDate] = useState(new Date());
@@ -76,6 +80,8 @@ const MessageResponseScreen = ({navigation, props, route}) => {
   let otherExchangeListinData = [];
 
   let otherListingData = [];
+
+  let allMessage = []
 
   // otherExchnageListing.checkInDate
   // checkOutDate
@@ -232,9 +238,12 @@ alert("dates has been updated")
 
       querySnapshot.forEach((doc) => {
 
-        allMessages.push(doc.data())
 
-        console.log('Message Seen', allMessages )
+        // allMessage = doc.data()
+
+        // allMessages.push(doc.data())
+
+        allMessage.push(doc.data())
 
         // allMessages.push (doc.data().filter(elem => elem.seen === false))
 
@@ -242,7 +251,9 @@ alert("dates has been updated")
 
       });
 
-      GetAllMessages(allMessages);
+      GetAllMessages(allMessage);
+
+      console.log('Message Seen', allMessages )
 
       // console.log('All Chat Message', allMessages[0] )
 
@@ -409,21 +420,45 @@ const loadDataOther = async () => {
     }
 
   
-  const showInput = () =>{
-    let temp 
-    if (
-      orderStatusOfGuestsOrder==='unreceived' || 
-      orderStatusOfGuestsOrder==='received' ||
-      orderStatusOfGuestsOrder==='rejected' ||
-      orderStatusOfHostsOrder==='unreceived' ||
-      orderStatusOfHostsOrder==='received' ||
-      orderStatusOfHostsOrder==='rejected'){
-        temp = false
-      }else{
-        temp = true
-      }
+  const sendMSG = () =>{
+    // let temp 
+    // if (
+    //   orderStatusOfGuestsOrder==='unreceived' || 
+    //   orderStatusOfGuestsOrder==='received' ||
+    //   orderStatusOfGuestsOrder==='rejected' ||
+    //   orderStatusOfHostsOrder==='unreceived' ||
+    //   orderStatusOfHostsOrder==='received' ||
+    //   orderStatusOfHostsOrder==='rejected'){
+    //     temp = true
+    //   }else{
+    //     temp = true
+    //   }
       
-      return temp
+    //   return temp
+
+
+    sendMessageDB.add({
+
+      created_at: new Date() ,
+      exchangeID: data.messageId,
+      fromID: auth().currentUser.uid,
+      fromName: myExchnageListing.hostName,
+      toID: myExchnageListing.uid,
+      text: inputText,
+      seen: false,
+
+
+    }).then(() => {
+
+      loadData();
+
+      setInputText(' ');
+
+      console.log('message sent')
+    });
+
+
+
   }
 
 
@@ -529,9 +564,9 @@ const loadDataOther = async () => {
 
         {/* message list */}
         <View style={styles.listContainer}>
-        <Text> </Text>
+        <Text style={[styles.title , {margin :20, marginTop:20, }]} > Message To Your Xoomer</Text>
           <FlatList 
-            data={messages} 
+            data={allMessages} 
             renderItem={({item}) => <MessageResponseItem message={item}/>}
             // inverted
             style={styles.list}
@@ -621,7 +656,25 @@ const loadDataOther = async () => {
 
         {/* input box */}
         <View style={styles.inputBox}>
-          <InputBoxInMessage  cData={showInput()}/>
+          {/* <InputBoxInMessage  cData={showInput()}/> */}
+
+          <View style={{height:70}}>
+          { /* //input  */}
+          <View style={styles.inputContainerBeneathOption}>
+            <TextInput 
+              placeholder='Write a message' 
+              value= {inputText}
+              onChangeText={(text) => setInputText(text)}
+              style={{flex:1}}
+              // onFocus={() => setShouldShowIcon(true)}
+              // onBlur={() =>setShouldShowIcon(false)}
+            />
+            <TouchableOpacity 
+              onPress={sendMSG}>
+              <MaterialIcons name='arrow-circle-up' size={30} color='#283239' />
+            </TouchableOpacity>           
+          </View>
+        </View>
         </View>
 
 

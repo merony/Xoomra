@@ -1,15 +1,16 @@
 import {
   Alert,
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Divider } from 'react-native-paper';
 import Entype from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
@@ -17,9 +18,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
-import { Divider } from 'react-native-paper';
 import messages from '../../data/message';
+import styles from './styles';
 
 const MessageResponseItem = (props) => {   
   const userName1='Lukas'
@@ -31,9 +31,14 @@ const MessageResponseItem = (props) => {
   const dummyDataGuestName = 'Daniil Top'
 
 
+  const messageData = props.message
+
+  // console.log ('All Message data', messageData )
+
+
 
   const UserImage = (propI) => {
-    if (propI.name===userName1){
+    if (propI.fromName !==userName1){
       return <Image source={{uri:user1Image}} style={styles.image}/>
     }else{
       return <Image source={{uri:user2Image}} style={styles.image}/>
@@ -47,25 +52,25 @@ const MessageResponseItem = (props) => {
 
           {/* photo */}
           <View > 
-            <UserImage name={props.message.user.name}/>
+            <UserImage name={messageData.fromName}/>
           </View>
 
           {/* name, time, text */}
           <View >
             <View style={styles.row}>
               <Text style={styles.name}>
-                {props.message.user.name}
+                {messageData.fromName}
               </Text>
               <Text style={styles.time}>
-                {props.message.createdAt.slice(11,19)}
+                {messageData.created_at.toDate().toDateString().slice(11,19)}
               </Text>
               <Text style={styles.time}>
-                {props.message.createdAt.slice(0,10)}
+                {messageData.created_at.toDate().toDateString().slice(0,10)}
               </Text>
             </View>
               <View style={{width:'93%'}}>
                 <Text style={styles.text} >
-                  {props.message.text}
+                  {messageData.text}
                 </Text>   
               </View>
     
