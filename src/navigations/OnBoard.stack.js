@@ -144,7 +144,7 @@ const OnBoard= ({navigation}) => {
             
             options={{
               headerShown: true, 
-              headerBackVisible:true, 
+              headerBackVisible:false, 
               headerTitle: " ",
         
               headerRight: () => (

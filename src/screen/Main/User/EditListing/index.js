@@ -46,6 +46,22 @@ const EditListingScreen = ({navigation, props,route}) => {
   {label: 'Northwest Territories', value: 'Northwest-Territories'},
   {label: 'Yukon Territory', value: 'Yukon-Territory'}];
 
+  const abbreviationsLocations = [
+    'NL',
+    'PE',
+    'NS',
+    'NB',
+    'QC',
+    'ON',
+    'MB',
+    'SK',
+    'AB',
+    'BC',
+    'NU',
+    'NT',
+    'YT',
+  ]
+
   const [stayTitle,setStayTitle] = useState("")
   const [accommodationDetails,setAccommodationDetails] = useState("")
   const [houseRules,setHouseRules] = useState("")
@@ -59,6 +75,10 @@ const EditListingScreen = ({navigation, props,route}) => {
   const [maxGuest,setMaxGuest] = useState(0)
   const [maxAvailableDays,setMaxAvailableDays] = useState(0)
   const [docID, setDocID] = useState("")
+  const [lat,setLat] = useState(0)
+  const [lng,setLng] = useState(0)
+  const [latWantToGo,setLatWantToGo] = useState(0)
+  const [lngWantToGo,setLngWantToGo] = useState(0)
   const [accomodationTypeOpen, setAccomodationTypeOpen] = useState(false);
   const [accomodationTypeValue, setAccomodationTypeValue] = useState("");
   const [accomodationType, setAccomodationType] = useState([
@@ -91,13 +111,37 @@ const EditListingScreen = ({navigation, props,route}) => {
 
     // setData();
     getData();
-    console.log('Listing id',listingID)
     
 
   
 
    
   }, []);
+
+  const updateLocation = (locationTemp) =>{
+    let temp
+    for(let i=0;i<abbreviationsLocations.length;i++){
+      if(locationTemp===abbreviationsLocations[i]){
+        temp = locations[i].value
+        break
+      }
+    }
+    console.log(`state is : ${temp}`)
+    return temp
+  }
+
+  
+  const updateWantToGoLocation = (locationTemp) =>{
+    let temp
+    for(let i=0;i<abbreviationsLocations.length;i++){
+      if(locationTemp===abbreviationsLocations[i]){
+        temp = locations[i].value
+        break
+      }
+    }
+    console.log(`state is : ${temp}`)
+    return temp
+  }
 
   const getData = async() => {
     
@@ -117,41 +161,11 @@ const EditListingScreen = ({navigation, props,route}) => {
     setavailabilityFrom(currentListing.Availability.availabilityStart.toDate())
     setavailabilityTo(currentListing.Availability.availabilityEnd.toDate())
     setDocID(currentListing.docID)
-    console.log(currentListing.Availability.availabilityStart.toDate())
 
   }
 
 
 
-
-
-
-
-
-
-  const setData = async () => {
-
-    const userData = (await cUserDB.get()).data();
-    console.log ('User Data', userData)
-    AccommodationsDB.add({
-      StayTitle : 'Untitled',
-      Status : 'draft',
-      uid: auth().currentUser.uid,
-      
-    })
-    
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-    
-      getDocID(docRef.id);
-    
-      Alert.alert("Document written with ID: ", docID);
-    })
-    .catch(function(error) {
-      console.error("Error adding document: ", error);
-    });
-
-  }
 
  
   const EditListingPressed = () => {
@@ -172,11 +186,14 @@ const EditListingScreen = ({navigation, props,route}) => {
         City: city ,
         State: accomodationLocationValue,
         Country: 'Canada' ,
+        lat:lat,
+        lng:lng,
         WantToGo : {
           Country : wantToGoCountry ,
           State: wantToGoState ,
           City: wantToGoCity, 
-
+          lat:latWantToGo,
+          lng:lngWantToGo,
         },
         maxGuest : maxGuest,
         maxAvailableDays : maxAvailableDays,
@@ -205,7 +222,7 @@ const EditListingScreen = ({navigation, props,route}) => {
       <StatusBar/>
 
       
-      <ScrollView nestedScrollEnabled={true}>
+      <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={'handled'}>
 
         {/* <Text>{docID}</Text> */}
 
@@ -374,141 +391,7 @@ const EditListingScreen = ({navigation, props,route}) => {
 </View>
 
 </View>
-          
-{/*    
-<View>
-          <Text style={styles.headerTitle}>Accomodation Location</Text>
-          <View style = {styles.subFormField}>
-          <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
-            <TextInput placeholder='Address' style = {styles.formInput}
-            value={address} onChangeText={setAddress}/>
-          </View>
-
-          <View style = {styles.subFormField}>
-          <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#f5f5f5' />
-            <TextInput placeholder='City' style = {styles.formInput}
-            value={city} onChangeText={setCity}/>
-          </View>
-
-                  <View style={{flexDirection:'row',marginBottom:30,marginLeft:14,paddingVertical:1}}>
-
-                  <DropDownPicker style = {styles.dropInput}
-
-                    open={locationOpen}
-                    value={accomodationLocationValue}
-                    items={locationState}
-                    setOpen={setLocationOpen}
-                    setValue={setAccomodationLocationValue}
-                    setItems={setLocationState}
-                    multiple={false}
-                    min={1}
-                    // searchable={true}
-                    placeholder={"Select State"}
-                    listMode="SCROLLVIEW"
-                    // mode="SIMPLE"
-                    // zIndex={1000}
-
-                    dropDownDirection="TOP"
-                  showBadgeDot={true}
-                  textStyle={{
-                    fontSize: 14,
-                    opacity: 0.5
-                  }}
-
-                  dropDownContainerStyle={{
-                    backgroundColor: "#fff",
-                    width: 340,
-                    borderWidth:0,
-                    opacity: 1,
-                    // zIndex: -999
-
-                  }}
-
-                  containerStyle={{
-
-                    // height: 10,
-                    // margin: 0,
-                    // padding: 0
-
-                  }}
-
-                  scrollViewProps={{
-                    decelerationRate: "fast"
-                  }}
-
-                  searchTextInputProps={{
-                    maxLength: 25
-                  }}
-
-                  />
-                    </View>
-          </View>
-
-
-          <View>
-          <Text style={styles.headerTitle}>Want To Exchange From</Text>
-         
-          <View style = {styles.subFormField}>
-          <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
-            <TextInput placeholder='City' style = {styles.formInput}
-            value={wantToGoCity} onChangeText={setWantToGoCity}/>
-          </View>
-
-                <View style={{flexDirection:'row',marginBottom:30,marginLeft:14,paddingVertical:1}}>
-
-                <DropDownPicker style = {styles.dropInput}
-                open={wantLocationOpen}
-                value={wantToGoState}
-                items={wantLocationState}
-                setOpen={setWantLocationOpen}
-                setValue={setWantToGoState}
-                setItems={setWantLocationState}
-                multiple={false}
-                min={1}
-                // searchable={true}
-                placeholder={"Select State"}
-                listMode="SCROLLVIEW"
-                // mode="SIMPLE"
-                // zIndex={1000}
-
-                dropDownDirection="TOP"
-                showBadgeDot={true}
-                textStyle={{
-                  fontSize: 14,
-                  opacity: 0.5
-                }}
-
-                dropDownContainerStyle={{
-                  backgroundColor: "#fff",
-                  width: 340,
-                  borderWidth:0,
-                  opacity: 1,
-                  // zIndex: -999
-                
-
-                }}
-
-                containerStyle={{
-
-                  // height: 10,
-                  // margin: 0,
-                  // padding: 0
-
-                }}
-
-                scrollViewProps={{
-                  decelerationRate: "fast"
-                }}
-
-                searchTextInputProps={{
-                  maxLength: 25
-                }}
-
-                />
-                  </View>
-
-          </View> */}
-             
+                  
 <View>
   <Text style={styles.headerTitle}>Accomodation Location</Text>
 

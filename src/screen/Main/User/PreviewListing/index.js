@@ -11,7 +11,7 @@ import {
 import {cUserDB, cprofileDB} from '../../../../data/firCuRef';
 import { useEffect, useState } from 'react';
 
-import {AccommodationsDB} from '../../../../data/firRef';
+import {AccommodationsDB,MyAccommodationsDB} from '../../../../data/firRef';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PreviewStayDetailsComponent from '../../../../components/PreviewStayDetails';
 import React from 'react';
@@ -59,7 +59,7 @@ const PreviewListingScreen = ({navigation, props, route}) => {
 
 loadData = async(getListingID) => {
 
-  const listingData = await AccommodationsDB.doc(getListingID).get()
+  const listingData = await MyAccommodationsDB.doc(getListingID).get()
   .then((querySnapshot) => {
 
     setAccomodation(querySnapshot.data())
@@ -91,7 +91,7 @@ const userProfileData = await cUserDB.get()
 const savePressed = () => {
 
 
-  AccommodationsDB.doc(getListingID).update({
+  MyAccommodationsDB.doc(getListingID).update({
     Status : 'published',
 
   })
