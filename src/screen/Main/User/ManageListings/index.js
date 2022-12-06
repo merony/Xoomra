@@ -1,4 +1,5 @@
 import {
+  Alert,
     FlatList,
     Image,
     Pressable,
@@ -24,26 +25,78 @@ import styles from './styles';
 const ManageListingScreen = ({navigation, props}) => {
     
 const stays = places
-const dummyDatalistings = [
-  {
-    stay:stays[0],
-    isPublished:true,
+
+
+//if user has a listing,  listingFromDatabase = it
+//if not,  listingFromDatabase = null
+
+const listingFromDatabase = {
+  AccommodationDetails:'hello',
+  AccommodationType:'private',
+  Address:'21',
+  Availability:{
+    availabilityEnd:'2022-12-1',
+    availabilityStart:'2099-12-1',
   },
-  {
-    stay:stays[1],
-    isPublished:false,
+  City:'toronto',
+  Country:'Canada',
+  HouseRules:'rules!',
+  State:'Ontario',
+  Status:'published',
+  StayTitle:'Linda Place',
+  WantToGo:{
+    City:'whatever city',
+    Country:'Canada',
+    State:'New-Brunswick',
   },
-  {
-    stay:stays[2],
-    isPublished:false,
-  },
-  {
-    stay:stays[3],
-    isPublished:true,
+  docID:'23123d1212e',
+  images:['image1','image2'],
+  maxAvailableDays:2,
+  maxGuest:3,
+  uid:'dsjhdauihiu12i12'
+}
+// const listingsFromDatabse = [dummyDataListingFromDatabase]
+
+// const listingFromDatabase = null 
+let listingToRender
+let dummyDatalistings
+if(listingFromDatabase===null){
+  listingToRender = null
+  dummyDatalistings = null
+}else{
+  listingToRender = {
+    id: listingFromDatabase.uid,
+    image: listingFromDatabase.images[0],
+    type: listingFromDatabase.AccommodationType,
+    title: listingFromDatabase.StayTitle,
+    description: listingFromDatabase.AccommodationDetails,
+    location: listingFromDatabase.City,
+    destination: listingFromDatabase.WantToGo.City,
+    maxGuest: listingFromDatabase.maxGuest,
+    maxNights: listingFromDatabase.maxAvailableDays,
+    rules: listingFromDatabase.HouseRules,
+  
+    isPublished:listingFromDatabase.Status
   }
-]
+  
+  dummyDatalistings = [
+    {
+      stay:listingToRender,
+      isPublished:listingToRender.isPublished,
+    },
+
+  ]
+}
+
 
 const [selectedSubject, setSelectedSubject] = useState('');
+const addNewListingPressed = () =>{
+  if(listingToRender===null){
+    navigation.navigate("Add Listing")
+  }else{
+    Alert.alert('ERROR','You already have a listing!')
+  }
+}
 
 
     return (
@@ -52,7 +105,7 @@ const [selectedSubject, setSelectedSubject] = useState('');
 
    <View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
 
-<TouchableOpacity title="X"  onPress = { () => navigation.navigate("Add Listing")} >
+<TouchableOpacity title="X"  onPress = { addNewListingPressed} >
                             <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Add New Listing</Text>
                         </TouchableOpacity>
                         </View>

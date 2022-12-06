@@ -54,7 +54,7 @@ const ManageListingItem = (props) => {
   //still need to operate the data base and refresh page.
   //especially the delete operation
   const deleteListing = () =>{
-    //operation code here
+    //operation code to delete from databse here
     Alert.alert('Listing Deleted')
   }
 
