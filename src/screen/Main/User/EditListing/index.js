@@ -1,4 +1,3 @@
-import {AccommodationsDB, cUserDB, usersDB} from '../../../../data/firRef';
 import {
   Alert,
   Image,
@@ -12,8 +11,10 @@ import {
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
+import {AccommodationsDB,MyAccommodationsDB} from '../../../../data/firRef';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
+import DatePickerComponent  from '../../../../components/DatePicker'
 import DropDownPicker from 'react-native-dropdown-picker';
 import Entype from 'react-native-vector-icons/Entypo'
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -22,11 +23,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import auth from '@react-native-firebase/auth'
+import {cUserDB} from '../../../../data/firCuRef';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-const EditListingScreen = ({navigation, props}) => {
 
+const EditListingScreen = ({navigation, props,route}) => {
+    
+  const {listingID} = route.params;
 
   const locations = [ {label: 'Newfoundland & Labrador', value: 'Newfoundland-Labrador '},{label: 'Prince Edward Island', value: 'Prince-Edward-Island'}, 
   {label: 'Nova Scotia', value: 'Nova-Scotia'},
@@ -41,11 +46,10 @@ const EditListingScreen = ({navigation, props}) => {
   {label: 'Northwest Territories', value: 'Northwest-Territories'},
   {label: 'Yukon Territory', value: 'Yukon-Territory'}];
 
-  const [stayTitleFromUI,setStayTitleFromUI] = useState("")
-  const [accommodationTypeFromUI,setAccommodationTypeFromUI] = useState("")
-  const [accommodationDetailsFromUI,setAccommodationDetailsFromUI] = useState("")
-  const [houseRulesFromUI,setHouseRulesFromUI] = useState("")
-  const [addressFromUI,setAddressFromUI] = useState("")
+  const [stayTitle,setStayTitle] = useState("")
+  const [accommodationDetails,setAccommodationDetails] = useState("")
+  const [houseRules,setHouseRules] = useState("")
+  const [address,setAddress] = useState("")
   const [city,setCity] = useState("")
   const [wantToGoCountry,setWantToGoCountry] = useState("Canada")
   const [wantToGoCity,setWantToGoCity] = useState("")
@@ -54,7 +58,7 @@ const EditListingScreen = ({navigation, props}) => {
   const [availabilityTo,setavailabilityTo] = useState(new Date())
   const [maxGuest,setMaxGuest] = useState(0)
   const [maxAvailableDays,setMaxAvailableDays] = useState(0)
-  const [docID, getDocID] = useState("")
+  const [docID, setDocID] = useState("")
   const [accomodationTypeOpen, setAccomodationTypeOpen] = useState(false);
   const [accomodationTypeValue, setAccomodationTypeValue] = useState("");
   const [accomodationType, setAccomodationType] = useState([
@@ -69,11 +73,9 @@ const EditListingScreen = ({navigation, props}) => {
 
     const [wantLocationState, setWantLocationState] = useState(locations);
 
-
       const [date, setDate] = useState(new Date());
       const [open, setOpen] = useState(false);
       const [openTo, setOpenTo] = useState(false);
-
 
 
 
@@ -84,49 +86,89 @@ const EditListingScreen = ({navigation, props}) => {
      
   });
 
+  useEffect(() => {
+    //Runs only on the first render+
 
-//   useEffect(() => {
-//     //Runs only on the first render
-//     AccommodationsDB.add({
-//   StayTitle : 'Untitled',
-//   Status : 'draft'
+    // setData();
+    getData();
+    console.log('Listing id',listingID)
+    
 
-// })
-
-// .then(function(docRef) {
-//   console.log("Document written with ID: ", docRef.id);
-
-//   getDocID(docRef.id);
-
-//   Alert.alert("Document written with ID: ", docID);
-// })
-// .catch(function(error) {
-//   console.error("Error adding document: ", error);
-// });
+  
 
    
-//   }, []);
+  }, []);
 
-
-
-  const addImagesPressed = () => {
+  const getData = async() => {
+    
+    const currentListing =   (await MyAccommodationsDB.doc(listingID).get()).data()
+    console.log('listing data',currentListing)
+    setStayTitle(currentListing.StayTitle)
+    setAccomodationTypeValue(currentListing.AccommodationType)
+    setAccommodationDetails(currentListing.AccommodationDetails)
+    setHouseRules(currentListing.HouseRules)
+    setAddress(currentListing.Address)
+    setCity(currentListing.City)
+    setAccomodationLocationValue(currentListing.State)
+    setWantToGoCity(currentListing.WantToGo.City)
+    setWantToGoState(currentListing.WantToGo.State)
+    setMaxGuest(currentListing.maxGuest)
+    setMaxAvailableDays(currentListing.maxAvailableDays)
+    setavailabilityFrom(currentListing.Availability.availabilityStart.toDate())
+    setavailabilityTo(currentListing.Availability.availabilityEnd.toDate())
+    setDocID(currentListing.docID)
+    console.log(currentListing.Availability.availabilityStart.toDate())
 
   }
-  const addListingPressed = () => {
 
-    if (stayTitleFromUI.length === 0 || accomodationTypeValue.length === 0 || accommodationDetailsFromUI.length === 0 
-      || houseRulesFromUI.length === 0 || addressFromUI.length === 0 || wantToGoState.length === 0 || wantToGoCity.length === 0
+
+
+
+
+
+
+
+
+  const setData = async () => {
+
+    const userData = (await cUserDB.get()).data();
+    console.log ('User Data', userData)
+    AccommodationsDB.add({
+      StayTitle : 'Untitled',
+      Status : 'draft',
+      uid: auth().currentUser.uid,
+      
+    })
+    
+    .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+    
+      getDocID(docRef.id);
+    
+      Alert.alert("Document written with ID: ", docID);
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
+    });
+
+  }
+
+ 
+  const EditListingPressed = () => {
+
+    if (stayTitle.length === 0 || accomodationTypeValue.length === 0 || accommodationDetails.length === 0 
+      || houseRules.length === 0 || address.length === 0 || wantToGoState.length === 0 || wantToGoCity.length === 0
       || maxGuest.length === 0 || maxAvailableDays.length === 0){
 
       Alert.alert("","Please Fill All Information")
     }
     else{
-      AccommodationsDB.doc(docID).update({
-        StayTitle : stayTitleFromUI,
+      MyAccommodationsDB.doc(listingID).update({
+        StayTitle : stayTitle,
         AccommodationType : accomodationTypeValue,
-        AccommodationDetails : accommodationDetailsFromUI,
-        HouseRules : houseRulesFromUI,
-        Address : addressFromUI,
+        AccommodationDetails : accommodationDetails,
+        HouseRules : houseRules,
+        Address : address,
         City: city ,
         State: accomodationLocationValue,
         Country: 'Canada' ,
@@ -143,11 +185,14 @@ const EditListingScreen = ({navigation, props}) => {
           availabilityEnd : new Date(availabilityTo),
         },
 
-
       })
       .then (() =>{
+        console.log("UPDATED")
+        // navigation.navigate('Add Photos', {listingID: docID})
+        
+        navigation.navigate('Edit Listing Photos',{listingID:docID })
+        // navi.navigate('Edit Listing', {listingID: listing.stay.docID})
 
-        navigation.navigate('Add Photos', {listingID: stays.docID, listingUID: stays.uid})
 
       })
     }
@@ -160,22 +205,23 @@ const EditListingScreen = ({navigation, props}) => {
       <StatusBar/>
 
       
-      <ScrollView>
+      <ScrollView nestedScrollEnabled={true}>
 
         {/* <Text>{docID}</Text> */}
 
       
         <View style={{ justifyContent: 'center', margin: 20, paddingTop: 0}} > 
 
-         <Text style={styles.headerTitle}>Accomodation Details</Text>
+         <Text style={styles.headerTitle}>Edit Accomodation Details</Text>
         
+          <Text style = {{marginBottom : 10,marginHorizontal:5}}>Stay Title</Text>
           <View style = {styles.formField}>
           <MaterialIcons style={{ paddingVertical: 4}} name='alternate-email' size={18} color='#283239' />
           <TextInput placeholder='Stay Title' style = {styles.formInput} 
-            value={stayTitleFromUI} onChangeText={setStayTitleFromUI}/>
+            value={stayTitle} onChangeText={setStayTitle}/>
           </View>
 
-
+          <Text style = {{marginBottom : 10,marginHorizontal:5}}>Accommodation Type</Text>
           <View style={styles.dropField}>
               <Fontisto style={{ paddingVertical: 15}} name='genderless' size={16} color='#283239' />
                 <DropDownPicker style = {styles.dropInput}
@@ -219,22 +265,22 @@ const EditListingScreen = ({navigation, props}) => {
                       
                     />
                </View>
-
+          
+          <Text style = {{marginBottom : 10,marginHorizontal:5}}>Accommodation Details</Text>
           <View style = {styles.formField}>
           <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
           <TextInput placeholder='Accommodation Details' style = {[styles.formInput, { paddingVertical:0, minHeight:100,textAlign:'left',textAlignVertical:'top',paddingVertical:4}]}
-            value={accommodationDetailsFromUI} onChangeText={setAccommodationDetailsFromUI} multiline={true}/>
+            value={accommodationDetails} onChangeText={setAccommodationDetails} multiline={true}/>
           </View>
 
+          <Text style = {{marginBottom : 10,marginHorizontal:5}}>House Rules</Text>
           <View style = {styles.formField}>
           <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
           <TextInput placeholder='House Rules' style = {[styles.formInput, { paddingVertical:0, minHeight:100,textAlign:'left',textAlignVertical:'top',paddingVertical:4}]}
-            value={houseRulesFromUI} onChangeText={setHouseRulesFromUI}/>
+            value={houseRules} onChangeText={setHouseRules} multiline={true}/>
           </View>
 
-
           <View style ={styles.formField}>
-
 
 <View>
   <Text style={{fontWeight: 'bold'}}>Guest</Text>
@@ -257,7 +303,6 @@ const EditListingScreen = ({navigation, props}) => {
 </View>
 
 </View>
-
 
 <View style ={styles.formField}>
 
@@ -284,9 +329,7 @@ const EditListingScreen = ({navigation, props}) => {
 
 </View>
 
-
 <View style ={styles.formField}>
-
 
 <View>
   <Text style={{fontWeight: 'bold'}}>Set Accomodation Availability</Text>
@@ -302,7 +345,6 @@ const EditListingScreen = ({navigation, props}) => {
 <View style={{flexDirection: 'row', alignItems: 'center'}}>
 
 
-
           <DatePicker
         modal
         open={open}
@@ -315,7 +357,6 @@ const EditListingScreen = ({navigation, props}) => {
           setOpen(false)
         }}
           />
-
 
 <DatePicker
         modal
@@ -334,13 +375,13 @@ const EditListingScreen = ({navigation, props}) => {
 
 </View>
           
-   
+{/*    
 <View>
           <Text style={styles.headerTitle}>Accomodation Location</Text>
           <View style = {styles.subFormField}>
           <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
             <TextInput placeholder='Address' style = {styles.formInput}
-            value={addressFromUI} onChangeText={setAddressFromUI}/>
+            value={address} onChangeText={setAddress}/>
           </View>
 
           <View style = {styles.subFormField}>
@@ -349,69 +390,227 @@ const EditListingScreen = ({navigation, props}) => {
             value={city} onChangeText={setCity}/>
           </View>
 
-           <View style={styles.dropField}>
-              <Fontisto style={{ paddingVertical: 15}} name='genderless' size={16} color='#f5f5f5' />
-                <DropDownPicker style = {styles.dropInput}
+                  <View style={{flexDirection:'row',marginBottom:30,marginLeft:14,paddingVertical:1}}>
 
-                      open={locationOpen}
-                      value={accomodationLocationValue}
-                      items={locationState}
-                      setOpen={setLocationOpen}
-                      setValue={setAccomodationLocationValue}
-                      setItems={setLocationState}
-                      multiple={false}
-                      min={1}
-                      // searchable={true}
-                      placeholder={"Select State"}
-                      listMode="SCROLLVIEW"
-                      // mode="SIMPLE"
-                      // zIndex={1000}
-                     
-                      dropDownDirection="BOTTOM"
-                      showBadgeDot={true}
-                      textStyle={{
-                        fontSize: 14,
-                        opacity: 0.5
-                      }}
+                  <DropDownPicker style = {styles.dropInput}
 
-                      dropDownContainerStyle={{
-                        backgroundColor: "#fff",
-                        width: 340,
-                        borderWidth:0,
-                        opacity: 1,
-                        zIndex: -999
-                       
-            
-                      }}
+                    open={locationOpen}
+                    value={accomodationLocationValue}
+                    items={locationState}
+                    setOpen={setLocationOpen}
+                    setValue={setAccomodationLocationValue}
+                    setItems={setLocationState}
+                    multiple={false}
+                    min={1}
+                    // searchable={true}
+                    placeholder={"Select State"}
+                    listMode="SCROLLVIEW"
+                    // mode="SIMPLE"
+                    // zIndex={1000}
 
-                      containerStyle={{
+                    dropDownDirection="TOP"
+                  showBadgeDot={true}
+                  textStyle={{
+                    fontSize: 14,
+                    opacity: 0.5
+                  }}
 
-                        // height: 10,
-                        // margin: 0,
-                        // padding: 0
+                  dropDownContainerStyle={{
+                    backgroundColor: "#fff",
+                    width: 340,
+                    borderWidth:0,
+                    opacity: 1,
+                    // zIndex: -999
 
-                      }}
+                  }}
 
+                  containerStyle={{
 
-                      scrollViewProps={{
-                        decelerationRate: "fast"
-                      }}
-  
-                      searchTextInputProps={{
-                        maxLength: 25
-                      }}
-                      
-                    />
-                </View>
+                    // height: 10,
+                    // margin: 0,
+                    // padding: 0
 
+                  }}
+
+                  scrollViewProps={{
+                    decelerationRate: "fast"
+                  }}
+
+                  searchTextInputProps={{
+                    maxLength: 25
+                  }}
+
+                  />
+                    </View>
           </View>
-
 
 
           <View>
           <Text style={styles.headerTitle}>Want To Exchange From</Text>
          
           <View style = {styles.subFormField}>
+          <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
+            <TextInput placeholder='City' style = {styles.formInput}
+            value={wantToGoCity} onChangeText={setWantToGoCity}/>
+          </View>
+
+                <View style={{flexDirection:'row',marginBottom:30,marginLeft:14,paddingVertical:1}}>
+
+                <DropDownPicker style = {styles.dropInput}
+                open={wantLocationOpen}
+                value={wantToGoState}
+                items={wantLocationState}
+                setOpen={setWantLocationOpen}
+                setValue={setWantToGoState}
+                setItems={setWantLocationState}
+                multiple={false}
+                min={1}
+                // searchable={true}
+                placeholder={"Select State"}
+                listMode="SCROLLVIEW"
+                // mode="SIMPLE"
+                // zIndex={1000}
+
+                dropDownDirection="TOP"
+                showBadgeDot={true}
+                textStyle={{
+                  fontSize: 14,
+                  opacity: 0.5
+                }}
+
+                dropDownContainerStyle={{
+                  backgroundColor: "#fff",
+                  width: 340,
+                  borderWidth:0,
+                  opacity: 1,
+                  // zIndex: -999
+                
+
+                }}
+
+                containerStyle={{
+
+                  // height: 10,
+                  // margin: 0,
+                  // padding: 0
+
+                }}
+
+                scrollViewProps={{
+                  decelerationRate: "fast"
+                }}
+
+                searchTextInputProps={{
+                  maxLength: 25
+                }}
+
+                />
+                  </View>
+
+          </View> */}
+             
+<View>
+  <Text style={styles.headerTitle}>Accomodation Location</Text>
+
+  <View style = {styles.subFormField1}>
+    <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
+    <TextInput placeholder='Address' style = {styles.formInput}
+      value={address} onChangeText={setAddress}/>
+  </View>
+
+  <View style = {styles.subFormField}>
+  <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#f5f5f5' />
+    <TextInput placeholder='City' style = {styles.formInput}
+    value={city} onChangeText={setCity}/>
+  </View>
+
+  <View style={styles.dropField}>
+    <Fontisto style={{ paddingVertical: 15}} name='genderless' size={16} color='#f5f5f5' />
+      <DropDownPicker style = {styles.dropInput}
+
+            open={locationOpen}
+            value={accomodationLocationValue}
+            items={locationState}
+            setOpen={setLocationOpen}
+            setValue={setAccomodationLocationValue}
+            setItems={setLocationState}
+            multiple={false}
+            min={1}
+            // searchable={true}
+            placeholder={"Select State"}
+            listMode="SCROLLVIEW"
+            // mode="SIMPLE"
+            // zIndex={1000}
+            
+            dropDownDirection="BOTTOM"
+            showBadgeDot={true}
+            textStyle={{
+              fontSize: 14,
+              opacity: 0.5
+            }}
+
+            dropDownContainerStyle={{
+              backgroundColor: "#fff",
+              width: 340,
+              borderWidth:0,
+              opacity: 1,
+              zIndex: -999
+              
+  
+            }}
+
+            containerStyle={{
+
+              // height: 10,
+              // margin: 0,
+              // padding: 0
+
+            }}
+
+
+            scrollViewProps={{
+              decelerationRate: "fast"
+            }}
+
+            searchTextInputProps={{
+              maxLength: 25
+            }}
+            
+          />
+  </View>
+
+  <View style={{ width: '96%', height: 200, position: 'absolute', top: 50, left: 15,zIndex:1}}>
+    <GooglePlacesAutocomplete
+      placeholder='Search'
+      fetchDetails={true}
+      onPress={(data, details = null) => {
+
+        // updateCoordinates(details);
+        console.log(data);
+        setAddress(data.structured_formatting.main_text);
+        setCity(data.terms[2].value)
+        setAccomodationLocationValue(updateLocation(data.terms[3].value))
+        setLat(details.geometry.location.lat)
+        setLng(details.geometry.location.lng)
+
+      }}
+      query={{
+        key: 'AIzaSyCvKybLVxh-zJhh82UhEu31jITa_BNB2zI',
+        language: 'en',
+        components: 'country:ca'
+      }}
+    />
+    
+  </View>
+
+</View>
+
+
+
+          <View>
+          <Text style={styles.headerTitle}>Want To Exchange From</Text>
+         
+          <View style = {styles.subFormField1}>
           <Ionicons style={{ paddingVertical: 4}} name='lock-closed-outline' size={18} color='#283239' />
             <TextInput placeholder='City' style = {styles.formInput}
             value={wantToGoCity} onChangeText={setWantToGoCity}/>
@@ -472,6 +671,29 @@ const EditListingScreen = ({navigation, props}) => {
                     />
                 </View>
 
+            <View style={{ width: '96%', height: 200, position: 'absolute', top: 50, left: 15,zIndex:1}}>
+              <GooglePlacesAutocomplete
+                placeholder='Search'
+                fetchDetails={true}
+                onPress={(data, details = null) => {
+
+                  // updateCoordinates(details);
+                  setWantToGoCity(data.terms[2].value)
+                  setWantToGoState(updateWantToGoLocation(data.terms[3].value))
+                  setLatWantToGo(details.geometry.location.lat)
+                  setLngWantToGo(details.geometry.location.lng)
+
+                }}
+                query={{
+                  key: 'AIzaSyCvKybLVxh-zJhh82UhEu31jITa_BNB2zI',
+                  language: 'en',
+                  components: 'country:ca'
+                }}
+              />
+              
+
+            </View>
+
           </View>
 
     </View>
@@ -479,8 +701,8 @@ const EditListingScreen = ({navigation, props}) => {
         </ScrollView>
 
     <View style= {{ flexDirection: "column", padding: 20, justifyContent: 'flex-end', backgroundColor: '#fff'}} >
-        <TouchableOpacity onPress={addListingPressed} style = {styles.customBTN}>
-              <Text style={styles.textBTN}>Add & Continue</Text>
+        <TouchableOpacity onPress={EditListingPressed} style = {styles.customBTN}>
+              <Text style={styles.textBTN}>Update & Continue</Text>
           </TouchableOpacity>
 
       </View>
@@ -488,7 +710,7 @@ const EditListingScreen = ({navigation, props}) => {
     </SafeAreaView>
   );
 };
-
-
-
-export default EditListingScreen;
+  
+ 
+  
+  export default EditListingScreen;

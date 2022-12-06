@@ -95,6 +95,27 @@ const styles = StyleSheet.create({
     datePickerComponent:{
         backgroundColor:'red',
     },
+    subFormField1:{
+
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        justifyContent: 'space-between',
+        borderBottomWidth: 0,
+        paddingBottom: 8,
+        marginBottom : 5,
+        marginTop:50
+        
+    },
+    subFormField:{
+
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        justifyContent: 'space-between',
+        borderBottomWidth: 0,
+        paddingBottom: 8,
+        marginBottom : 5,
+        
+    },
 
 
 
