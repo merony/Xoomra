@@ -7,6 +7,7 @@
  */
 
 import {
+  Alert,
     Image,
     SafeAreaView,
     StatusBar,
@@ -48,14 +49,23 @@ import styles from './styles';
       auth().sendPasswordResetEmail(emailFromUI)
       .then(() => {
         console.log('email Sent');
+        Alert.alert(
+          'Reset password email sent to' , emailFromUI ,
+          [
+            { text: "OK", onPress: () => navigation.navigate('Login') }
+          ]
+        );
       })
       .catch(error => {
 
         if (error.code === 'auth/user-not-found') {
-          alert("This User Doesnt Exist")
+          Alert.alert(
+            'This User Doesnt Exist' , emailFromUI);
         }
         if (error.code === 'auth/invalid-email') {
-          alert("Wrong Email Format")
+          
+          Alert.alert(
+            'Wrong Email Format' , emailFromUI);
         }
     
         console.error(error);
