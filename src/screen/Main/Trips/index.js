@@ -21,6 +21,41 @@ import places from '../../../data/stayFeed';
 import chats from '../../../data/chats';
 
 const TripsScreen = ({navigation, props}) => {
+
+  //array of exchanges as for current user(as guest) from database = tripsAsGuestFromDatabse
+  //array of exchanges as for current user(as host) from database = tripsAsHostFromDatabse
+
+  const tripsAsGuestFromDatabse = []
+  const tripsAsHostFromDatabse = []
+
+  
+  const dummyDataTrip = {
+    AccommodationDetails:'hello',
+    AccommodationType:'private',
+    Address:'21',
+    Availability:{
+      availabilityEnd:'2022-12-1',
+      availabilityStart:'2099-12-1',
+    },
+    City:'toronto',
+    Country:'Canada',
+    HouseRules:'rules!',
+    State:'Ontario',
+    Status:'published',
+    StayTitle:'Linda Place',
+    WantToGo:{
+      City:'whatever city',
+      Country:'Canada',
+      State:'New-Brunswick',
+    },
+    docID:'23123d1212e',
+    images:['image1','image2'],
+    maxAvailableDays:2,
+    maxGuest:3,
+    uid:'dsjhdauihiu12i12'
+  }
+
+
   const dummyDataGuest = chats[0].user
   const dummyDataHost = chats[1].user
   const dummyDataStay = places[0]
