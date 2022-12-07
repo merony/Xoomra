@@ -404,7 +404,7 @@ const loadDataOther = async () => {
   
       GetOtherListing(otherListingData)
   
-      // console.log('otherListing Data', otherListingData.StayTitle)
+      console.log('otherListing Data', otherListingData)
   
     }) ;
 

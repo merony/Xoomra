@@ -1,11 +1,12 @@
+import {AccommodationsDB, MyAccommodationsDB} from '../../../../data/firRef';
 import {
   Alert,
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -16,11 +17,10 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ManageListingItem from '../../../../components/ManageListingItem';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {AccommodationsDB,MyAccommodationsDB} from '../../../../data/firRef';
-import auth from '@react-native-firebase/auth'
 import {Picker} from '@react-native-picker/picker';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
+import auth from '@react-native-firebase/auth'
 import places from '../../../../data/stayFeed';
 import styles from './styles';
 
