@@ -184,7 +184,7 @@ const MessageScreen = ({navigation, props, route}) => {
           checkInDate: otherUserStay.checkInDate,
           checkOutDate: otherUserStay.checkOutDate,
           username: user.firstName,
-          picture: null,
+          picture: user?.ProfilePic,
           host: listings[0],
           created_at: new Date(),
         };
