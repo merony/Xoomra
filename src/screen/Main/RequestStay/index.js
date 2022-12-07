@@ -109,7 +109,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
   // const stays = places.find(place => place.id === route.params.id)
 
   const {stays, checkInDate, checkOutDate, totalNights, personalData} = route.params;
-  console.log('previos screen data => ', personalData.firstName);
+  console.log('previos screen data => ', stays);
 
   const [descriptionFolded, setDescriptionFolded] = useState(true);
   const onDescriptionPressed = () => {
@@ -134,7 +134,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
       exchangeCompleted: false,
       status: 'Ongoing',
       users: [auth().currentUser.uid, stays.uid],
-      listings: [stays.docID, myAccomodation.uid ],
+      listings: [stays.docID, myAccomodation.docID],
       created_at: new Date() ,
     })
       .then(function (docRef) {

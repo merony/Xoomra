@@ -1,5 +1,4 @@
 import {AccommodationsDB, MyAccommodationsDB} from '../../../../data/firRef';
-import {MyAccommodationsDB} from '../../../../data/firCuRef
 import {
   Alert,
   FlatList,
@@ -33,7 +32,7 @@ const [docID,setDocID] = useState(null)
 
 const getUserListings = async() =>{
 
-  const userAccommodations = await MyAccommodationsDB.get()
+  const userAccommodations = await AccommodationsDB.where(`uid`,`==`,auth().currentUser.uid).get()
     // console.log('userAccompdations',userAccommodations.docs[0].data())
 
     if (userAccommodations.docs.length === 0){

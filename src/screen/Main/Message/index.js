@@ -142,10 +142,14 @@ const MessageScreen = ({navigation, props, route}) => {
       const otherUsersListingsId = [];
 
       querySnapshot.forEach(async doc => {
+
         messages.forEach(elem => {
+          
           console.log('this for loop workign');
           elem.listings?.forEach(e => {
+
             if (e !== doc.data().docID) {
+
               otherUsersListingsId.push({
                 listingId: e,
                 exchangeId: elem.exchangeID.trim(),
@@ -153,7 +157,9 @@ const MessageScreen = ({navigation, props, route}) => {
                   eee => eee !== auth().currentUser.uid,
                 )[0],
               });
+
             }
+
           });
         });
       });

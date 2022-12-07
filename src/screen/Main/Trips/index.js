@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import chats from '../../../data/chats';
+import {myExchangeDB} from '../../../data/firCuRef';
 import places from '../../../data/stayFeed';
 import styles from './styles';
 
@@ -34,6 +35,56 @@ const TripsScreen = ({navigation, props}) => {
   }
   const tabPressed2 = () =>{
     setDummyDataDataUsername(dummyDataHost.name)
+  }
+
+  const exchangeList = []
+
+  useEffect(() => {
+    //Runs on every render
+    // test();
+  });
+
+  useEffect(() => {
+    //Runs only on the first render+
+
+
+    loadData()
+
+
+
+  }, []);
+
+
+  const loadData =async () =>{
+
+   
+    const exchangeAccomodation = []
+    const otherExchangegAccomodation = []
+
+    try {
+
+      await myExchangeDB.get().then(querySnapshot => { 
+
+
+        querySnapshot.forEach(async doc => {
+
+          exchangeList.push(doc.data())
+
+        })
+
+        console.log ('Exchange List', exchangeList[0])
+
+
+
+
+      })
+
+
+    } catch (exception) {
+      console.log(exception);
+    }
+
+    
   }
 
   const dummyDataTrips = [
