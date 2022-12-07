@@ -79,8 +79,14 @@ const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2853328535763437~6654218
                       style={{width: 50, height: 50, borderRadius: 400/ 2}} />
                     <View>
                     <Text style ={styles.profileText}>{firstName} {lastName} </Text>
-                    {!isVerified && <Text style ={{fontWeight: '500', fontSize: 12,  paddingLeft : 10, paddingTop: 5}}>Unverified</Text>}
+
+                    {!isVerified && 
+                    <Pressable onPress={() => {navigation.navigate(`Verification Screen`)}}>
+                    <Text style ={{fontWeight: '500', fontSize: 12,  paddingLeft : 10, paddingTop: 5}}>Unverified</Text>
+                    </Pressable>
+                    }
                     {isVerified && <Text style ={{color:'#0999f4', fontWeight: '500', fontSize: 12,  paddingLeft : 10, paddingTop: 5}}>Verified</Text>}
+
                     </View>
                     
                     <Text style={{fontWeight: '400', fontSize: 20,}} > > </Text>

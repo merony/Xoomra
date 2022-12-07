@@ -14,6 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import PreviewListingScreen from '../screen/Main/User/PreviewListing';
 import { StackActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import EditListingPhotosScreen from '../screen/Main/User/EditListingPhotos';
 
 const MyListingStack = createNativeStackNavigator();
 
@@ -77,7 +78,34 @@ const MyListingNav = ({navigation, props}) => {
                       )
     
                       }}/>
-                <MyListingStack.Screen name="Edit Listing" component={EditListingScreen} />
+                <MyListingStack.Screen name="Edit Listing" component={EditListingScreen} 
+                    options={{
+                        headerShown: true, 
+                         
+                        headerTitle: " ",
+                        
+                        headerRight: () => (
+                            <TouchableOpacity title="X"  onPress = { () => navigation.replace("UserNav")} >
+                        <Text style = {{fontWeight: '500', fontSize: 18, color: "#030f14"}}>x</Text>
+                            </TouchableOpacity>
+                          )
+        
+                          }}/>
+                
+                <MyListingStack.Screen name="Edit Listing Photos" component={EditListingPhotosScreen}
+                    options={{
+                        headerShown: true, 
+                         
+                        headerTitle: " ",
+                        
+                        headerRight: () => (
+                            <TouchableOpacity title="X"  onPress = { () => navigation.replace("UserNav")} >
+                        <Text style = {{fontWeight: '500', fontSize: 18, color: "#030f14"}}>x</Text>
+                            </TouchableOpacity>
+                          )
+        
+                          }}/>
+                
                       
             </MyListingStack.Navigator>
         

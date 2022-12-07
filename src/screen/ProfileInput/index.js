@@ -207,7 +207,7 @@ const ProfileInputScreen = ({navigation, props}) => {
         </View>
           <View style = {styles.formField}>
           <Ionicons style={{ paddingVertical: 4}} name='logo-facebook' size={18} color='#283239' />
-          <TextInput placeholder='Facebook URL' style = {styles.formInput}
+          <TextInput placeholder='Facebook ID' style = {styles.formInput}
             value={facebookLinkFromUI} onChangeText={setFacebookLinkFromUI}/>
           </View>
 
