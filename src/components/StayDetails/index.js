@@ -321,7 +321,9 @@ const StayDetailsComponent = (props) => {
 
       {/* reserve area*/}
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%', alignItems: 'center', marginLeft: 20, height: 70 }}>
+      <View style = {{flexDirection: 'column', justifyContent: 'flex-end', marginLeft: 20,  alignItems: 'center',  }}> 
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%',  }}>
         {/* date picker area */}
         <View style={styles.datePickerContainer}>
           <DatePickerComponent style={styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
@@ -333,6 +335,8 @@ const StayDetailsComponent = (props) => {
         <Pressable style={styles.customBTN} onPress={onReservePressed}>
           <Text style={styles.textBTN}>Exchange Request</Text>
         </Pressable>
+      </View>
+
       </View>
     </View>
   );

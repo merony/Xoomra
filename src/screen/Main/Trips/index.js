@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,10 +16,9 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
-import places from '../../../data/stayFeed';
 import chats from '../../../data/chats';
+import places from '../../../data/stayFeed';
+import styles from './styles';
 
 const TripsScreen = ({navigation, props}) => {
   const dummyDataGuest = chats[0].user

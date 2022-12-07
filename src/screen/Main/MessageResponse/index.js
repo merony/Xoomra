@@ -1,11 +1,12 @@
 import {AccommodationsDetailsDB, ExchangeDB, MessagesDB, UserMessages, usersDB} from '../../../data/firRef';
 import {
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import {cAccommodationsDB, cMessagesDB, cUserDB} from '../../../data/firCuRef';
@@ -73,6 +74,7 @@ const MessageResponseScreen = ({navigation, props, route}) => {
   const[openMsgConfirm,setOpenMsgConfirm]=useState(false)
   const[openAcceptButton,SetOpenAcceptButton]=useState(true)
   const[openRejectButton,SetOpenRejectButton]=useState(true)
+  const[openMyListing,setOpenMyListing]=useState(false)
 
 
 
@@ -198,13 +200,39 @@ const MessageResponseScreen = ({navigation, props, route}) => {
 
     console.log ('Sorry other Xoomer not willing to exchange')
 
+  }else{
+
+    Alert.alert('Please Set status of your new request at first')
   }
 
-    
 
   }
 
   const reject=()=>{
+
+
+    myExchnageListingDB.update({
+
+
+      status : exStatus[2]
+
+
+    })
+
+
+    ExchangeDB.doc(data.messageId).update({
+
+      status : exStatus[2]
+
+
+    }).then(() => {
+
+      loadDataOther();
+      loadData()
+      loadDataEx()
+
+
+    })
 
 
   }
@@ -225,6 +253,11 @@ const MessageResponseScreen = ({navigation, props, route}) => {
 
       setOpenBottom(false)
       setOpenTop(true)
+      setOpenMyListing (true)
+
+      loadDataOther();
+      loadData()
+      loadDataEx()
     }
     else{
       console.log("Error=====>")
@@ -241,6 +274,9 @@ const MessageResponseScreen = ({navigation, props, route}) => {
         checkOutDate:availabilityTo
   
       })
+      loadDataOther();
+      loadData()
+      loadDataEx()
 alert("dates has been updated")
     }
     else{
@@ -396,6 +432,12 @@ const loadDataOther = async () => {
 
   useEffect(() => {
 
+
+    loadData().then(() => {
+
+    })
+    loadDataOther();
+
     loadDataEx().then(() => {
 
 
@@ -405,20 +447,37 @@ const loadDataOther = async () => {
         
   setOpenBottom(true)
   setOpenTop(false)
+
   
-      } else{
+      }else if (myReqdata.status === exStatus[1] && otherExchangeListinData.status === exStatus[0]){
+        
+        SetOpenAcceptButton(false)
+
+        setOpenMsgWait(true)
+        setOpenTop(true)
+        setOpenMyListing(true)
+
+      } else if (myReqdata.status === exStatus[1] && otherExchangeListinData.status === exStatus[1]){
+        
+        SetOpenAcceptButton(false)
+        setOpenMsgWait(false)
+        SetOpenRejectButton (false)
+        setOpenTop(true)
+        setOpenMyListing(true)
+        setOpenMsgConfirm(true)
+
+      }
+       else{
   
         console.log ('Its Working not', otherExchnageListing.status, otherExchangeListinData.status)
 
         setOpenTop(true)
+        setOpenMyListing(true)
   
       }
     })
 
-    loadData().then(() => {
-
-    })
-    loadDataOther();
+ 
    
   }, [false]);
 
@@ -528,98 +587,99 @@ const loadDataOther = async () => {
       
       <View style={styles.container}>
         {/* stay */}
+      {openMyListing&&
         <View style={styles.mainContainer}>
-          {/* <StayInfoInMessageComponent cData={stayInfoDataHost()}/> */}
-                  
-      {/* mainContainer */}
+        {/* <StayInfoInMessageComponent cData={stayInfoDataHost()}/> */}
+                
+    {/* mainContainer */}
 
-      <Image source={{uri: myListing?.images?.[0]}} style={styles.image}/>
+    <Image source={{uri: myListing?.images?.[0]}} style={styles.image}/>
 
-      <View style={styles.column}>
-        <Text 
-          style={styles.title} 
-          numberOfLines={1}
-          onPress={'listPressed'}>
-          {myExchnageListing.StayTitle}
-          
-        </Text>
-
-        <View style={{flexDirection:'row'}}>
-
-        <Text>{myExchnageListing.hostName} </Text>
-        <Text style={{marginHorizontal:5}}>-</Text>
-          <Text>{myExchnageListing.status}</Text>
-          <Text style={{marginHorizontal:5}}>·</Text>
+    <View style={styles.column}>
+      <Text 
+        style={styles.title} 
+        numberOfLines={1}
+        onPress={'listPressed'}>
+        {myExchnageListing.StayTitle}
         
+      </Text>
 
-        </View>
+      <View style={{flexDirection:'row'}}>
 
-        <View style={{flexDirection:'row',justifyContent:'space-between', width:300}}>
-
-         
-
-
-          <View style={{flexDirection:'column', marginTop: 5}}>
-
-              <View>
-              <Text>From {getCheckinDate()}</Text>
-
-              <Text>To {getCheckOutDate()}</Text>
-              </View>
-              {openMsgWait&&
-              <View style={{marginTop: 5, marginBottom: 5}}>
-                <Text>You have accpeted the request. Please wait for other xoomer to accpet your request</Text>
-              </View>
-              
-              }
-
-                {openMsgConfirm&&
-              <View style={{marginTop: 5, marginBottom: 5}}>
-                <Text>Great. Exchanged has been complete. Please visit the My trip page for details</Text>
-              </View>
-              
-              }
-              
-  
-            
-          </View>
-
-          <View style={{flexDirection:'column', justifyContent:'flex-end',}}>
-
-            {openAcceptButton&&
-            
-            <Pressable 
-            style={[styles.listingContainer,{backgroundColor:"#1ea3f7",justifyContent:'space-evenly' }]}
-            onPress={accept}>
-              {/* <MaterialIcons name='sensor-door' size={25} color={'#030f14'} style={{paddingLeft:5}}/> */}
-              <Text style={{color:"white", textAlign:"center"}}>Accept</Text>
-          </Pressable>}
-
-
-          {/* <Pressable 
-            style={[styles.listingContainer,{backgroundColor:"green",justifyContent:'space-evenly' }]}
-            onPress={''}>
-              <Text style={{color:"white", textAlign:"center"}}>Confirmed</Text>
-          </Pressable> */}
-          {openRejectButton&&
-
-        <Pressable 
-         style={[styles.listingContainer,{backgroundColor:"#f71e89", justifyContent:'space-evenly' }]}
-          onPress={''}>
-        {/* <MaterialIcons name='sensor-door' size={25} color={'#030f14'} style={{paddingLeft:5}}/> */}
-        <Text style={{color:"white", textAlign:"center", justifyContent:"center"}}>Reject</Text>
-        </Pressable>}
-
-
-          {/* if user is a guest, has received a request from the host, 
-          there will be an option on the top right corner */}
-          </View>
-         
-        </View>
+      <Text>{myExchnageListing.hostName} </Text>
+      <Text style={{marginHorizontal:5}}>-</Text>
+        <Text>{myExchnageListing.status}</Text>
+        <Text style={{marginHorizontal:5}}>·</Text>
+      
 
       </View>
 
+      <View style={{flexDirection:'row',justifyContent:'space-between', width:300}}>
+
+       
+
+
+        <View style={{flexDirection:'column', marginTop: 5}}>
+
+            <View>
+            <Text>From {getCheckinDate()}</Text>
+
+            <Text>To {getCheckOutDate()}</Text>
+            </View>
+            {openMsgWait&&
+            <View style={{marginTop: 5, marginBottom: 5}}>
+              <Text>Great.Please wait for other{"\n"}xoomer to accpet your request</Text>
+            </View>
+            
+            }
+
+              {openMsgConfirm&&
+            <View style={{marginTop: 5, marginBottom: 5}}>
+              <Text>Great. Exchanged has been complete. Please visit the My trip page for details</Text>
+            </View>
+            
+            }
+            
+
+          
         </View>
+
+        <View style={{flexDirection:'column', justifyContent:'flex-end',}}>
+
+          {openAcceptButton&&
+          
+          <Pressable 
+          style={[styles.listingContainer,{backgroundColor:"#1ea3f7",justifyContent:'space-evenly' }]}
+          onPress={accept}>
+            {/* <MaterialIcons name='sensor-door' size={25} color={'#030f14'} style={{paddingLeft:5}}/> */}
+            <Text style={{color:"white", textAlign:"center"}}>Accept</Text>
+        </Pressable>}
+
+
+        {/* <Pressable 
+          style={[styles.listingContainer,{backgroundColor:"green",justifyContent:'space-evenly' }]}
+          onPress={''}>
+            <Text style={{color:"white", textAlign:"center"}}>Confirmed</Text>
+        </Pressable> */}
+        {openRejectButton&&
+
+      <Pressable 
+       style={[styles.listingContainer,{backgroundColor:"#f71e89", justifyContent:'space-evenly' }]}
+        onPress={reject}>
+      {/* <MaterialIcons name='sensor-door' size={25} color={'#030f14'} style={{paddingLeft:5}}/> */}
+      <Text style={{color:"white", textAlign:"center", justifyContent:"center"}}>Reject</Text>
+      </Pressable>}
+
+
+        {/* if user is a guest, has received a request from the host, 
+        there will be an option on the top right corner */}
+        </View>
+       
+      </View>
+
+    </View>
+
+      </View>}
 
 
 {openTop&&<View>
@@ -710,7 +770,7 @@ const loadDataOther = async () => {
           
                     <Pressable 
                        style={[styles.listingContainer,{backgroundColor:"#f71e89", justifyContent:'space-evenly' }]}
-                      onPress={''}>
+                      onPress={reject}>
                         {/* <MaterialIcons name='sensor-door' size={25} color={'#030f14'} style={{paddingLeft:5}}/> */}
                         <Text style={{color:"white", textAlign:"center", justifyContent:"center"}}>Reject</Text>
                     </Pressable>
@@ -733,9 +793,9 @@ const loadDataOther = async () => {
 
 
         {/* input box */}
+        
         <View style={styles.inputBox}>
           {/* <InputBoxInMessage  cData={showInput()}/> */}
-
           <View style={{height:70}}>
           { /* //input  */}
           <View style={styles.inputContainerBeneathOption}>
