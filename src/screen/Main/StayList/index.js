@@ -47,6 +47,75 @@ const getData = async () => {
   }
 }
 
+// city
+// state
+// maxguest
+// maxnight
+const returnSearchResult = (listsFromDatabase,city,state,maxGuest,maxDays) =>{
+  let temp = []
+  let result = []
+  
+  for(let i of listsFromDatabase){
+    temp.push({listing:i,relevance:0})
+  }
+ 
+  
+
+  for(let ii of temp){
+    console.log(`listing.city: ${ii.listing.City}mcity: ${city}`)
+    console.log(`listing.State: ${ii.listing.State}mcity: ${state}`)
+    console.log(`listing.State: ${ii.listing.maxGuest}mcity: ${maxGuest}`)
+    console.log(`listing.State: ${ii.listing.maxAvailableDays}mcity: ${maxDays}`)
+    if(ii.listing.City.toUpperCase()===city.toUpperCase()){
+      ii.relevance+=1
+    }
+    if(ii.listing.State.toUpperCase()===state.toUpperCase()){
+      ii.relevance+=1
+    }
+    if(ii.listing.maxGuest<=maxGuest){
+      ii.relevance+=1
+    }
+    if(ii.listing.maxAvailableDays<=maxDays){
+      ii.relevance+=1
+    }
+  }
+  console.log(temp[0].relevance)
+  
+  const temp1=[]
+  const temp2=[]
+  const temp3 =[]
+  const temp4=[]
+  const temp0 =[]
+  for(let iii of temp){
+    if(iii.relevance===4){
+      temp4.push(iii)
+    }
+    if(iii.relevance===3){
+      temp3.push(iii)
+    }
+    if(iii.relevance===2){
+      temp2.push(iii)
+    }
+    if(iii.relevance===1){
+      temp1.push(iii)
+    }
+    if(iii.relevance===0){
+      temp0.push(iii)
+    }
+  }
+  console.log(`temp0: ${temp0.length}`)
+  console.log(`temp1: ${temp1.length}`)
+  console.log(`temp2: ${temp2.length}`)
+  console.log(`temp3: ${temp3.length}`)
+  console.log(`temp4: ${temp4.length}`)
+  let tempWithRelevance = temp4.concat(temp3,temp2,temp1,temp0)
+  for (i of tempWithRelevance){
+    result.push(i.listing)
+  }
+  // console.log(result.length)
+  return result
+}
+
 
 
   useEffect(() => {
@@ -73,6 +142,7 @@ const getData = async () => {
       .then((querySnapshot) => {
 
         const listings = []
+     
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
 
@@ -80,20 +150,30 @@ const getData = async () => {
           listings.push(doc.data());
           setLoading(false)
         });
-
-
-        setAccomodations(listings);
-
+        
+        
+        // setAccomodations(listingToRender)
+        
         getData().then((data) =>{    
+          console.log(data)
           setLocation(data.address)
           setMaxDays(data.maxStay)
           setMaxGuest(data.maxGuest)
           setDay1(data.date1)
           setDay2(data.date2)
-          console.log(data.address)})
-
+          console.log(data.address)
+          const listingToRender = returnSearchResult(listings,data.city,data.state,data.maxGuest,data.maxStay)
+          
+          
+          setAccomodations(listingToRender);
+          // console.log(listingToRender.length)
+          
+        })
+          
+          
         // console.log( " Data=> ", accomodations);
       });
+
   }
 
 
