@@ -32,6 +32,10 @@ const cMessagesDB = firestore()
 .collection('Messages')
 .where( 'users', 'array-contains', auth().currentUser.uid)
 
+const MyAccommodationsDB = firestore()
+.collection('Accommodations')
+.where( "uid", "==", auth().currentUser.uid)
+
 
 
 

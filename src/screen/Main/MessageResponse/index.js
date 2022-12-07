@@ -433,6 +433,13 @@ const loadDataOther = async () => {
   useEffect(() => {
 
 
+    // ExchangeDB.doc(data.messageId).listOfCollections()
+    // .then((c) => {
+
+    //   console.log('collections name', c)
+    // })
+
+
     loadData().then(() => {
 
     })
