@@ -1,22 +1,17 @@
 import {
-  Alert,
-  Image,
-  SafeAreaView,
-  StatusBar,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
 import { useEffect, useState } from "react";
 
-import DatePickerComponent from "../components/DatePicker/index"
 import ForgetPasswordScreen from "../screen/ForgetPassword";
 import LoginScreen from "../screen/Login";
-import LongTextComponent from "../components/longText";
 import PersonalInformationScreen from "../screen/PersonalInformation";
 import ProfileInputScreen from "../screen/ProfileInput"
 import SignUpScreen from "../screen/Signup";
 import VerificationScreen from "../screen/Verification"
+import WelcomeScreen from '../screen/Welcome';
 import auth from '@react-native-firebase/auth'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import firestore from '@react-native-firebase/firestore';
@@ -30,42 +25,6 @@ const OnBoard= ({navigation}) => {
     const [user, setUser] = useState();
     const [isCompleted, setCompleted] = useState(false);
 
-
-
-    const navTransfer = async() =>{
-
-      await firestore()
-      .collection('users')
-      .doc('PersonalInformations')
-      .collection('user')
-      .doc(auth().currentUser.uid)
-      .get()
-      .then(documentSnapshot => {
-        console.log('User data: ', documentSnapshot.data().isCompleted);
-        setCompleted(documentSnapshot.data().isCompleted);
-  
-        // Alert.alert('User exists: ', documentSnapshot.exists);
-    
-        // if (documentSnapshot.exists) {
-        //   Alert.alert('User data: ', documentSnapshot.data().uid);
-        // };
-      
-    });
-
-    if (isCompleted === true) {
-      // navigation.replace("RegistrationScreen")
-
-      navigation.navigate("TabNavigator");
-
-    } 
-    
-    else {
-      setUser(null);
-    }
-
-
-  }
-    
  
       useEffect(() => {
         //Runs on every render
@@ -78,9 +37,6 @@ const OnBoard= ({navigation}) => {
 
       useEffect(() => {
 
-     
-
-
         // (user) && navigation.navigate("TabNavigator");
 
 
@@ -92,10 +48,7 @@ const OnBoard= ({navigation}) => {
 
 
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        // if (user) {
-        //   // navigation.replace("RegistrationScreen")
-        //   navigation.navigate("TabNavigator");
-        // } 
+    
         return subscriber; // unsubscribe on unmount
       }, []);
     
@@ -111,9 +64,10 @@ const OnBoard= ({navigation}) => {
          
           }} >
 
-           {/* {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> } */}
+           {(!user) && <OnBoardingStack.Screen name="Login" component={LoginScreen} /> }
 
-           <OnBoardingStack.Screen name="Login" component={LoginScreen} />
+           <OnBoardingStack.Screen name="welcome" component={WelcomeScreen} />
+           {/* <OnBoardingStack.Screen name="Login" component={LoginScreen} /> */}
             <OnBoardingStack.Screen name="Forget Password" component={ForgetPasswordScreen} />
             <OnBoardingStack.Screen name="Sign Up" component={SignUpScreen} />
             <OnBoardingStack.Screen name="Personal Information" component={PersonalInformationScreen}

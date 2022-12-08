@@ -1,12 +1,9 @@
 import * as Progress from 'react-native-progress';
 
-import {AccommodationsDB, usersDB,MyAccommodationsDB} from '../../../../data/firRef';
+import {AccommodationsDB, MyAccommodationsDB, usersDB} from '../../../../data/firRef';
 import {
     Alert,
-    FlatList,
     Image,
-    Platform,
-    Pressable,
     ScrollView,
     Text,
     TouchableOpacity,
@@ -16,12 +13,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
 import ImagePicker from 'react-native-image-crop-picker';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'

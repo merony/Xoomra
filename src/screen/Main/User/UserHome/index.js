@@ -1,34 +1,26 @@
 import {
-    Button,
-    Dimensions,
-    FlatList,
-    Image,
-    Pressable,
-    SafeAreaView,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View
+  AppOpenAd,
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from 'react-native-google-mobile-ads';
+import {
+Image,
+Pressable,
+SafeAreaView,
+ScrollView,
+Text,
+TouchableOpacity,
+View
 } from 'react-native';
+import { profilesDB, usersDB, verificationsDB } from '../../../../data/firRef';
 import { useEffect, useState } from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { profilesDB,usersDB,verificationsDB} from '../../../../data/firRef';
 import React from 'react';
-import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import styles from './styles';
-import { AppOpenAd, InterstitialAd,
-  RewardedAd,
-  BannerAd,
-  TestIds,
-  BannerAdSize, } from 'react-native-google-mobile-ads';
 
 const UserHomeScreen = ({navigation, props}) => {
 
@@ -124,14 +116,6 @@ const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2853328535763437~6654218
                     <Text style={{fontWeight: '400', fontSize: 20,}} > > </Text>
                     </Pressable>
 
-                    
-
-                   
-
-
-              
-                    
-
                    
             </View>
 
@@ -149,13 +133,7 @@ const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2853328535763437~6654218
         <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
 
             <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
-            {/* <BannerAd
-            unitId={adUnitId}
-            size={BannerAdSize.FULL_BANNER}
-            requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-            }}
-            /> */}
+    
 
           </View>
         

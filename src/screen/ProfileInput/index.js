@@ -1,14 +1,11 @@
 import {
   Alert,
-  FlatList,
   Image,
-  Pressable,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import {cUserDB, profilesDB, usersDB} from '../../data/firRef';
+import { profilesDB, usersDB } from '../../data/firRef';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,6 +18,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import SelectList from 'react-native-dropdown-select-list'
+import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';

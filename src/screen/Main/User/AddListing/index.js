@@ -1,6 +1,5 @@
 import {
   Alert,
-  Image,
   Pressable,
   SafeAreaView,
   StatusBar,
@@ -13,11 +12,9 @@ import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
-import DatePickerComponent  from '../../../../components/DatePicker'
 import DropDownPicker from 'react-native-dropdown-picker';
-import Entype from 'react-native-vector-icons/Entypo'
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {MyAccommodationsDB} from '../../../../data/firRef';
@@ -26,7 +23,6 @@ import auth from '@react-native-firebase/auth'
 import {cUserDB} from '../../../../data/firCuRef';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const AddListingScreen = ({navigation, props}) => {
 

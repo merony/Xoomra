@@ -19,13 +19,10 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo'
-import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import auth from '@react-native-firebase/auth'
-import {cUserDB} from '../../data/firCuRef';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 import {usersDB} from '../../data/firRef';

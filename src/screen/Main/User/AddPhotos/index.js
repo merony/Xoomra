@@ -2,10 +2,7 @@ import * as Progress from 'react-native-progress';
 
 import {
     Alert,
-    FlatList,
     Image,
-    Platform,
-    Pressable,
     ScrollView,
     Text,
     TouchableOpacity,
@@ -16,12 +13,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
 import ImagePicker from 'react-native-image-crop-picker';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
@@ -63,7 +55,6 @@ const getListingUID = listingUID;
    
     // Alert.alert(auth().currentUser.uid)
 
-    // Alert.alert('Doc Id :', getListingID)
   
   }, []);
 
@@ -100,8 +91,7 @@ const handleRemoveItem = (e) => {
   setImageList(list)
 
   setImage(null);
-  // console.log('images index', e);
-  // console.log('images lsit', imageList);
+
 }
 
 
@@ -135,9 +125,6 @@ console.log(
 
 
 
-    // setImage(null)
-
-    // Alert.alert(imURL)
        
     
   } catch (e) {
@@ -145,7 +132,7 @@ console.log(
     
   }
 
-    //  Alert.alert(filename)
+
   
   }
 
@@ -178,41 +165,6 @@ console.log(
       <View style={{flexDirection: "column", flex: 1, margin:20}}>
 
         <ScrollView>   
-
-        {/* <View style={{flexDirection:'row'}}> */}
-    {/* <View style={{flex:1,justifyContent:'flex-start'}}>
-    <Text style={styles.headerTitle}>Add Photos</Text>
-      </View> */}
-        {/* <TouchableOpacity  onPress={getPhoto}>
-          <Text style={{color:'#0999f4', fontWeight: '500'}}> Choose></Text>
-        </TouchableOpacity> */}
-   {/* </View> */}
-
-   {/* <View style={{flexDirection:"column",margin:0,borderBottomColor:'gray',borderBottomWidth:1,marginVertical:20, alignItems: 'center',}}> */}
-    
-
-    {/* <TouchableOpacity style={styles.selectButton} onPress={uploadPhotoIDPressed}>
-      <Text style={styles.buttonText}>TAKE PHOTO</Text>
-    </TouchableOpacity> */}
-    {/* <View style={styles.imageContainer}>
-      {image !== null ? (
-        <Image source={{ uri: image.path }} style={styles.imageBox} />
-      ) : null}
-
-
-      {uploading ? (
-        <View style={styles.progressBarContainer}>
-          <Progress.Bar progress={transferred} width={300} />
-        </View>
-      ) : (
-        // <View></View>
-        <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
-          <Text style={styles.buttonText}>ADD </Text>
-        </TouchableOpacity>
-      )}
-    </View> */}
-  {/* </View> */}
-
 
 
       <View style={{flexDirection:"column",margin:10,borderBottomColor:'gray',borderBottomWidth:1}}>

@@ -1,7 +1,5 @@
-import {AccommodationsDB, ExchangeDB, MessagesDB, verificationsDB} from '../../../data/firRef';
 import {
   Alert,
-  FlatList,
   Image,
   Pressable,
   ScrollView,
@@ -9,23 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {ExchangeDB, MessagesDB,} from '../../../data/firRef';
 import {cAccommodationsDB, cMessagesDB, cUserDB} from '../../../data/firCuRef';
 import {useEffect, useState} from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from '../../../components/Divider/index';
-import DividerWide from '../../../components/DividerWide';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import {GoogleSocialButton} from 'react-native-social-buttons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import LongTextComponent from '../../../components/longText/index';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import {TextInput} from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import places from '../../../data/stayFeed';
 import styles from './styles';
 import {useRoute} from '@react-navigation/native';
 
@@ -33,7 +24,6 @@ const RequestStayScreen = ({navigation, props, route}) => {
   const [selfIntroduction, setSelfIntroduction] = useState('');
   const [adults, setAdult] = useState(0);
   const [children, setChildren] = useState(0);
-  const [pets, setPets] = useState(0);
 
   const [exchageDocID, getExchageDocID] = useState('');
 
@@ -45,31 +35,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
   // console.log('Test Log', auth().currentUser.uid);
 
   getMyListingID = async () => {
-    // const data =
-    //  await firestore()
-    //   .collection('Accommodations')
-    //   // .where( "uid", "==", auth().currentUser.uid)
-    //   .get()
-    //   // .data()
-    // await firestore()
-    //   .collection('Accommodations')
-    //   .get()
 
-    //   // .then(documentSnapshot => {
-    //     console.log('Data exists: ', data);
-
-    //     if (data.exists) {
-    //       console.log('Data: ', documentSnapshot.data());
-    // }
-    // });
-
-    // setAccomodation(data);
-
-    // if (data) {
-    //   console.log('Current user listing', data);
-    // } else {
-    //   console.log('data does not exist');
-    // }
     const listings = [];
 
     await cAccommodationsDB.get()
@@ -79,8 +45,7 @@ const RequestStayScreen = ({navigation, props, route}) => {
       // console.log('Total Accomodation: ', querySnapshot.size)
 
       querySnapshot.forEach(doc => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, 'this is doc id  => ', doc.data());
+
 
         listings.push(doc.data());
 
@@ -95,18 +60,11 @@ const RequestStayScreen = ({navigation, props, route}) => {
 
     setMyAccomodation(filteredData[0])
 
-    // console.log(' to see if its work here ', stays.StayTitle);
-
-    // console.log(' to see if its work here ', listings);
-
-    // console.log('this Message Listing id  => ', listingData._changes);
 
   };
 
   getMyListingID();
-  //get id, check in and out date
 
-  // const stays = places.find(place => place.id === route.params.id)
 
   const {stays, checkInDate, checkOutDate, totalNights, personalData} = route.params;
   console.log('previos screen data => ', personalData.firstName);

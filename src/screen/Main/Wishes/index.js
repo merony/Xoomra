@@ -1,10 +1,6 @@
 import {
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+Text,
+View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 

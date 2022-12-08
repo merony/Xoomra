@@ -16,13 +16,9 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Entype from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ModalDropdown from 'react-native-modal-dropdown';
 import React from 'react';
 import { RotateInUpLeft } from 'react-native-reanimated';
 import auth from '@react-native-firebase/auth'

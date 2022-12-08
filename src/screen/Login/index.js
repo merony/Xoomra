@@ -14,13 +14,9 @@ import {
     Text,
     TouchableOpacity,
     View,
-    
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo'
-import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
@@ -31,15 +27,7 @@ import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 import { usersDB } from '../../data/firRef';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
-   * LTI update could not be added via codemod */
-
-   // <Entype name={"home"} size= {24}/>
-   //  <GoogleSocialButton onPress={() => {}}  />
-  
-  
-  
-  const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation}) => {
     
     const [emailFromUI,setEmailFromUI] = useState("")
     const [passwordFromUI,setPasswordFromUI] = useState("")
@@ -59,13 +47,6 @@ import { usersDB } from '../../data/firRef';
       const isCompleted = documentSnapshot.data().isCompleted;
        setCompleted(isCompleted);
 
-      // Alert.alert('User exists: ', documentSnapshot.exists);
-  
-      // if (documentSnapshot.exists) {
-      //   Alert.alert('User data: ', documentSnapshot.data().uid);
-      // };
-
-
       if (isCompleted === false) {
 
         navigation.navigate('Personal Information')
@@ -78,29 +59,18 @@ import { usersDB } from '../../data/firRef';
     
   });
 
-
-
 }
 
   
 
     useEffect(() => {
-      //Runs on every render
-
-        // auth().signOut()
-        // .then( () => {
-        //    setCompleted(false);
-        // });
-
-        // setCompleted(false);
-      // 
-
+ 
       if (auth.currentUser !== null) {
         // User is signed in.
 
         navTransfer();
       } else {
-        // No user is signed in.
+
       }
      
 

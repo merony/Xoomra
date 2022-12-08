@@ -5,8 +5,6 @@ import ChatListItem from '../components/ChatListItem';
 import Entype from 'react-native-vector-icons/Entypo';
 import HomeScreen from "../screen/Main/Home";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MessageResponseScreen from '../screen/Main/MessageResponse';
 import MessageScreen from '../screen/Main/Message';
 import React from "react";
 import TripsScreen from '../screen/Main/Trips';
@@ -21,12 +19,8 @@ const Tab = createMaterialBottomTabNavigator();
 const TabNavigator = ({navigation}) => {
 
  
-
-  
     useEffect(() => {
       //Runs on every render
-  
-      
       
     });
   
@@ -57,7 +51,7 @@ const TabNavigator = ({navigation}) => {
           }}
         />
 
-<Tab.Screen
+{/* <Tab.Screen
           name="Wishes"
           component={WishesScreen}
           options={{
@@ -66,7 +60,7 @@ const TabNavigator = ({navigation}) => {
               <MaterialIcons name="favorite-border" color={color} size={26} />
             ),
           }}
-        />
+        /> */}
 
 <Tab.Screen
           name="Trips"

@@ -1,29 +1,21 @@
 import {
-  Button,
-  FlatList,
-  Image,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View
+Image,
+Pressable,
+Text,
+TouchableOpacity,
+View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
-import Entype from 'react-native-vector-icons/Entypo';
-import { GoogleSocialButton } from "react-native-social-buttons";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import React from 'react';
-import { TextInput } from 'react-native-gesture-handler';
-import searchSugg from '../../../data/search';
-import styles from './styles';
 import GooglePlaceAutoCompleteItem from '../../../components/GooglePlaceAutoComplete';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import React from 'react';
+import { TextInput } from 'react-native-gesture-handler';
+import styles from './styles';
 
 const SearchScreen = ({ navigation, props }) => {
 

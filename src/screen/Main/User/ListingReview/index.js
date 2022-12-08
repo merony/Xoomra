@@ -10,11 +10,6 @@ import {
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PreviewStayDetailsComponent from '../../../../components/PreviewStayDetails';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
@@ -76,18 +71,6 @@ console.log( " Profile First=> ", profileData);
     .then((querySnapshot) => {
 
       setAccomodation(querySnapshot.data())
-
-      // const listings = []
-      // querySnapshot.forEach((doc) => {
-      //     // doc.data() is never undefined for query doc snapshots
-      //     console.log(doc.id, " => ", doc.data());
-
-      //     listings.push(doc.data());
-          
-      // });
-    
-    // setAccomodation(listings);
-
 
      
   });

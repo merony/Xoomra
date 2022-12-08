@@ -7,34 +7,24 @@
  */
 
 import {
-    Image,
-    SafeAreaView,
-    StatusBar,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  Image,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo'
-import { GoogleSocialButton } from "react-native-social-buttons";
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth'
 import styles from './styles';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
-   * LTI update could not be added via codemod */
-
-   // <Entype name={"home"} size= {24}/>
-   //  <GoogleSocialButton onPress={() => {}}  />
-  
-  
-  
-  const ForgetPasswordScreen = ({navigation}) => {
+const ForgetPasswordScreen = ({navigation}) => {
     
    const [emailFromUI,setEmailFromUI] = useState("")
 
@@ -48,14 +38,23 @@ import styles from './styles';
       auth().sendPasswordResetEmail(emailFromUI)
       .then(() => {
         console.log('email Sent');
+        Alert.alert(
+          'Reset password email sent to' , emailFromUI ,
+          [
+            { text: "OK", onPress: () => navigation.navigate('Login') }
+          ]
+        );
       })
       .catch(error => {
 
         if (error.code === 'auth/user-not-found') {
-          alert("This User Doesnt Exist")
+          Alert.alert(
+            'This User Doesnt Exist' , emailFromUI);
         }
         if (error.code === 'auth/invalid-email') {
-          alert("Wrong Email Format")
+          
+          Alert.alert(
+            'Wrong Email Format' , emailFromUI);
         }
     
         console.error(error);

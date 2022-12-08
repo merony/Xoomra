@@ -1,4 +1,4 @@
-import {AccommodationsDetailsDB, ExchangeDB, MessagesDB, UserMessages, usersDB} from '../../../data/firRef';
+import {AccommodationsDetailsDB, ExchangeDB, MessagesDB,} from '../../../data/firRef';
 import {
   Alert,
   FlatList,
@@ -8,27 +8,17 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import {cAccommodationsDB, cMessagesDB, cUserDB} from '../../../data/firCuRef';
 import { useCallback, useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
-import InputBoxInMessage from '../../../components/InputBoxInMessage';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MessageResponseItem from '../../../components/MessageResponseItem';
 import MrotherUser from '../../../components/MrotherUser';
 import React from 'react';
-import StayInfoGuestInMessageComponent from '../../../components/StayInfoInMessage/indexGuest';
-import StayInfoInMessageComponent from '../../../components/StayInfoInMessage';
+import { TextInput } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import messages from '../../../data/message';
-import places from '../../../data/stayFeed';
 import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -95,11 +85,7 @@ const MessageResponseScreen = ({navigation, props, route}) => {
 
   let allMessage = []
 
-  // otherExchnageListing.checkInDate
-  // checkOutDate
 
-
-  // console.log("Exchnage data", data)
 
 
 
@@ -108,9 +94,7 @@ const MessageResponseScreen = ({navigation, props, route}) => {
     const date = new Date(myExchnageListing?.checkOutDate?.seconds*1000);
     const options = {   year: 'numeric', month: 'long', day: 'numeric' };
     const today = date.toLocaleDateString('en-US', options);
-    // console.log('What day is it', today);
 
-    // console.log ('consol', myExchnageListing?.checkOutDate?.seconds)
 
     return today;
   }
@@ -316,14 +300,12 @@ alert("dates has been updated")
       await myExchnageListingDB.get()
       .then(querySnapshot => {
      
-    
-        // myExchnageListing.push(querySnapshot.data())
-    
+  
         myReqdata = querySnapshot.data()
     
         GetMyExchnageListing (myReqdata)
     
-        // console.log('My Exchange Data', querySnapshot.data().checkOutDate)
+     
         
       }) ;
     
@@ -344,9 +326,7 @@ alert("dates has been updated")
       querySnapshot.forEach((doc) => {
 
 
-        // allMessage = doc.data()
-
-        // allMessages.push(doc.data())
+  
 
         allMessage.push(doc.data())
 
@@ -355,9 +335,7 @@ alert("dates has been updated")
           seen : true,
         })
 
-        // allMessages.push (doc.data().filter(elem => elem.seen === false))
 
-        // console.log("Message Filter", doc.data().filter(elem => elem.seen === 'false') )
 
       });
 
@@ -423,7 +401,6 @@ const loadDataOther = async () => {
   useEffect(() => {
     //Runs on every render
 
-    // test();
 
     
 
@@ -432,12 +409,6 @@ const loadDataOther = async () => {
 
   useEffect(() => {
 
-
-    // ExchangeDB.doc(data.messageId).listOfCollections()
-    // .then((c) => {
-
-    //   console.log('collections name', c)
-    // })
 
 
     loadData().then(() => {
@@ -464,7 +435,7 @@ const loadDataOther = async () => {
         setOpenTop(true)
         setOpenMyListing(true)
 
-      } else if (myReqdata.status === exStatus[1] && otherExchangeListinData.status === exStatus[1]){
+      } else if (myReqdata.status === null && otherExchangeListinData.status === exStatus[0]){
         
         SetOpenAcceptButton(false)
         setOpenMsgWait(false)
@@ -472,6 +443,16 @@ const loadDataOther = async () => {
         setOpenTop(true)
         setOpenMyListing(true)
         setOpenMsgConfirm(true)
+
+      }else if (myReqdata.status === exStatus[0] && otherExchangeListinData.status === exStatus[1]){
+       
+        setOpenMsgConfirm(false)
+        SetOpenAcceptButton(false)
+        setOpenMsgWait(false)
+        SetOpenRejectButton (false)
+        setOpenTop(true)
+        setOpenMyListing(true)
+        setOpenMsgWait(false)
 
       }
        else{
@@ -615,7 +596,7 @@ const loadDataOther = async () => {
 
       <Text>{myExchnageListing.hostName} </Text>
       <Text style={{marginHorizontal:5}}>-</Text>
-        <Text>{myExchnageListing.status}</Text>
+        <Text>{myExchnageListing?.status}</Text>
         <Text style={{marginHorizontal:5}}>·</Text>
       
 

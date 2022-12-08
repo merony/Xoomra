@@ -1,21 +1,15 @@
 import {
-    FlatList,
-    Image,
-    Pressable,
+    Alert,
     Text,
     TouchableOpacity,
-    View,Alert
+    View
 } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 

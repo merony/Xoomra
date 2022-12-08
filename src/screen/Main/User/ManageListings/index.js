@@ -1,23 +1,15 @@
-import {AccommodationsDB, MyAccommodationsDB} from '../../../../data/firRef';
-import {MyAccommodationsDB} from '../../../../data/firCuRef
 import {
   Alert,
   FlatList,
-  Image,
-  Pressable,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Entype from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import { GoogleSocialButton } from "react-native-social-buttons";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {AccommodationsDB} from '../../../../data/firRef';
 import ManageListingItem from '../../../../components/ManageListingItem';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {MyAccommodationsDB} from '../../../../data/firCuRef'
 import {Picker} from '@react-native-picker/picker';
 import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';

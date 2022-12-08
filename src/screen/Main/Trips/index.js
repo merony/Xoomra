@@ -15,8 +15,12 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { MyAccommodationsDB } from '../../../data/firRef';
 import React from 'react';
+import auth from '@react-native-firebase/auth'
 import chats from '../../../data/chats';
+import { cos } from 'react-native-reanimated';
+import firestore from '@react-native-firebase/firestore';
 import places from '../../../data/stayFeed';
 import styles from './styles';
 
@@ -28,12 +32,138 @@ const TripsScreen = ({navigation, props}) => {
   const dummyDataStay2 = places[2]
   const dummyDataStay3 = places[3]
 
+  let exchangeDoc = null
+  let exchangeDocID = null
+  let MyTripAccomodation = null
+  let guestListingID = null
+  let guestLisitng = null
+  let visitorAccomodation = null
+  let VisitorUserID = null
+  let myListingID = null
+  let MyAccomodation = null
+  let myAccomodationData = null
+  let visitorAccomodationData = null
+  let array1 = []
+  let array2 = []
+
+  const [myTripsData,setMyTripsData] = useState([])
+  const [visitorTripsData,setVisitorTripsData] = useState([])
+  
+  
+
   const [dummyDataDataUsername,setDummyDataDataUsername] = useState(dummyDataGuest.name)
   const tabPressed1 = () =>{
     setDummyDataDataUsername(dummyDataGuest.name)
   }
   const tabPressed2 = () =>{
     setDummyDataDataUsername(dummyDataHost.name)
+  }
+
+  useEffect(() => {
+    //Runs only on the first render
+    getData()
+   
+  }, []);
+
+  const getCheckinDate = (input) => {
+   
+    const date = new Date(input?.checkOutDate?.seconds*1000);
+    const options = {   year: 'numeric', month: 'long', day: 'numeric' };
+    const today = date.toLocaleDateString('en-US', options);
+    // console.log('What day is it', today);
+
+    // console.log ('consol', myExchnageListing?.checkOutDate?.seconds)
+
+    return today;
+  }
+
+  const getCheckOutDate = input => {
+   
+    const date = new Date(input?.checkInDate?.seconds*1000);
+    const options = {  year: 'numeric', month: 'long', day: 'numeric' };
+    const today = date.toLocaleDateString('en-US', options);
+    // console.log('What day is it', today);
+
+    return today;
+  }
+
+  const getData = async()=>{
+
+    try {
+    const data =  await firestore()
+    .collection('Exchanges')
+    .where( 'users', 'array-contains', auth().currentUser.uid).get()
+    .then(querySnapshot => {
+      console.log('Query lenght',querySnapshot.docs.length)
+
+      
+
+      exchangeDoc = querySnapshot.docs[0].data()
+      exchangeDocID = querySnapshot.docs[0].data().exchangeID
+
+
+      VisitorUserID = exchangeDoc.users.filter(
+        eee => eee !== auth().currentUser.uid,
+      )[0]
+      console.log('filter',VisitorUserID)
+
+    })
+
+    
+      
+    MyTripAccomodation = (await firestore().collection('Exchanges').doc(exchangeDocID).collection(auth().currentUser.uid).get()).docs[0].data()
+    visitorAccomodation = (await firestore().collection('Exchanges').doc(exchangeDocID).collection(VisitorUserID).get()).docs[0].data()
+
+    array1 = MyTripAccomodation
+    array2 = visitorAccomodation
+
+    guestListingID = MyTripAccomodation.listingID  
+    myListingID = MyTripAccomodation.guestListingID
+
+    guestLisitng = (await MyAccommodationsDB.doc(guestListingID).get()).data()
+    MyAccomodation = (await MyAccommodationsDB.doc(myListingID).get()).data()
+
+       myAccomodationData = {
+      title: array1.StayTitle,
+      hostedBy: array1.hostName,
+      checkIn: getCheckinDate(array1),
+      checkOut: getCheckOutDate(array1),
+      photo: guestLisitng.images[0],
+    }
+
+    visitorAccomodationData = {
+      title: array2.StayTitle,
+      hostedBy: array2.hostName,
+      checkIn: getCheckinDate(array2),
+      checkOut: getCheckOutDate(array2),
+      photo: MyAccomodation.images[0],
+    }
+
+
+
+
+    setMyTripsData([...myAccomodationData])
+    setVisitorTripsData([...visitorAccomodationData])
+    }
+    catch(error) {
+      console.log(error)
+
+    }
+
+    console.log('exchange doc',exchangeDoc)
+    console.log('My Trip Accomodation',MyTripAccomodation)
+    console.log('Guest listing id', guestListingID)
+    console.log('guest Listing info', guestLisitng)
+    console.log('Visitor accomo',visitorAccomodation)
+    console.log('My Lisitng',MyAccomodation)
+    console.log('data to display',myTripsData)
+    console.log('visitor data to display',visitorTripsData)
+    console.log(myAccomodationData)
+    console.log(visitorAccomodationData)
+
+    
+
+
   }
 
   const dummyDataTrips = [
