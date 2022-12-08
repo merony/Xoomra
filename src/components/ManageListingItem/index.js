@@ -112,7 +112,6 @@ const pickerSelected = (val) =>{
   showConfirm(val)
 }
 
-
 const editPressed = () =>{
   navi.navigate('Edit Listing', {listingID: listing.stay.id})
 

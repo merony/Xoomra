@@ -1,13 +1,11 @@
-lines (105 sloc)  3.36 KB
-
 import {
   Alert,
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TouchableOpacity,
-    View
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -27,11 +25,10 @@ import styles from './styles';
 const ManageListingScreen = ({navigation, props}) => {
     
 const stays = places
-
-
+ 
 //if user has a listing returned from database,  listingFromDatabase = it
 //if not,  listingFromDatabase = null
-
+ 
 const listingFromDatabase = {
   AccommodationDetails:'hello',
   AccommodationType:'private',
@@ -58,7 +55,7 @@ const listingFromDatabase = {
   uid:'dsjhdauihiu12i12'
 }
 // const listingsFromDatabse = [dummyDataListingFromDatabase]
-
+ 
 // const listingFromDatabase = null 
 let listingToRender
 let dummyDatalistingsstatus
@@ -86,11 +83,10 @@ if(listingFromDatabase===null){
       stay:listingToRender,
       // isPublished:listingToRender.isPublished,
     },
-
+ 
   ]
 }
-
-
+ 
 const [selectedSubject, setSelectedSubject] = useState('');
 const addNewListingPressed = () =>{
   if(listingToRender===null){
@@ -99,31 +95,30 @@ const addNewListingPressed = () =>{
     Alert.alert('ERROR','You already have a listing!')
   }
 }
-
-
+ 
     return (
-
+ 
       <View style={{flexDirection: "column", margin: 20}}>
-
+ 
    <View style={{flexDirection: "row", justifyContent: 'flex-end'}}>
-
+ 
 <TouchableOpacity title="X"  onPress = { addNewListingPressed} >
                             <Text style = {{fontWeight: '500', fontSize: 14, color: "#030f14", textDecorationLine: 'underline'}}>Add New Listing</Text>
                         </TouchableOpacity>
                         </View>
-
+ 
                          {/* flatlistContainer */}
         <View style={styles.flatlistContainer}>
-
+ 
 <FlatList
   data={dummyDatalistings}
   renderItem={({item}) => <ManageListingItem listing={item} />}
  />
-
+ 
 </View>
-
+ 
         </View>
-
+ 
     
   );
    };
