@@ -27,7 +27,7 @@ const ManageListingScreen = ({navigation, props}) => {
 const stays = places
 
 
-//if user has a listing,  listingFromDatabase = it
+//if user has a listing returned from database,  listingFromDatabase = it
 //if not,  listingFromDatabase = null
 
 const listingFromDatabase = {
@@ -42,7 +42,7 @@ const listingFromDatabase = {
   Country:'Canada',
   HouseRules:'rules!',
   State:'Ontario',
-  Status:'published',
+  // Status:'published',
   StayTitle:'Linda Place',
   WantToGo:{
     City:'whatever city',
@@ -59,7 +59,7 @@ const listingFromDatabase = {
 
 // const listingFromDatabase = null 
 let listingToRender
-let dummyDatalistings
+let dummyDatalistingsstatus
 if(listingFromDatabase===null){
   listingToRender = null
   dummyDatalistings = null
@@ -76,13 +76,13 @@ if(listingFromDatabase===null){
     maxNights: listingFromDatabase.maxAvailableDays,
     rules: listingFromDatabase.HouseRules,
   
-    isPublished:listingFromDatabase.Status
+    // isPublished:listingFromDatabase.Status
   }
   
   dummyDatalistings = [
     {
       stay:listingToRender,
-      isPublished:listingToRender.isPublished,
+      // isPublished:listingToRender.isPublished,
     },
 
   ]

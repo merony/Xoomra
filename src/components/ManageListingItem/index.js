@@ -116,6 +116,13 @@ const ManageListingItem = (props) => {
     navi.navigate('Edit Listing', {listingID: listing.stay.id})
 
   }
+  const deletePressed = () =>{
+    Alert.alert('Warning','Do you want to delete this listing?',[
+      {text:'Confirm',onPress:() => deleteListing()},
+      {text:'cancel',style:'cancel'}
+    ])
+
+  }
   
     return (
 
@@ -139,7 +146,7 @@ const ManageListingItem = (props) => {
             {/* rowContainer */}
             <View style={styles.rowContainer}>
 
-              <ReturnPublished isPublished={listing.isPublished}/>
+
 
               <TouchableOpacity 
                 onPress={editPressed}
@@ -147,20 +154,12 @@ const ManageListingItem = (props) => {
                 <Text style={styles.editText}>EDIT</Text>
               </TouchableOpacity>
 
-              <View style={styles.subContainer}>
-                <View style={styles.pickerContainer}>
-                  {/* picker here */}
-                  <SelectList 
-                    placeholder={'Operations'}
-                    data={pickerData} 
-                    setSelected={(val) => {pickerSelected(val)}
-                  }
-                    boxStyles={styles.boxStyles}
-                    inputStyles={styles.inputStyles}
-                    dropdownStyles={styles.dropdownStyles}
-                    search={false}/>
-                </View>
-              </View>
+              <TouchableOpacity 
+                onPress={deletePressed}
+                style={styles.delete}>
+                <Text style={styles.editText}>DELETE</Text>
+              </TouchableOpacity>
+
             </View>
           </View>
         </View>

@@ -27,7 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SearchScreen = ({ navigation, props }) => {
 
-  const [inpuText, setInputText] = useState('');
+  // const [inpuText, setInputText] = useState('');
   const [maxStay, setMaxStay] = useState(0);
   const [maxGuest, setMaxGuest] = useState(0);
 
@@ -48,6 +48,7 @@ const SearchScreen = ({ navigation, props }) => {
   const [open2, setOpen2] = useState(false);
 
   const destinationObject = {
+    //current user id,
     lat:latitude,
     lng:longitude,
     address:address,

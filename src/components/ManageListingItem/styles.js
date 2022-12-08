@@ -16,13 +16,22 @@ const styles = StyleSheet.create({
     },
     rowContainer:{
         flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'flex-start',
+        width:'50%',
+        alignSelf:'flex-end'
+        
 
     },
     edit:{
         flex:0.6,
         backgroundColor:'#0999f4',
+        borderRadius:7,
+        marginHorizontal:5,
+        height:20,
+        marginTop:12,
+    },
+    delete:{
+        flex:0.6,
+        backgroundColor:'red',
         borderRadius:7,
         marginHorizontal:5,
         height:20,
