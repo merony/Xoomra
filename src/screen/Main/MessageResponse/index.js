@@ -430,7 +430,6 @@ const loadDataOther = async () => {
       }else if (myReqdata.status === exStatus[1] && otherExchangeListinData.status === exStatus[0]){
         
         SetOpenAcceptButton(false)
-
         setOpenMsgWait(true)
         setOpenTop(true)
         setOpenMyListing(true)
@@ -454,13 +453,23 @@ const loadDataOther = async () => {
         setOpenMyListing(true)
         setOpenMsgWait(false)
 
+      }else if (myReqdata.status === exStatus[1] && otherExchangeListinData.status === exStatus[1]){
+       
+        setOpenMsgConfirm(true)
+        SetOpenAcceptButton(false)
+        setOpenMsgWait(false)
+        SetOpenRejectButton (false)
+        setOpenTop(true)
+        setOpenMyListing(true)
+        setOpenMsgWait(false)
+
       }
        else{
   
         console.log ('Its Working not', otherExchnageListing.status, otherExchangeListinData.status)
 
-        setOpenTop(true)
-        setOpenMyListing(true)
+        // setOpenTop(true)
+        // setOpenMyListing(true)
   
       }
     })

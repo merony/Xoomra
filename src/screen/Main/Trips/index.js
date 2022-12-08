@@ -7,7 +7,7 @@ import {
     View
 } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Entype from 'react-native-vector-icons/Entypo';
@@ -16,6 +16,7 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { MyAccommodationsDB } from '../../../data/firRef';
+import { MyExchangeDB } from '../../../data/firCuRef';
 import React from 'react';
 import auth from '@react-native-firebase/auth'
 import chats from '../../../data/chats';
@@ -48,6 +49,9 @@ const TripsScreen = ({navigation, props}) => {
 
   const [myTripsData,setMyTripsData] = useState([])
   const [visitorTripsData,setVisitorTripsData] = useState([])
+
+
+  const user =auth().currentUser
   
   
 
@@ -61,7 +65,23 @@ const TripsScreen = ({navigation, props}) => {
 
   useEffect(() => {
     //Runs only on the first render
-    getData()
+
+    if(user){
+
+      getData().then(() => {
+
+        console.log(myAccomodationData.photo)
+        console.log(visitorAccomodationData.host)
+
+        setMyTripsData(myAccomodationData)
+        setVisitorTripsData(visitorAccomodationData)
+
+        console.log('data to display',myTripsData)
+        console.log('visitor data to display',visitorTripsData)
+      })
+
+    } 
+
    
   }, []);
 
@@ -90,9 +110,9 @@ const TripsScreen = ({navigation, props}) => {
   const getData = async()=>{
 
     try {
-    const data =  await firestore()
-    .collection('Exchanges')
-    .where( 'users', 'array-contains', auth().currentUser.uid).get()
+    const data =  await 
+    MyExchangeDB
+    .get()
     .then(querySnapshot => {
       console.log('Query lenght',querySnapshot.docs.length)
 
@@ -124,26 +144,30 @@ const TripsScreen = ({navigation, props}) => {
     MyAccomodation = (await MyAccommodationsDB.doc(myListingID).get()).data()
 
        myAccomodationData = {
-      title: array1.StayTitle,
-      hostedBy: array1.hostName,
+      stay: array1.StayTitle,
+      host: array1.hostName,
+      guest:array2.hostName,
       checkIn: getCheckinDate(array1),
       checkOut: getCheckOutDate(array1),
       photo: guestLisitng.images[0],
+      status: exchangeDoc.status
     }
 
     visitorAccomodationData = {
-      title: array2.StayTitle,
-      hostedBy: array2.hostName,
-      checkIn: getCheckinDate(array2),
-      checkOut: getCheckOutDate(array2),
+      stay: array2.StayTitle,
+      host: array2.hostName,
+      guest:array1.hostName,
+      checkInDate: getCheckinDate(array2),
+      checkOutDate: getCheckOutDate(array2),
       photo: MyAccomodation.images[0],
+      status: exchangeDoc.status
     }
 
 
 
 
-    setMyTripsData([...myAccomodationData])
-    setVisitorTripsData([...visitorAccomodationData])
+    // setMyTripsData([...myAccomodationData])
+    // setVisitorTripsData([...visitorAccomodationData])
     }
     catch(error) {
       console.log(error)
@@ -156,13 +180,10 @@ const TripsScreen = ({navigation, props}) => {
     console.log('guest Listing info', guestLisitng)
     console.log('Visitor accomo',visitorAccomodation)
     console.log('My Lisitng',MyAccomodation)
-    console.log('data to display',myTripsData)
-    console.log('visitor data to display',visitorTripsData)
+    // console.log('data to display',myTripsData)
+    // console.log('visitor data to display',visitorTripsData)
     console.log(myAccomodationData)
     console.log(visitorAccomodationData)
-
-    
-
 
   }
 
@@ -233,11 +254,11 @@ const TripsScreen = ({navigation, props}) => {
         {/* single trip Container */}
         <View style={styles.singleTripContainer}>
           <Image 
-            source={{uri:tempStay.stay.image}}
+            source={{uri: myTripsData?.photo}}
             style={styles.image}/>
           <View style={styles.rowContainer}>
             <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Hosted by {tempStay.host.name}</Text>
+            <Text>Hosted by {myTripsData?.host}</Text>
             <View style={styles.datesContainer}>
               <Text>{tempStay.checkInDate}</Text>
               <Text> - </Text>

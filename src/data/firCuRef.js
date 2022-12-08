@@ -35,8 +35,14 @@ const cMessagesDB = firestore()
 const MyAccommodationsDB = firestore()
 .collection('Accommodations')
 .where( "uid", "==", auth().currentUser.uid)
+.where( "status", "==", "Exchanged")
+
+const MyExchangeDB = firestore()
+.collection('Exchanges')
+.where( 'users', 'array-contains', auth().currentUser.uid)
+.where( "status", "==", "Exchanged")
 
 
 
 
-  export  {cUserDB, cprofileDB , cVerificationDB, cAccommodationsDB, cMessagesDB  } ;
+  export  {cUserDB, cprofileDB , cVerificationDB, cAccommodationsDB, cMessagesDB, MyExchangeDB  } ;
