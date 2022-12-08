@@ -1,10 +1,11 @@
 import {
+  Alert,
   FlatList,
   Image,
   Pressable,
   Text,
   TouchableOpacity,
-  View,Alert
+  View
 } from 'react-native';
 import { useEffect, useState } from 'react';
 
@@ -15,9 +16,9 @@ import { GoogleSocialButton } from "react-native-social-buttons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import SelectList from 'react-native-dropdown-select-list';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
-import SelectList from 'react-native-dropdown-select-list';
 import { useNavigation } from '@react-navigation/native';
 
 const ManageListingItem = (props) => {
@@ -113,7 +114,14 @@ const pickerSelected = (val) =>{
 
 
 const editPressed = () =>{
-  navi.navigate('Edit Listing', {listingID: listing.stay.docID})
+  navi.navigate('Edit Listing', {listingID: listing.stay.id})
+
+}
+const deletePressed = () =>{
+  Alert.alert('Warning','Do you want to delete this listing?',[
+    {text:'Confirm',onPress:() => deleteListing()},
+    {text:'cancel',style:'cancel'}
+  ])
 
 }
 
@@ -139,7 +147,7 @@ const editPressed = () =>{
           {/* rowContainer */}
           <View style={styles.rowContainer}>
 
-            <ReturnPublished isPublished={listing.isPublished}/>
+
 
             <TouchableOpacity 
               onPress={editPressed}
@@ -147,20 +155,12 @@ const editPressed = () =>{
               <Text style={styles.editText}>EDIT</Text>
             </TouchableOpacity>
 
-            <View style={styles.subContainer}>
-              <View style={styles.pickerContainer}>
-                {/* picker here */}
-                <SelectList 
-                  placeholder={'Operations'}
-                  data={pickerData} 
-                  setSelected={(val) => {pickerSelected(val)}
-                }
-                  boxStyles={styles.boxStyles}
-                  inputStyles={styles.inputStyles}
-                  dropdownStyles={styles.dropdownStyles}
-                  search={false}/>
-              </View>
-            </View>
+            <TouchableOpacity 
+              onPress={deletePressed}
+              style={styles.delete}>
+              <Text style={styles.editText}>DELETE</Text>
+            </TouchableOpacity>
+
           </View>
         </View>
       </View>
