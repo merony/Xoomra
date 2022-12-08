@@ -22,7 +22,8 @@ import DatePicker from 'react-native-date-picker'
 
 const DatePickerComponent = (props) => {
 
-  const [date, setDate] = useState(new Date())
+  const dateRange=props.dateRange
+  const [date, setDate] = useState(dateRange[0])
   const [open, setOpen] = useState(false)
 
 
@@ -34,8 +35,11 @@ const DatePickerComponent = (props) => {
     <DatePicker
         modal
         open={open}
-        date={date}
+        date={dateRange[0]}
         mode='date'
+        
+        maximumDate={dateRange[1]}
+        minimumDate={dateRange[0]}
         onConfirm={(date) => {
           setOpen(false)
           setDate(date)

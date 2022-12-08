@@ -22,6 +22,7 @@ import DatePicker from 'react-native-date-picker'
 
 const DatePickerCheckOutComponent = (props) => {
 
+  const dateRange=props.dateRange
   const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
 
@@ -36,6 +37,8 @@ const DatePickerCheckOutComponent = (props) => {
         open={open}
         date={date}
         mode='date'
+        maximumDate={dateRange[1]}
+        minimumDate={dateRange[0]}
         onConfirm={(date) => {
           setOpen(false)
           setDate(date)

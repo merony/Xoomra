@@ -38,6 +38,9 @@ const StayDetailsComponent = (props) => {
   const [descriptionFolded, setDescriptionFolded] = useState(true)
   const [ruleFolded, setRuleFolded] = useState(true)
 
+ 
+
+
 
   const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2853328535763437~6654218930';
 
@@ -48,6 +51,96 @@ const StayDetailsComponent = (props) => {
   const dummyDataHostName = 'John'
 
   const stays = props.stays;
+
+
+  //dates from databse should be used here!
+  const [showDatePicker,setShowDatePicker] = useState(true)
+
+  const dateAvailablityStart = new Date('2022-12-04')
+  const dateAvailablityEnd = new Date('2022-12-5')
+  const dateNow = new Date()
+
+  let datepickerStart 
+  let datepickerEnd
+
+  const confirmDateRange = (start,end,now) =>{
+
+    let startTemp = start.getTime()
+    let endTemp = end.getTime()
+    let nowTemp = now.getTime()
+    
+    if(startTemp>=nowTemp){
+      datepickerStart=dateAvailablityStart
+      datepickerEnd=dateAvailablityEnd
+    }
+    if(endTemp>=nowTemp && nowTemp>=startTemp){
+      datepickerStart=dateNow
+      datepickerEnd=dateAvailablityEnd
+    }
+    if(endTemp<=nowTemp){
+      datepickerStart=dateNow
+      datepickerEnd=dateAvailablityEnd
+      setShowDatePicker(false)
+    }
+
+  }
+
+  
+  const ReturnDatepicker = () =>{
+    confirmDateRange(dateAvailablityStart,dateAvailablityEnd,dateNow)
+    let temp
+    if(showDatePicker){
+      temp =         
+      <View style={styles.datePickerContainer}>
+      <DatePickerComponent style={styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} dateRange={[datepickerStart,datepickerEnd ]} />
+      <Text>-</Text>
+      <DatePickerCheckOutComponent style={styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights} dateRange={[datepickerStart,datepickerEnd ]}/>
+    </View>
+    }else{
+      temp = 
+      <View style={styles.datePickerContainer}>
+        <Text >Unavailable Now</Text>
+      </View>
+    }
+    return temp
+  }
+
+  const ReturnButton = () =>{
+    let temp
+    if(showDatePicker){
+      temp =         
+      <Pressable style={styles.customBTN} onPress={onReservePressed}>
+      <Text style={styles.textBTN}>Exchange Request</Text>
+    </Pressable>
+    }else{
+      temp =         
+      <Pressable style={styles.customBTN1} >
+      <Text style={styles.textBTN}>Exchange Request</Text>
+    </Pressable>
+    }
+    return temp
+  }
+
+  
+
+  // console.log(stays.Availability.availabilityEnd.seconds)
+  // console.log(new Date(stays.Availability.availabilityEnd.seconds))
+  // console.log(new Date(stays.Availability.availabilityStart.seconds))
+  
+  // const returnDateFromFireStoreTimeStamp = (timeStamp) =>{
+  //   let date = ''
+
+  //   let yearTemp = 1970+timeStamp/(3600*24*365)
+  //   timeStamp = timeStamp%(3600*24*365)
+  //   let monthTemp = timeStamp/(3600*30*24)
+  //   timeStamp = timeStamp%(3600*30*24)
+  //   let dayTemp = timeStamp(3600*24)
+  //   console.log(`${yearTemp}${monthTemp}${dayTemp}`)
+  //   return date
+  // }
+
+  // returnDateFromFireStoreTimeStamp(stays.Availability.availabilityEnd.seconds)
+
   const personalData = props.personalDatas;
   const profileData = props.profileDatas;
   const images = stays.images;
@@ -105,7 +198,7 @@ const StayDetailsComponent = (props) => {
       Alert.alert('ERROR', 'Stay at least for 1 night to continue')
     }
   }
-  console.log('stays' ,stays)
+  // console.log('stays' ,stays)
   const onHostPressed = () => {
     Alert.alert('navigate to host profile')
   }
@@ -324,17 +417,10 @@ const StayDetailsComponent = (props) => {
       <View style = {{flexDirection: 'column', justifyContent: 'flex-end', marginLeft: 20,  alignItems: 'center',  }}> 
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%',  }}>
-        {/* date picker area */}
-        <View style={styles.datePickerContainer}>
-          <DatePickerComponent style={styles.datePickerComponent} setCDate={setCheckInDate} setCNights={calculateInNights} />
-          <Text>-</Text>
-          <DatePickerCheckOutComponent style={styles.datePickerComponent} setCDate={setCheckOutDate} setCNights={calculateOutNights} />
-        </View>
-
+        {/* date picker area */}     
+        <ReturnDatepicker/>
         {/* reserve button area */}
-        <Pressable style={styles.customBTN} onPress={onReservePressed}>
-          <Text style={styles.textBTN}>Exchange Request</Text>
-        </Pressable>
+        <ReturnButton/>
       </View>
 
       </View>

@@ -15,6 +15,13 @@ const styles = StyleSheet.create({
             color: '#fff',
             textTransform: 'uppercase'
         },
+        textBTN1: {
+            textAlign : 'center',
+            fontWeight: '700',
+            fontSize: 14,
+            color: '#fff',
+            textTransform: 'uppercase'
+        },
 
     Image: {
 
@@ -94,7 +101,17 @@ const styles = StyleSheet.create({
         height:50,
         
     },
-
+    customBTN1: {
+        backgroundColor: 'grey',
+        borderRadius: 10,
+        marginBottom: 10,
+        marginTop: 10,
+        alignItems:'center',
+        justifyContent:'center',
+        width:'60%',
+        height:50,
+        
+    },
     reserveArea : {
         flexDirection:'row', 
         justifyContent:'center',   
