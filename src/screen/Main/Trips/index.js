@@ -147,8 +147,8 @@ const TripsScreen = ({navigation, props}) => {
       stay: array1.StayTitle,
       host: array1.hostName,
       guest:array2.hostName,
-      checkIn: getCheckinDate(array1),
-      checkOut: getCheckOutDate(array1),
+      checkInDate: getCheckinDate(array1),
+      checkOutDate: getCheckOutDate(array1),
       photo: guestLisitng.images[0],
       status: exchangeDoc.status
     }
@@ -248,7 +248,7 @@ const TripsScreen = ({navigation, props}) => {
 
         <Text 
           style={styles.segmentTitle}>
-          Upcoming
+         
         </Text>
 
         {/* single trip Container */}
@@ -260,9 +260,9 @@ const TripsScreen = ({navigation, props}) => {
             <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
             <Text>Hosted by {myTripsData?.host}</Text>
             <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
+              <Text>{myTripsData?.checkInDate}</Text>
               <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
+              <Text>{myTripsData?.checkOutDate}</Text>
             </View>
           </View>
         </View>
@@ -275,107 +275,107 @@ const TripsScreen = ({navigation, props}) => {
       </View>
     }
 
-    if(tripFilter('ongoing') !== null){
-      const tempStay = tripFilter('ongoing')
-      OngoingComponent = 
-      <View style={styles.container1}>
+    // if(tripFilter('ongoing') !== null){
+    //   const tempStay = tripFilter('ongoing')
+    //   OngoingComponent = 
+    //   <View style={styles.container1}>
 
-        <Text 
-          style={styles.segmentTitle}>
-          Ongoing
-        </Text>
+    //     <Text 
+    //       style={styles.segmentTitle}>
+    //       Ongoing
+    //     </Text>
 
-        {/* single trip Container */}
-        <View style={styles.singleTripContainer}>
-          <Image 
-            source={{uri:tempStay.stay.image}}
-            style={styles.image}/>
-          <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Hosted by {tempStay.host.name}</Text>
-            <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
-              <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
-            </View>
-          </View>
-        </View>
+    //     {/* single trip Container */}
+    //     <View style={styles.singleTripContainer}>
+    //       <Image 
+    //         source={{uri:tempStay.stay.image}}
+    //         style={styles.image}/>
+    //       <View style={styles.rowContainer}>
+    //         <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+    //         <Text>Hosted by {tempStay.host.name}</Text>
+    //         <View style={styles.datesContainer}>
+    //           <Text>{tempStay.checkInDate}</Text>
+    //           <Text> - </Text>
+    //           <Text>{tempStay.checkOutDate}</Text>
+    //         </View>
+    //       </View>
+    //     </View>
 
-      </View>
-    }else{
-      OngoingComponent = 
-      <View>
+    //   </View>
+    // }else{
+    //   OngoingComponent = 
+    //   <View>
 
-      </View>
-    }
+    //   </View>
+    // }
 
-    if(tripFilter('completed') !== null){
-      const tempStay = tripFilter('completed')
-      CompletedComponent = 
-      <View style={styles.container1}>
+    // if(tripFilter('completed') !== null){
+    //   const tempStay = tripFilter('completed')
+    //   CompletedComponent = 
+    //   <View style={styles.container1}>
 
-        <Text 
-          style={styles.segmentTitle}>
-          Completed
-        </Text>
+    //     <Text 
+    //       style={styles.segmentTitle}>
+    //       Completed
+    //     </Text>
 
-        {/* single trip Container */}
-        <View style={styles.singleTripContainer}>
-          <Image 
-            source={{uri:tempStay.stay.image}}
-            style={styles.image}/>
-          <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Hosted by {tempStay.host.name}</Text>
-            <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
-              <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
-            </View>
-          </View>
-        </View>
+    //     {/* single trip Container */}
+    //     <View style={styles.singleTripContainer}>
+    //       <Image 
+    //         source={{uri:tempStay.stay.image}}
+    //         style={styles.image}/>
+    //       <View style={styles.rowContainer}>
+    //         <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+    //         <Text>Hosted by {tempStay.host.name}</Text>
+    //         <View style={styles.datesContainer}>
+    //           <Text>{tempStay.checkInDate}</Text>
+    //           <Text> - </Text>
+    //           <Text>{tempStay.checkOutDate}</Text>
+    //         </View>
+    //       </View>
+    //     </View>
 
-      </View>
-    }else{
-      CompletedComponent = 
-      <View>
+    //   </View>
+    // }else{
+    //   CompletedComponent = 
+    //   <View>
 
-      </View>
-    }
+    //   </View>
+    // }
 
-    if(tripFilter('cancelled') !== null){
-      const tempStay = tripFilter('cancelled')
-      CancelledComponent = 
-      <View style={styles.container1}>
+    // if(tripFilter('cancelled') !== null){
+    //   const tempStay = tripFilter('cancelled')
+    //   CancelledComponent = 
+    //   <View style={styles.container1}>
 
-        <Text 
-          style={styles.segmentTitle}>
-          Cancelled
-        </Text>
+    //     <Text 
+    //       style={styles.segmentTitle}>
+    //       Cancelled
+    //     </Text>
 
-        {/* single trip Container */}
-        <View style={styles.singleTripContainer}>
-          <Image 
-            source={{uri:tempStay.stay.image}}
-            style={styles.image}/>
-          <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Hosted by {tempStay.host.name}</Text>
-            <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
-              <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
-            </View>
-          </View>
-        </View>
+    //     {/* single trip Container */}
+    //     <View style={styles.singleTripContainer}>
+    //       <Image 
+    //         source={{uri:tempStay.stay.image}}
+    //         style={styles.image}/>
+    //       <View style={styles.rowContainer}>
+    //         <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+    //         <Text>Hosted by {tempStay.host.name}</Text>
+    //         <View style={styles.datesContainer}>
+    //           <Text>{tempStay.checkInDate}</Text>
+    //           <Text> - </Text>
+    //           <Text>{tempStay.checkOutDate}</Text>
+    //         </View>
+    //       </View>
+    //     </View>
 
-      </View>
-    }else{
-      CancelledComponent = 
-      <View>
+    //   </View>
+    // }else{
+    //   CancelledComponent = 
+    //   <View>
 
-      </View>
-    }
+    //   </View>
+    // }
 
     tempRGS = 
     <View>
@@ -411,15 +411,15 @@ const TripsScreen = ({navigation, props}) => {
         {/* single trip Container */}
         <View style={styles.singleTripContainer}>
           <Image 
-            source={{uri:tempStay.guest.image}}
+            source={{uri:visitorTripsData.photo}}
             style={styles.image}/>
           <View style={styles.rowContainer}>
             <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Guest: {tempStay.guest.name}</Text>
+            <Text>Guest: {visitorTripsData.guest}</Text>
             <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
+              <Text>{visitorTripsData.checkInDate}</Text>
               <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
+              <Text>{visitorTripsData.checkOutDate}</Text>
             </View>
           </View>
         </View>
@@ -432,107 +432,107 @@ const TripsScreen = ({navigation, props}) => {
       </View>
     }
 
-    if(tripFilter('ongoing') !== null){
-      const tempStay = tripFilter('ongoing')
-      OngoingComponent = 
-      <View style={styles.container1}>
+    // if(tripFilter('ongoing') !== null){
+    //   const tempStay = tripFilter('ongoing')
+    //   OngoingComponent = 
+    //   <View style={styles.container1}>
 
-        <Text 
-          style={styles.segmentTitle}>
-          Ongoing
-        </Text>
+    //     <Text 
+    //       style={styles.segmentTitle}>
+    //       Ongoing
+    //     </Text>
 
-        {/* single trip Container */}
-        <View style={styles.singleTripContainer}>
-          <Image 
-            source={{uri:tempStay.guest.image}}
-            style={styles.image}/>
-          <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Guest: {tempStay.guest.name}</Text>
-            <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
-              <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
-            </View>
-          </View>
-        </View>
+    //     {/* single trip Container */}
+    //     <View style={styles.singleTripContainer}>
+    //       <Image 
+    //         source={{uri:tempStay.guest.image}}
+    //         style={styles.image}/>
+    //       <View style={styles.rowContainer}>
+    //         <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+    //         <Text>Guest: {tempStay.guest.name}</Text>
+    //         <View style={styles.datesContainer}>
+    //           <Text>{tempStay.checkInDate}</Text>
+    //           <Text> - </Text>
+    //           <Text>{tempStay.checkOutDate}</Text>
+    //         </View>
+    //       </View>
+    //     </View>
 
-      </View>
-    }else{
-      OngoingComponent = 
-      <View>
+    //   </View>
+    // }else{
+    //   OngoingComponent = 
+    //   <View>
 
-      </View>
-    }
+    //   </View>
+    // }
 
-    if(tripFilter('completed') !== null){
-      const tempStay = tripFilter('completed')
-      CompletedComponent = 
-      <View style={styles.container1}>
+    // if(tripFilter('completed') !== null){
+    //   const tempStay = tripFilter('completed')
+    //   CompletedComponent = 
+    //   <View style={styles.container1}>
 
-        <Text 
-          style={styles.segmentTitle}>
-          Completed
-        </Text>
+    //     <Text 
+    //       style={styles.segmentTitle}>
+    //       Completed
+    //     </Text>
 
-        {/* single trip Container */}
-        <View style={styles.singleTripContainer}>
-          <Image 
-            source={{uri:tempStay.guest.image}}
-            style={styles.image}/>
-          <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Guest: {tempStay.guest.name}</Text>
-            <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
-              <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
-            </View>
-          </View>
-        </View>
+    //     {/* single trip Container */}
+    //     <View style={styles.singleTripContainer}>
+    //       <Image 
+    //         source={{uri:tempStay.guest.image}}
+    //         style={styles.image}/>
+    //       <View style={styles.rowContainer}>
+    //         <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+    //         <Text>Guest: {tempStay.guest.name}</Text>
+    //         <View style={styles.datesContainer}>
+    //           <Text>{tempStay.checkInDate}</Text>
+    //           <Text> - </Text>
+    //           <Text>{tempStay.checkOutDate}</Text>
+    //         </View>
+    //       </View>
+    //     </View>
 
-      </View>
-    }else{
-      CompletedComponent = 
-      <View>
+    //   </View>
+    // }else{
+    //   CompletedComponent = 
+    //   <View>
 
-      </View>
-    }
+    //   </View>
+    // }
 
-    if(tripFilter('cancelled') !== null){
-      const tempStay = tripFilter('cancelled')
-      CancelledComponent = 
-      <View style={styles.container1}>
+    // if(tripFilter('cancelled') !== null){
+    //   const tempStay = tripFilter('cancelled')
+    //   CancelledComponent = 
+    //   <View style={styles.container1}>
 
-        <Text 
-          style={styles.segmentTitle}>
-          Cancelled
-        </Text>
+    //     <Text 
+    //       style={styles.segmentTitle}>
+    //       Cancelled
+    //     </Text>
 
-        {/* single trip Container */}
-        <View style={styles.singleTripContainer}>
-          <Image 
-            source={{uri:tempStay.guest.image}}
-            style={styles.image}/>
-          <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
-            <Text>Guest: {tempStay.guest.name}</Text>
-            <View style={styles.datesContainer}>
-              <Text>{tempStay.checkInDate}</Text>
-              <Text> - </Text>
-              <Text>{tempStay.checkOutDate}</Text>
-            </View> 
-          </View>
-        </View>
+    //     {/* single trip Container */}
+    //     <View style={styles.singleTripContainer}>
+    //       <Image 
+    //         source={{uri:tempStay.guest.image}}
+    //         style={styles.image}/>
+    //       <View style={styles.rowContainer}>
+    //         <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+    //         <Text>Guest: {tempStay.guest.name}</Text>
+    //         <View style={styles.datesContainer}>
+    //           <Text>{tempStay.checkInDate}</Text>
+    //           <Text> - </Text>
+    //           <Text>{tempStay.checkOutDate}</Text>
+    //         </View> 
+    //       </View>
+    //     </View>
 
-      </View>
-    }else{
-      CancelledComponent = 
-      <View>
+    //   </View>
+    // }else{
+    //   CancelledComponent = 
+    //   <View>
 
-      </View>
-    }
+    //   </View>
+    // }
 
     tempRGS = 
     <View>
