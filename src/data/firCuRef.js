@@ -35,7 +35,7 @@ const cMessagesDB = firestore()
 const MyAccommodationsDB = firestore()
 .collection('Accommodations')
 .where( "uid", "==", auth().currentUser.uid)
-.where( "status", "==", "Exchanged")
+.where( "status", "==", "published")
 
 const MyExchangeDB = firestore()
 .collection('Exchanges')
