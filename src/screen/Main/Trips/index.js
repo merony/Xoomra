@@ -257,7 +257,7 @@ const TripsScreen = ({navigation, props}) => {
             source={{uri: myTripsData?.photo}}
             style={styles.image}/>
           <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+            <Text style={styles.subTitle2} numberOfLines={2}>{myTripsData.stay}</Text>
             <Text>Hosted by {myTripsData?.host}</Text>
             <View style={styles.datesContainer}>
               <Text>{myTripsData?.checkInDate}</Text>
@@ -414,7 +414,7 @@ const TripsScreen = ({navigation, props}) => {
             source={{uri:visitorTripsData.photo}}
             style={styles.image}/>
           <View style={styles.rowContainer}>
-            <Text style={styles.subTitle2} numberOfLines={2}>{tempStay.stay.title}</Text>
+            <Text style={styles.subTitle2} numberOfLines={2}>{visitorTripsData.stay}</Text>
             <Text>Guest: {visitorTripsData.guest}</Text>
             <View style={styles.datesContainer}>
               <Text>{visitorTripsData.checkInDate}</Text>
