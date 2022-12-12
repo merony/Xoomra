@@ -446,9 +446,9 @@ const loadDataOther = async () => {
       }else if (myReqdata.status === exStatus[0] && otherExchangeListinData.status === exStatus[1]){
        
         setOpenMsgConfirm(false)
-        SetOpenAcceptButton(false)
+        SetOpenAcceptButton(true)
         setOpenMsgWait(false)
-        SetOpenRejectButton (false)
+        SetOpenRejectButton (true)
         setOpenTop(true)
         setOpenMyListing(true)
         setOpenMsgWait(false)
@@ -463,6 +463,16 @@ const loadDataOther = async () => {
         setOpenMyListing(true)
         setOpenMsgWait(false)
 
+      }else if (myReqdata.status === exStatus[0] && otherExchangeListinData.status === exStatus[0]){
+       
+        // setOpenMsgConfirm(true)
+        // SetOpenAcceptButton(false)
+        // setOpenMsgWait(false)
+        // SetOpenRejectButton (false)
+        setOpenTop(true)
+        setOpenMyListing(true)
+        // setOpenMsgWait(false)
+
       }
        else{
   
@@ -476,7 +486,7 @@ const loadDataOther = async () => {
 
  
    
-  }, [false]);
+  }, []);
 
 
   //get data of host and guest (host is the current user),the listing of current  will be displayed on top
@@ -530,7 +540,8 @@ const loadDataOther = async () => {
         
           // loadNewMessage();
           setInputText(' ');
-          console.log('message sent')
+          console.log('message sent');
+          loadData ();
         })
     },
     [inputText]
